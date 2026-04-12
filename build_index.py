@@ -1,0 +1,247 @@
+"""Generate a docs/index.html listing all newsletter issues — NYT + Notion design."""
+from __future__ import annotations
+
+from pathlib import Path
+from datetime import datetime
+
+DOCS_DIR = Path("docs")
+DOCS_DIR.mkdir(exist_ok=True)
+
+issues = sorted(
+    [p for p in DOCS_DIR.glob("*.html") if p.name != "index.html"],
+    reverse=True,
+)
+
+def fmt_date(filename: str) -> tuple[str, str]:
+    """Returns (long_date, short_date)."""
+    try:
+        d = datetime.strptime(filename.replace(".html", ""), "%Y-%m-%d")
+        return d.strftime("%B %d, %Y"), d.strftime("%a")
+    except Exception:
+        s = filename.replace(".html", "")
+        return s, ""
+
+rows = ""
+for i, issue in enumerate(issues):
+    long_date, day = fmt_date(issue.name)
+    latest_badge = '<span class="badge">Latest</span>' if i == 0 else ""
+    rows += f"""
+      <a class="issue-card" href="{issue.name}">
+        <div class="issue-num-wrap">
+          <div class="issue-day">{day}</div>
+          <div class="issue-num">#{len(issues) - i}</div>
+        </div>
+        <div class="issue-body">
+          <div class="issue-date">{long_date} {latest_badge}</div>
+          <div class="issue-desc">Full stack AI briefing</div>
+        </div>
+        <span class="issue-arrow">→</span>
+      </a>"""
+
+html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    :root {{
+      --bg: #f5f4f0; --page: #ffffff; --text: #1a1a1a;
+      --muted: #6b6b6b; --light: #aaa; --border: #e4e2dc;
+      --accent: #c0392b; --tag-bg: #eeede8;
+    }}
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }}
+    .page-wrap {{
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--page);
+      min-height: 100vh;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }}
+
+    /* Masthead */
+    .masthead {{
+      padding: 2rem 2.5rem 1.5rem;
+      border-bottom: 3px solid var(--text);
+    }}
+    .masthead-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }}
+    .masthead-eyebrow {{
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }}
+    .masthead-date {{ font-size: 0.7rem; color: var(--light); }}
+    .masthead-body {{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }}
+    .masthead-title {{
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }}
+    .masthead-sub {{
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+    }}
+    .masthead-chips {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      align-items: flex-end;
+    }}
+    .chip {{
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }}
+
+    /* Issue grid */
+    .issue-section {{ padding: 1.75rem 2.5rem; }}
+    .list-header {{
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }}
+    .list-label {{
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light);
+    }}
+    .list-rule {{ flex: 1; height: 1px; background: var(--border); }}
+    .list-count {{ font-size: 0.63rem; color: var(--light); }}
+
+    /* Desktop: 2-col grid of issue cards */
+    .issue-grid {{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }}
+    .issue-card {{
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }}
+    .issue-card:hover {{
+      border-color: var(--accent);
+      background: #fff9f8;
+    }}
+    .issue-num-wrap {{ text-align: center; min-width: 2.2rem; }}
+    .issue-day {{ font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--light); }}
+    .issue-num {{
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--muted); line-height: 1.1;
+    }}
+    .issue-body {{ flex: 1; min-width: 0; }}
+    .issue-date {{
+      font-size: 0.88rem; font-weight: 500; color: var(--text);
+      display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.12rem;
+    }}
+    .issue-desc {{ font-size: 0.72rem; color: var(--light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+    .issue-arrow {{ color: var(--border); font-size: 0.9rem; transition: color 0.15s, transform 0.15s; }}
+    .issue-card:hover .issue-arrow {{ color: var(--accent); transform: translateX(2px); }}
+    .badge {{
+      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; background: var(--accent); color: white;
+      padding: 0.1rem 0.4rem; border-radius: 3px;
+    }}
+    .empty {{ text-align: center; padding: 4rem 0; color: var(--light); font-style: italic; font-size: 0.9rem; }}
+
+    /* Footer */
+    .footer {{ border-top: 3px solid var(--text); padding: 1.5rem 2.5rem; background: var(--bg); }}
+    .footer-text {{ font-size: 0.72rem; color: var(--light); line-height: 1.65; }}
+    .footer-brand {{ font-family: "Playfair Display", Georgia, serif; font-weight: 700; color: var(--text); font-size: 0.9rem; }}
+
+    @media (max-width: 640px) {{
+      .page-wrap {{ border: none; }}
+      .masthead, .issue-section, .footer {{ padding-left: 1.2rem; padding-right: 1.2rem; }}
+      .masthead-body {{ grid-template-columns: 1fr; }}
+      .masthead-chips {{ flex-direction: row; flex-wrap: wrap; align-items: flex-start; }}
+      .issue-grid {{ grid-template-columns: 1fr; }}
+    }}
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">Intelligence Briefing</span>
+      <span class="masthead-date">Runs weekdays · 9 AM IST</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — from silicon to SaaS disruption</p>
+      </div>
+      <div class="masthead-chips">
+        <span class="chip">{len(issues)} issues</span>
+        <span class="chip">Powered by Claude</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="issue-section">
+    <div class="list-header">
+      <span class="list-label">All issues</span>
+      <div class="list-rule"></div>
+      <span class="list-count">{len(issues)} published</span>
+    </div>
+    <div class="issue-grid">
+      {"".join(rows) if issues else '<p class="empty">No issues yet — check back after the first scheduled run.</p>'}
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-text">
+      <span class="footer-brand">AI & Tech Intelligence</span> ·
+      Generated daily by Claude · Sources span 50+ feeds across news, research, and community
+    </div>
+  </footer>
+</div>
+</body>
+</html>"""
+
+(DOCS_DIR / "index.html").write_text(html, encoding="utf-8")
+print(f"index.html updated — {len(issues)} issues listed")

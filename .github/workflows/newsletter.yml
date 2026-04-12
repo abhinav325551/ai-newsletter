@@ -1,0 +1,60 @@
+name: Generate AI Newsletter
+
+on:
+  schedule:
+    # Every weekday at 3:33 AM UTC = 9:03 AM IST
+    - cron: "33 3 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      since_days:
+        description: "Lookback window in days"
+        required: false
+        default: "1"
+      dry_run:
+        description: "Dry run (skip Claude API calls)"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Run newsletter generator
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: "ai-newsletter-bot/1.0 (github-actions)"
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        run: |
+          ARGS="--since ${{ github.event.inputs.since_days || '1' }} --no-email --output-dir docs"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python main.py $ARGS
+
+      - name: Build issue index
+        run: python build_index.py
+
+      - name: Commit and push
+        run: |
+          git config user.name  "ai-newsletter-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add docs/
+          git diff --cached --quiet || git commit -m "newsletter: $(date -u +%Y-%m-%d)"
+          git push
