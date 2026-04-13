@@ -142,6 +142,17 @@ def cli(
         model_name=newsletter_cfg.get("local_embedding_model", "all-MiniLM-L6-v2"),
     )
 
+    # ── 5b. Track source performance ─────────────────────────────────────────
+    try:
+        from scripts.track_sources import track as track_sources
+        # all_items at this point = post-dedup, post-score, post-cluster
+        # We pass both: original pre-dedup for "fetched" counts would be ideal,
+        # but post-dedup is a good proxy. The "scored" list is the same set here.
+        track_sources(all_items, all_items)
+        logger.info("  ✓ Source performance logged")
+    except Exception as exc:
+        logger.warning(f"  ✗ Source tracking failed (non-fatal): {exc}")
+
     # ── 6. Group by section ───────────────────────────────────────────────────
     max_per_section = newsletter_cfg.get("max_items_per_section", 8)
     items_by_section: dict[str, list] = defaultdict(list)

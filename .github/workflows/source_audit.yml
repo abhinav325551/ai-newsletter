@@ -1,0 +1,68 @@
+name: Weekly Source Audit
+
+on:
+  schedule:
+    # Every Sunday at 4:00 AM UTC = 9:30 AM IST
+    - cron: "0 4 * * 0"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no PR or Issue created)"
+        type: boolean
+        required: false
+        default: false
+      since_days:
+        description: "Scoring window in days (default 30)"
+        required: false
+        default: "30"
+      no_issue:
+        description: "Skip creating the digest GitHub Issue"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write      # push branch + commit config.yaml changes
+  pull-requests: write # open PR
+  issues: write        # open digest Issue
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history so git operations work cleanly
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Install gh CLI (already present on ubuntu-latest, but just in case)
+        run: gh --version || (type -p curl >/dev/null || (apt update && apt install curl -y) && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && apt update && apt install gh -y)
+
+      - name: Configure git
+        run: |
+          git config user.name  "ai-newsletter-bot"
+          git config user.email "bot@users.noreply.github.com"
+
+      - name: Run source audit
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS="--since ${{ github.event.inputs.since_days || '30' }}"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ "${{ github.event.inputs.no_issue }}" = "true" ]; then
+            ARGS="$ARGS --no-issue"
+          fi
+          python scripts/audit_sources.py $ARGS
