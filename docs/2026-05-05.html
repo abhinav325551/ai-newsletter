@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — 2026-05-05</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f5f4f0;
+      --page:         #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --light:        #aaa;
+      --border:       #e4e2dc;
+      --border-light: #eeede8;
+      --accent:       #c0392b;
+      --accent-bg:    #fdf3f2;
+      --orange:       #c0621e;
+      --orange-bg:    #fdf6f0;
+      --tag-bg:       #eeede8;
+      --tag-text:     #666;
+      --card-hover:   #fafaf7;
+      --serif:        "Source Serif 4", Georgia, serif;
+      --display:      "Playfair Display", Georgia, serif;
+      --sans:         "Inter", system-ui, sans-serif;
+      --radius:       6px;
+      --col:          960px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Outer wrapper ───────────────────────────────────────────────────── */
+    .shell {
+      max-width: var(--col);
+      margin: 0 auto;
+      background: var(--page);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════════════════ */
+    .masthead {
+      border-bottom: 3px solid var(--text);
+      padding: 2rem 2.5rem 0;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .masthead-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .masthead-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+    }
+    /* Desktop: title + sidebar stats in 2 cols */
+    .masthead-body {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: 1.25rem;
+    }
+    .masthead-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .masthead-sub {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+    }
+    .masthead-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .stat-chip {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOC BAR
+    ═══════════════════════════════════════════════════════════════════════ */
+    .toc {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toc-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .toc-items {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
+    }
+    .toc-chip {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--page);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .toc-chip:hover {
+      background: var(--accent-bg);
+      border-color: #e8b8b4;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .section:last-child { border-bottom: none; }
+
+    /* Section header — full width stripe */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem 0;
+    }
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      min-width: 1.4rem;
+    }
+    .sec-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      color: var(--light);
+    }
+
+    /* Section body */
+    .section-body { padding: 1.25rem 2.5rem 2rem; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       01 — THE BIG THING  (full-width hero)
+    ═══════════════════════════════════════════════════════════════════════ */
+    .big-thing-body {
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 2.5px solid var(--text);
+      margin-top: 1rem;
+    }
+    .big-thing-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.82;
+      color: var(--text);
+      white-space: pre-wrap;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STANDARD SECTION  — intro + 2-col item grid
+    ═══════════════════════════════════════════════════════════════════════ */
+    .sec-intro {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--border);
+      max-width: 62ch;
+    }
+    .sec-prose {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* Item card grid — 2 cols on desktop, 1 on mobile */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--page);
+    }
+    .item-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .item-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .item-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .item-title a:hover { color: var(--accent); }
+    .item-snippet {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SIGNALS  — 3-col compact list
+    ═══════════════════════════════════════════════════════════════════════ */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .signal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: var(--bg);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signal-card:hover {
+      border-color: #d0cdc5;
+      background: var(--page);
+    }
+    .signal-source {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .signal-title {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .signal-title a:hover { color: var(--accent); }
+    .signal-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PAPERS  — 2-col
+    ═══════════════════════════════════════════════════════════════════════ */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .paper-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .paper-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .paper-badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .paper-title {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .paper-title a:hover { color: var(--accent); }
+    .paper-authors {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .paper-abstract {
+      font-family: var(--sans);
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SAAS DISRUPTION  — full-width + callout block
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section-saas-disruption .sec-label { color: var(--orange); }
+    .section-saas-disruption .sec-num { color: var(--orange); }
+    .disruption-banner {
+      background: var(--orange-bg);
+      border: 1px solid #f0d5bc;
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7a3a10;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       WORTH READING  — horizontal cards
+    ═══════════════════════════════════════════════════════════════════════ */
+    .reading-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .reading-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reading-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .reading-source {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .reading-body { flex: 1; }
+    .reading-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .reading-title a:hover { color: var(--accent); }
+    .reading-summary {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .reading-arrow {
+      color: var(--border);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .reading-card:hover .reading-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      border-top: 3px solid var(--text);
+      padding: 1.75rem 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .footer-sources {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .footer-sources strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .shell { border: none; }
+      .masthead, .toc, .section-head, .section-body,
+      .big-thing-body, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .masthead-body { grid-template-columns: 1fr; gap: 0.75rem; }
+      .masthead-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+      .item-grid      { grid-template-columns: 1fr; }
+      .signals-grid   { grid-template-columns: 1fr; }
+      .papers-grid    { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr; }
+      .footer-sources { text-align: left; }
+    }
+
+    @media (min-width: 701px) and (max-width: 860px) {
+      .signals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ MASTHEAD ══════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">AI & Tech Intelligence</span>
+      <span class="masthead-date">2026-05-05</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — infrastructure to application layer</p>
+      </div>
+      <div class="masthead-stats">
+        <span class="stat-chip">40 sources</span>
+        <span class="stat-chip">claude-sonnet-4-6</span>
+        <span class="stat-chip">2026-05-05</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ TOC ═══════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <span class="toc-label">In this issue</span>
+    <div class="toc-divider"></div>
+    <div class="toc-items">
+      
+      <a class="toc-chip" href="#big_thing">The Big Thing</a>
+      
+      <a class="toc-chip" href="#infrastructure">Infrastructure & Silicon</a>
+      
+      <a class="toc-chip" href="#tooling_agents">Tooling & Agents</a>
+      
+      <a class="toc-chip" href="#applications">Applications & Consumer AI</a>
+      
+      <a class="toc-chip" href="#saas_disruption">SaaS Disruption Watch</a>
+      
+      <a class="toc-chip" href="#signals">Signals from the Feed</a>
+      
+      <a class="toc-chip" href="#worth_reading">Worth Reading</a>
+      
+    </div>
+  </nav>
+
+  <!-- ══ SECTIONS ══════════════════════════════════════════════════════════ -->
+  
+  <section class="section section-big-thing" id="big_thing">
+
+    <div class="section-head">
+      <span class="sec-num">01</span>
+      <span class="sec-label">The Big Thing</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="big-thing-body">
+      <div class="big-thing-text">## THE BIG THING
+
+**Apple Is Quietly Stress-Testing Its TSMC Dependency — And the Implications for AI Silicon Are Enormous**
+
+Apple has held exploratory discussions with both Intel and Samsung about manufacturing its main device processors on U.S. soil, according to Bloomberg Technology. The talks are described as exploratory — not commitments — but the signal is unambiguous: Apple is actively mapping alternatives to its near-total reliance on TSMC for the chips that power everything from iPhones to the M-series Macs that now underpin its on-device AI ambitions. This is not a supplier diversification story. This is Apple quietly war-gaming what happens if TSMC becomes inaccessible, whether through Taiwan Strait escalation, export controls, or geopolitical pressure that makes a single-vendor dependency untenable for a company with a $3 trillion market cap.
+
+The context here matters enormously. Apple has spent the better part of a decade co-developing its silicon roadmap in lockstep with TSMC, with the A-series and M-series chips manufactured exclusively on TSMC's leading-edge nodes. Those chips are now the hardware foundation for Apple Intelligence — the company's on-device AI platform announced in 2024 — meaning any disruption to that supply chain doesn't just slow iPhone production, it cripples Apple's ability to compete in the inference-at-the-edge race against Qualcomm and Google's Tensor line. Intel, meanwhile, is in the middle of an existential pivot under CEO Lip-Bu Tan, aggressively courting external foundry customers after its Intel Foundry Services unit posted substantial losses. Samsung's advanced node yields have historically lagged TSMC's, a persistent problem that cost it Qualcomm's Snapdragon business. Neither is a drop-in TSMC replacement — which is precisely why these remain exploratory conversations rather than signed contracts.
+
+For the broader AI landscape, you should read this as a stress indicator for the entire semiconductor supply chain that underlies frontier AI. TSMC manufactures chips not just for Apple but for Nvidia, AMD, and effectively every major AI accelerator on the market. If Apple — with its immense purchasing leverage and long-standing TSMC relationship — feels compelled to identify alternatives, it reflects a systemic anxiety about geographic concentration that every hyperscaler and AI lab shares. The Trump administration's tariff pressure and its explicit push for domestic semiconductor manufacturing have clearly accelerated these conversations. TSMC's Arizona fabs (Phoenix, Fab 21) are operational but remain limited in capacity and node sophistication compared to Taiwan. Intel's 18A process node is the first credible U.S.-based leading-edge option in years, but it has not yet been externally validated at volume. Apple engaging with it — even hypothetically — is the most significant external credibility signal Intel Foundry could receive.
+
+Watch three things: first, whether Apple's discussions with Intel advance to process design kit (PDK) access or test silicon, which would represent a genuine technical commitment rather than political positioning; second, how TSMC responds — the company has significant leverage and has historically received favorable allocation priority in exchange for exclusivity norms; third, whether this triggers similar exploratory moves from other major fabless customers like Nvidia and Qualcomm, which would fundamentally reshape the foundry competitive landscape. If Apple actually qualifies a second-source fab for even a subset of its chip volume, it becomes the most consequential U.S. industrial policy win in semiconductors since the CHIPS Act passed — and it reshapes who controls the hardware stack that AI runs on.</div>
+    </div>
+
+    <!-- ── SaaS Disruption ────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-infrastructure" id="infrastructure">
+
+    <div class="section-head">
+      <span class="sec-num">02</span>
+      <span class="sec-label">Infrastructure & Silicon</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">10</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Infrastructure & Silicon
+
+The AI infrastructure buildout is entering a new financial phase: capital requirements have grown so large that even Big Tech is turning to debt markets and IPO windows to fund compute, while the chip supply chain is undergoing its own quiet reshaping as geopolitical pressure forces domestic sourcing conversations that would have seemed far-fetched two years ago. Meanwhile, the inference layer — long treated as an afterthought — is attracting serious institutional capital as the industry recognizes that training clusters alone don't generate revenue.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Meta is financing a ~$13B El Paso data center through Morgan Stanley and JPMorgan** — The deal size signals that even cash-rich hyperscalers are treating AI infrastructure as a leveraged capital project rather than an operating expense, a structural shift with implications for tech balance sheets industry-wide. [Link](https://www.bloomberg.com/news/articles/2026-05-04/meta-taps-morgan-stanley-jpmorgan-for-el-paso-data-center-deal)
+
+- **[TechCrunch] Cerebras Systems is targeting a $26.6B market cap IPO, selling 28M shares at $115–$125/share to raise $3.5B** — This prices Cerebras at a premium that implicitly bets on wafer-scale architecture winning meaningful share from Nvidia in inference-heavy workloads, a thesis OpenAI's partnership lends credibility to but hasn't yet proven at scale. [Link](https://techcrunch.com/2026/05/04/openais-cozy-partner-cerebras-is-on-track-for-a-blockbuster-ipо/)
+
+- **[Bloomberg Technology] Nvidia and Samsung co-led DeepInfra's $107M Series B** — Nvidia's direct equity participation in a cloud inference platform is notable strategic signaling: it suggests the company wants distribution leverage over inference infrastructure, not just GPU sales, as margin pressure on raw compute intensifies. [Link](https://www.bloomberg.com/news/videos/2026-05-04/nvidia-backs-deepinfra-in-107-million-raise-video)
+
+- **[Bloomberg Technology] Apple held early-stage discussions with Intel and Samsung about US-based processor manufacturing (unconfirmed)** — These remain exploratory, per Bloomberg's sourcing, but even preliminary talks indicate Apple is stress-testing TSMC single-source dependency in a geopolitical environment where Taiwan fab access can no longer be assumed. [Link](https://www.bloomberg.com/news/videos/2026-05-05/apple-explores-using-intel-samsung-chipmaking-services-video)
+
+- **[TechCrunch] Geothermal startup Fervo Energy is targeting up to $1.3B in its IPO at a $6.5B valuation** — Fervo's IPO pricing — more than double its earlier internal target — reflects data center operators' urgent need for firm, 24/7 carbon-free power that intermittent renewables cannot reliably deliver at the load profiles AI clusters demand. [Link](https://techcrunch.com/2026/05/04/geothermal-startup-fervo-energy-to-raise-up-to-1-3b-in-ipo/)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-05/apple-explores-using-intel-samsung-chipmaking-services-video" target="_blank" rel="noopener">
+              Apple Considers Using Intel, Samsung to Build Device Processors
+            </a>
+          </div>
+          
+          <div class="item-snippet">Apple has held exploratory discussions about using Intel and Samsung to produce the main processors for its devices in the US. Acc…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-04/meta-taps-morgan-stanley-jpmorgan-for-el-paso-data-center-deal" target="_blank" rel="noopener">
+              Meta Taps Morgan Stanley, JPMorgan for El Paso Data Center Deal
+            </a>
+          </div>
+          
+          <div class="item-snippet">Meta Platforms Inc. is working on a financing package for a data center in El Paso, Texas, that could total roughly $13 billion, u…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-04/bloomberg-tech-5-4-2026-video" target="_blank" rel="noopener">
+              GameStop’s $56 Billion Bid for eBay | Bloomberg Tech 5/4/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bloomberg’s Caroline Hyde discusses GameStop's $56 billion offer to buy eBay, a company four-times its size. Plus, AI chipmaker Ce…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-04/nvidia-backs-deepinfra-in-107-million-raise-video" target="_blank" rel="noopener">
+              Nvidia Backs DeepInfra in $107 Million Raise
+            </a>
+          </div>
+          
+          <div class="item-snippet">Cloud inference platform DeepInfra closes a $107 million in Series B funding round, backed by the likes of Nvidia and Samsung, as …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 76</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/05/04/geothermal-startup-fervo-energy-to-raise-up-to-1-3b-in-ipo/" target="_blank" rel="noopener">
+              Geothermal startup Fervo Energy to raise up to $1.3B in IPO
+            </a>
+          </div>
+          
+          <div class="item-snippet">Enhanced geothermal startup Fervo Energy’s IPO could value the company at up to $6.5 billion.…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 76</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/05/04/as-workers-worry-about-ai-nvidias-jensen-huang-says-ai-is-creating-an-enormous-number-of-jobs/" target="_blank" rel="noopener">
+              As workers worry about AI, Nvidia’s Jensen Huang says AI is ‘creating an enormous number of jobs’
+            </a>
+          </div>
+          
+          <div class="item-snippet">The Nvidia CEO seems to feel that claims of AI's job-killing potential have been greatly exaggerated.…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Axios Tech</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.axios.com/2026/05/04/strait-hormuz-closure-unthinkable-scenarios" target="_blank" rel="noopener">
+              A closed Strait of Hormuz was once unthinkable
+            </a>
+          </div>
+          
+          <div class="item-snippet">A fully closed Strait of Hormuz was long seen as unthinkable — and unmanageable if it happened — based on past modeling and interv…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/05/04/openais-cozy-partner-cerebras-is-on-track-for-a-blockbuster-ipo/" target="_blank" rel="noopener">
+              OpenAI’s cozy partner Cerebras is on track for a blockbuster IPO
+            </a>
+          </div>
+          
+          <div class="item-snippet">AI chip maker Cerebras is heading for a blockbuster IPO that could value it at $26.6 billion or more. Its relationship with OpenAI…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-tooling-agents" id="tooling_agents">
+
+    <div class="section-head">
+      <span class="sec-num">04</span>
+      <span class="sec-label">Tooling & Agents</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">7</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Tooling & Agents
+
+The agentic stack is maturing from experimental scaffolding into enterprise-grade infrastructure — and the pressure points are shifting from "can agents do tasks?" to "who governs them, how do you pay with them, and what replaces RAG when retrieval isn't enough?" Three distinct layers are crystallizing simultaneously: orchestration/governance, transactional identity, and knowledge architecture. The category is no longer being built by startups alone; Microsoft, American Express, and Stripe-adjacent engineering orgs are all laying down proprietary rails.</div>
+      
+      <div class="sec-prose">- **[LangChain Blog] Open SWE framework codifies the internal coding agent pattern** — LangChain's open-source release documents the architecture behind Stripe's Minions, Ramp's Inspect, and Coinbase's Cloudbot, all of which embed into existing Slack/Linear/GitHub workflows rather than forcing interface changes — a meaningful signal that the "ambient agent" design pattern is converging around a replicable template. [Read more](https://www.langchain.com/blog/open-swe-an-open-source-framework-for-internal-coding-agents)
+
+- **[VentureBeat] Microsoft's Agent 365 hits general availability** — Announced at Ignite in November and now shipping broadly, Agent 365 positions itself as a unified control plane for autonomous AI governance, a direct response to "shadow AI" — unsanctioned agents proliferating inside enterprise environments without audit trails or access controls. [Read more](https://venturebeat.com/technology/microsoft-takes-agent-365-out-of-preview-as-shadow-ai-becomes-an-enterprise-threat)
+
+- **[VentureBeat] RAG-to-vector pipelines losing enterprise adoption share in Q1 2026** — VentureBeat's Q1 2026 Pulse survey finds every standalone vector database category declining while hybrid retrieval grows, with the emerging alternative being a compilation-stage knowledge layer that bakes context into agents at build time rather than retrieving it at runtime. [Read more](https://venturebeat.com/data/the-rag-era-is-ending-for-agentic-ai-a-new-compilation-stage-knowledge-layer-is-what-comes-next)
+
+- **[VentureBeat] American Express building agentic commerce stack with intent contracts and single-use tokens** — Amex's system allows AI agents to execute purchases autonomously within its payment network using scoped, single-use tokens tied to user-defined intent contracts; it currently participates in Google's Agent Pay Protocol (AP2) for cross-network interoperability, though the authors flag auditability gaps as an unresolved trust problem. [Read more](https://venturebeat.com/orchestration/inside-amexs-agentic-commerce-stack-how-intent-contracts-and-single-use-tokens-enforce-ai-transactions)
+
+- **[Addy Osmani / Hacker News] Agent Skills as a composability primitive** — Osmani's framing of "agent skills" as discrete, composable capability units — rather than monolithic agents — reflects a broader architectural shift toward modular agent design that mirrors how microservices decomposed monolithic applications, and is already influencing how teams scope LangChain and similar orchestration deployments. [Read more](https://addyosmani.com/blog/agent-skills/)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-04/crypto-investor-haun-raises-1-billion-for-new-funds-video" target="_blank" rel="noopener">
+              Crypto Investor Haun Raises $1 Billion for New Funds
+            </a>
+          </div>
+          
+          <div class="item-snippet">Crypto-focused investor Haun Ventures has raised $1 billion across new funds. CEO Katie Haun discusses the firm’s expansion into A…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Axios Tech</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.axios.com/2026/05/04/trump-white-house-ai-safety-tests-mythos" target="_blank" rel="noopener">
+              Trump administration considering safety review for new AI models
+            </a>
+          </div>
+          
+          <div class="item-snippet">The Trump administration is considering a new plan that would require the Pentagon to safety test  AI  models that are deployed to…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">LangChain Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.langchain.com/blog/open-swe-an-open-source-framework-for-internal-coding-agents" target="_blank" rel="noopener">
+              Open SWE: An Open-Source Framework for Internal Coding Agents
+            </a>
+          </div>
+          
+          <div class="item-snippet">Built on Deep Agents and LangGraph, Open SWE provides the core architectural components for internal coding agents.…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/technology/microsoft-takes-agent-365-out-of-preview-as-shadow-ai-becomes-an-enterprise-threat" target="_blank" rel="noopener">
+              Microsoft takes Agent 365 out of preview as shadow AI becomes an enterprise threat
+            </a>
+          </div>
+          
+          <div class="item-snippet">Microsoft  last week took  Agent 365 , its management platform for AI agents, out of preview and into  general availability  — a m…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/orchestration/inside-amexs-agentic-commerce-stack-how-intent-contracts-and-single-use-tokens-enforce-ai-transactions" target="_blank" rel="noopener">
+              Inside AMEX’s agentic commerce stack: How intent contracts and single-use tokens enforce AI transactions
+            </a>
+          </div>
+          
+          <div class="item-snippet">American Express (Amex) is building a system that lets AI agents shop and pay on behalf of users — but right now it’s only within …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/data/the-rag-era-is-ending-for-agentic-ai-a-new-compilation-stage-knowledge-layer-is-what-comes-next" target="_blank" rel="noopener">
+              The RAG era is ending for agentic AI — a new compilation-stage knowledge layer is what comes next
+            </a>
+          </div>
+          
+          <div class="item-snippet">The vector database category is undergoing a shift in response to the needs of agentic AI.   The retrieval-augmented generation (R…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hacker News</span>
+            <span class="item-score">↑ 82</span>
+          </div>
+          <div class="item-title">
+            <a href="https://addyosmani.com/blog/agent-skills/" target="_blank" rel="noopener">
+              Agent Skills
+            </a>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-applications" id="applications">
+
+    <div class="section-head">
+      <span class="sec-num">05</span>
+      <span class="sec-label">Applications & Consumer AI</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Applications & Consumer AI
+
+Enterprise AI is rapidly moving from pilot programs to revenue-generating mandates, with professional services firms racing to embed AI agents directly into core financial and operational workflows. The week's signals suggest the real battle isn't over which model wins — it's over which consultancy or platform owns the integration layer between AI systems and enterprise decision-making. Consumer-side, Apple's iterative Wallet expansion illustrates how incumbents are quietly deepening platform lock-in through utility features rather than headline AI announcements.</div>
+      
+      <div class="sec-prose">- **[OpenAI Blog] OpenAI and PwC are jointly targeting CFO-office automation with AI agents** — The collaboration focuses on automating financial workflows, cross-system coordination, and risk surfacing, positioning PwC as a high-margin distribution channel for OpenAI's enterprise products and signaling that agentic finance tooling is now a named go-to-market priority, not a roadmap item. [Link](https://openai.com/index/openai-pwc-finance-collaboration)
+
+- **[Bloomberg Technology] Alvarez & Marsal is targeting $3.5 billion in AI-related revenue by 2028, representing 50% of total firm revenue** — This is one of the most aggressive AI revenue commitments disclosed by a professional services firm to date, and if achieved, would represent a fundamental business model transformation rather than a supplementary practice area. [Link](https://www.bloomberg.com/news/articles/2026-05-04/alvarez-marsal-wants-to-make-3-5-billion-from-ai-work-by-2028)
+
+- **[Bloomberg Technology] Davidson Kempner CIO Tony Yoseloff warns that AI disruption is degrading private credit recovery rates in the software sector** — This is a materially underreported consequence of AI adoption: as AI commoditizes software products and compresses margins, the collateral value underpinning software-sector private debt deteriorates, creating second-order credit risk for lenders. [Link](https://www.bloomberg.com/news/articles/2026-05-05/ai-threatens-private-debt-recovery-in-software-davidson-kempner)
+
+- **[Bloomberg Technology] Apple is building a "Create a Pass" feature for the iOS 27 Wallet app, enabling users to generate custom digital tickets and gift cards** — While not an AI headline, this deepens Apple's Wallet as a closed-loop commerce and identity layer on iOS, expanding the surface area Apple controls ahead of anticipated AI-native Wallet integrations in future releases. [Link](https://www.bloomberg.com/news/articles/2026-05-04/ios-27-features-apple-plans-to-let-users-build-their-own-passes-in-wallet-app)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-05/star-sports-jumps-204-as-hong-kong-debut-frenzy-extends" target="_blank" rel="noopener">
+              Star Sports Jumps 204% as Hong Kong Debut Frenzy Extends
+            </a>
+          </div>
+          
+          <div class="item-snippet">Shares of Star Sports Medicine Co., a maker of medical devices, surged as much as 204% in their Hong Kong trading debut on Tuesday…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-05/ai-threatens-private-debt-recovery-in-software-davidson-kempner" target="_blank" rel="noopener">
+              AI Threatens Private Debt Recovery in Software: Davidson Kempner
+            </a>
+          </div>
+          
+          <div class="item-snippet">Disruptions caused by artificial intelligence are threatening private credit firms’ potential recovery rates in the software secto…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-05/starwood-ceo-on-business-strategy-ai-data-centers-video" target="_blank" rel="noopener">
+              Starwood CEO on Business Strategy, AI, Data Centers
+            </a>
+          </div>
+          
+          <div class="item-snippet">Barry Sternlicht, Chairman and CEO at Starwood Capital Group, discusses the company's business strategy and investing in AI and da…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-04/ios-27-features-apple-plans-to-let-users-build-their-own-passes-in-wallet-app" target="_blank" rel="noopener">
+              Apple Plans to Let Users Build Their Own Passes in iOS 27 Wallet App
+            </a>
+          </div>
+          
+          <div class="item-snippet">Apple Inc. is preparing a new “Create a Pass” feature for its next major iPhone software update, allowing users to build and custo…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">OpenAI Blog</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://openai.com/index/openai-pwc-finance-collaboration" target="_blank" rel="noopener">
+              OpenAI and PwC collaborate to reimagine the office of the CFO
+            </a>
+          </div>
+          
+          <div class="item-snippet">OpenAI and PwC are partnering to help enterprises use AI agents to automate finance workflows, improve forecasting, strengthen con…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-04/grab-earnings-top-estimates-on-resilient-ride-delivery-demand" target="_blank" rel="noopener">
+              Grab to Retool in Indonesia After Abrupt Ride-Commission Cut
+            </a>
+          </div>
+          
+          <div class="item-snippet">Grab Holdings Ltd. plans to adjust its Indonesian business after Jakarta’s surprise edict to lower the ride-hailing commissions it…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-04/alvarez-marsal-wants-to-make-3-5-billion-from-ai-work-by-2028" target="_blank" rel="noopener">
+              Alvarez &amp; Marsal Wants to Make $3.5 Billion From AI Work by 2028
+            </a>
+          </div>
+          
+          <div class="item-snippet">Alvarez &amp; Marsal wants to generate 50% of its revenue from artificial intelligence work by 2028, which would represent as much…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-04/the-close-5-4-2026-video" target="_blank" rel="noopener">
+              Live From the Milken Institute Global Conference | The Close 5/4/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bloomberg Television brings you the latest news and analysis leading up to the final minutes and seconds before and after the clos…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-saas-disruption" id="saas_disruption">
+
+    <div class="section-head">
+      <span class="sec-num">06</span>
+      <span class="sec-label">SaaS Disruption Watch</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">2</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="disruption-banner">## SaaS Disruption Watch
+
+The clearest signal this week isn't coming from product launches — it's coming from credit markets. Davidson Kempner's public warning that AI is degrading recovery rates on private debt backed by software assets confirms what equity markets have been pricing in for months: the revenue durability that justified SaaS valuations is structurally compromised. The mechanism is consistent across categories — AI agents are collapsing per-seat, per-workflow, and per-integration pricing models that entire SaaS stacks were built on.</div>
+      <div class="sec-prose">---
+
+• **[Bloomberg Technology] AI threatens private debt recovery rates in software-backed credit** — Davidson Kempner CIO Tony Yoseloff flagged that AI disruption is undermining the collateral value of software businesses used to secure private credit deals, a concrete sign that lenders — not just VCs — are now repricing SaaS durability risk. [Link](https://www.bloomberg.com/news/articles/2026-05-05/ai-threatens-private-debt-recovery-in-software-davidson-kempner)
+
+• **[OpenAI Blog] OpenAI + PwC targeting CFO-suite SaaS incumbents with agentic finance workflows** — The OpenAI–PwC collaboration directly pressures players like Workday, Anaplan (now IBM), and Adaptive Insights by deploying AI agents that automate FP&A, risk surfacing, and capital allocation workflows — functions these platforms charge six- and seven-figure ARR to support. [Link](https://openai.com/index/openai-pwc-finance-collaboration)
+
+• **[Bloomberg Technology] Alvarez & Marsal targeting $3.5B in AI revenue by 2028, equal to 50% of total firm revenue** — A&M's aggressive AI pivot signals that professional services firms are building AI-native delivery layers that further erode the implementation and integration moats that mid-market SaaS vendors (e.g., NetSuite, Sage Intacct) rely on to justify sticky contracts. [Link](https://www.bloomberg.com/news/articles/2026-05-04/alvarez-marsal-wants-to-make-3-5-billion-from-ai-work-by-2028)
+
+---
+
+**Editor's note:** Three of this week's sourced items (Star Sports IPO, Starwood/data centers, Grab Indonesia) carry no direct SaaS disruption signal and were excluded rather than force-fitted. The Davidson Kempner story is the most consequential item of the week and deserves primary attention from anyone holding SaaS equity or debt exposure.</div>
+    </div>
+
+    <!-- ── Signals ────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-signals" id="signals">
+
+    <div class="section-head">
+      <span class="sec-num">07</span>
+      <span class="sec-label">Signals from the Feed</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">3</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Signals from the Feed
+
+This week's community discourse cut across the full stack of AI's current moment: the messy financial entanglements at the top, the honest technical reckoning in the middle, and the hands-on builders at the bottom doing the work themselves. Taken together, the threads reveal a field increasingly split between those scrutinizing who controls the infrastructure and those quietly building outside it.</div>
+      
+      <div class="signals-grid">
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://daringfireball.net/2026/05/y_combinators_stake_in_openai" target="_blank" rel="noopener">
+              Y Combinator's Stake in OpenAI (0.6%)
+            </a>
+          </div>
+          <div class="signal-score">↑ 86</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.b-list.org/weblog/2026/apr/09/llms/" target="_blank" rel="noopener">
+              Let's talk about LLMs
+            </a>
+          </div>
+          <div class="signal-score">↑ 81</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://github.com/angelos-p/llm-from-scratch" target="_blank" rel="noopener">
+              Train Your Own LLM from Scratch
+            </a>
+          </div>
+          <div class="signal-score">↑ 80</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Papers ─────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-worth-reading" id="worth_reading">
+
+    <div class="section-head">
+      <span class="sec-num">08</span>
+      <span class="sec-label">Worth Reading</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Worth Reading
+
+The most underexamined AI risk isn't dramatic displacement — it's gradual irrelevance that's invisible until it isn't. The sharpest long-form thinking this week focuses on how AI hollows out knowledge work incrementally, picking off discrete tasks until the remaining role can't survive the next organizational stress test. If your calendar looks full and your manager looks happy, that may be the least reassuring data point available to you.</div>
+      
+      <div class="reading-list">
+        
+        <div class="reading-card">
+          <span class="reading-source">Nate B Jones Podcast</span>
+          <div class="reading-body">
+            <div class="reading-title">
+              <a href="https://natesnewsletter.substack.com/p/job-at-risk-ai-audit" target="_blank" rel="noopener">AI's 'Thin Ice' Moment: Is Your Job Already Gone?"</a>
+            </div>
+            
+            <div class="reading-summary">What's really happening inside knowledge work when your calendar is full, your manager is happy, and the first sign your job is on thin ice is that nothing looks wrong?   The common framing is will AI</div>
+            
+          </div>
+          <span class="reading-arrow">→</span>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── All other sections (infra, models, tooling, apps) ──────────── -->
+    
+
+  </section>
+  
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI & Tech Intelligence</div>
+        <div class="footer-meta">
+          Generated 2026-05-05 · claude-sonnet-4-6<br>
+          40 items across all sources
+        </div>
+      </div>
+      <div class="footer-sources">
+        <strong>Sources</strong>
+        Axios Tech, Bloomberg Technology, Hacker News, LangChain Blog, Nate B Jones Podcast, OpenAI Blog, TechCrunch, VentureBeat AI
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
