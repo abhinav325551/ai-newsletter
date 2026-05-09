@@ -154,12 +154,75 @@
     .footer-text { font-size: 0.72rem; color: var(--light); line-height: 1.65; }
     .footer-brand { font-family: "Playfair Display", Georgia, serif; font-weight: 700; color: var(--text); font-size: 0.9rem; }
 
+    /* Source Health Panel */
+    .health-panel {
+      border-bottom: 1px solid var(--border);
+      background: var(--tag-bg);
+    }
+    .health-summary {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 2.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .health-summary:hover { background: #e8e7e2; }
+    .health-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      background: #ccc;
+    }
+    .health-dot.green  { background: #2ecc71; }
+    .health-dot.yellow { background: #f39c12; }
+    .health-dot.red    { background: var(--accent); }
+    .health-label {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+    .health-stats { font-size: 0.75rem; color: var(--text); flex: 1; }
+    .health-date  { font-size: 0.68rem; color: var(--light); white-space: nowrap; }
+    .health-toggle { font-size: 0.75rem; color: var(--light); transition: transform 0.2s; }
+    .health-toggle.open { transform: rotate(180deg); }
+    .health-details { padding: 0 2.5rem 1.25rem; display: none; }
+    .health-details.open { display: block; }
+    .health-section-title {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--light); margin: 1rem 0 0.5rem;
+    }
+    .health-table { width: 100%; border-collapse: collapse; font-size: 0.74rem; }
+    .health-table th {
+      text-align: left; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--light); padding: 0.25rem 0.5rem 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .health-table td {
+      padding: 0.3rem 0.5rem 0.3rem 0; border-bottom: 1px solid #f0efe9;
+      color: var(--text); vertical-align: middle;
+    }
+    .health-table tr:last-child td { border-bottom: none; }
+    .score-bar-wrap { width: 60px; display: inline-block; vertical-align: middle; margin-left: 0.4rem; }
+    .score-bar-bg { background: var(--border); height: 4px; border-radius: 2px; }
+    .score-bar-fill { height: 4px; border-radius: 2px; background: #2ecc71; }
+    .score-bar-fill.mid { background: #f39c12; }
+    .score-bar-fill.low { background: var(--accent); }
+    .health-issue-link {
+      font-size: 0.7rem; color: var(--accent); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 1rem;
+    }
+    .health-issue-link:hover { text-decoration: underline; }
+    .tag-type {
+      font-size: 0.58rem; font-weight: 500; background: var(--border);
+      color: var(--muted); padding: 0.1rem 0.35rem; border-radius: 3px;
+    }
+
     @media (max-width: 640px) {
       .page-wrap { border: none; }
       .masthead, .issue-section, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
       .masthead-body { grid-template-columns: 1fr; }
       .masthead-chips { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
       .issue-grid { grid-template-columns: 1fr; }
+      .health-summary, .health-details { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .score-bar-wrap { display: none; }
     }
   </style>
 </head>
@@ -181,6 +244,18 @@
       </div>
     </div>
   </header>
+
+  <!-- Source Health Panel -->
+  <div class="health-panel" id="healthPanel">
+    <div class="health-summary" onclick="toggleHealth()" role="button" aria-expanded="false" id="healthSummary">
+      <span class="health-dot" id="healthDot"></span>
+      <span class="health-label">Source Health</span>
+      <span class="health-stats" id="healthStats">Loading…</span>
+      <span class="health-date" id="healthDate"></span>
+      <span class="health-toggle" id="healthToggle">▾</span>
+    </div>
+    <div class="health-details" id="healthDetails"></div>
+  </div>
 
   <div class="issue-section">
     <div class="list-header">
@@ -431,5 +506,137 @@
     </div>
   </footer>
 </div>
+<script>
+  function scoreClass(v) {
+    if (v >= 0.6) return '';
+    if (v >= 0.3) return 'mid';
+    return 'low';
+  }
+
+  function scoreBar(v) {
+    const cls = scoreClass(v);
+    const pct = Math.round(v * 100);
+    return `<span class="score-bar-wrap"><div class="score-bar-bg"><div class="score-bar-fill ${cls}" style="width:${pct}%"></div></div></span>`;
+  }
+
+  function toggleHealth() {
+    const details = document.getElementById('healthDetails');
+    const toggle  = document.getElementById('healthToggle');
+    const summary = document.getElementById('healthSummary');
+    const open = details.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    summary.setAttribute('aria-expanded', open);
+  }
+
+  async function loadAudit() {
+    const dot   = document.getElementById('healthDot');
+    const stats = document.getElementById('healthStats');
+    const date  = document.getElementById('healthDate');
+    const panel = document.getElementById('healthDetails');
+
+    let d;
+    try {
+      const res = await fetch('audit_latest.json');
+      if (!res.ok) throw new Error('not found');
+      d = await res.json();
+    } catch {
+      dot.className = 'health-dot';
+      stats.textContent = 'No audit data yet — runs every Sunday';
+      return;
+    }
+
+    // Status dot
+    if (d.cold_count > 0)       dot.className = 'health-dot red';
+    else if (d.poor_count > 0)  dot.className = 'health-dot yellow';
+    else                        dot.className = 'health-dot green';
+
+    // Summary line
+    const parts = [`${d.sources_tracked} sources`];
+    if (d.cold_count)       parts.push(`${d.cold_count} cold`);
+    if (d.poor_count)       parts.push(`${d.poor_count} underperforming`);
+    if (d.candidates_count) parts.push(`${d.candidates_count} new candidates`);
+    stats.textContent = parts.join(' · ');
+    date.textContent  = `Audited ${d.generated_at}`;
+
+    // Details HTML
+    let html = '';
+
+    // Top 10 table
+    html += `<div class="health-section-title">Top Sources (30-day composite)</div>
+<table class="health-table">
+  <thead><tr><th>#</th><th>Source</th><th>Type</th><th>Composite</th></tr></thead>
+  <tbody>`;
+    d.top_10.forEach((s, i) => {
+      html += `<tr>
+        <td style="color:var(--light);width:1.5rem">${i + 1}</td>
+        <td>${s.name}</td>
+        <td><span class="tag-type">${s.type}</span></td>
+        <td><strong>${s.composite.toFixed(2)}</strong>${scoreBar(s.composite)}</td>
+      </tr>`;
+    });
+    html += `</tbody></table>`;
+
+    // Cold sources
+    if (d.cold.length) {
+      html += `<div class="health-section-title" style="color:var(--accent)">Cold Sources (no items fetched ≥30 days)</div>
+<table class="health-table">
+  <thead><tr><th>Source</th><th>Type</th><th>Silent Days</th></tr></thead>
+  <tbody>`;
+      d.cold.forEach(s => {
+        html += `<tr>
+          <td>${s.name}</td>
+          <td><span class="tag-type">${s.type}</span></td>
+          <td style="color:var(--accent)">${s.silent_days}d</td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+    }
+
+    // Poor performers
+    if (d.poor.length) {
+      html += `<div class="health-section-title" style="color:#b7770d">Underperforming Sources</div>
+<table class="health-table">
+  <thead><tr><th>Source</th><th>Type</th><th>Composite</th><th>Hit Rate</th></tr></thead>
+  <tbody>`;
+      d.poor.forEach(s => {
+        html += `<tr>
+          <td>${s.name}</td>
+          <td><span class="tag-type">${s.type}</span></td>
+          <td>${s.composite.toFixed(2)}${scoreBar(s.composite)}</td>
+          <td style="color:var(--muted)">${s.hit_rate.toFixed(2)}</td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+    }
+
+    // Candidates
+    if (d.candidates.length) {
+      html += `<div class="health-section-title" style="color:#27ae60">Discovered Candidates</div>
+<table class="health-table">
+  <thead><tr><th>Source</th><th>Type</th><th>Why</th></tr></thead>
+  <tbody>`;
+      d.candidates.forEach(s => {
+        html += `<tr>
+          <td>${s.name}</td>
+          <td><span class="tag-type">${s.type}</span></td>
+          <td style="color:var(--muted);font-size:0.7rem">${s.reason}</td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+    }
+
+    // Links
+    if (d.issue_url) {
+      html += `<a class="health-issue-link" href="${d.issue_url}" target="_blank" rel="noopener">Full digest issue →</a>`;
+    }
+    if (d.pr_url) {
+      html += `<a class="health-issue-link" href="${d.pr_url}" target="_blank" rel="noopener" style="margin-left:1rem">Config PR →</a>`;
+    }
+
+    panel.innerHTML = html;
+  }
+
+  loadAudit();
+</script>
 </body>
 </html>

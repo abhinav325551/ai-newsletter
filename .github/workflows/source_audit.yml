@@ -66,3 +66,15 @@ jobs:
             ARGS="$ARGS --no-issue"
           fi
           python scripts/audit_sources.py $ARGS
+
+      - name: Publish audit JSON to docs/
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -f docs/audit_latest.json ]; then
+            git checkout main
+            git add docs/audit_latest.json
+            git diff --staged --quiet || git commit -m "chore: update audit_latest.json [skip ci]"
+            git push origin main
+          fi

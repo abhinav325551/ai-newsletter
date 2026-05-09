@@ -452,6 +452,7 @@ def main() -> None:
         logger.info("No config changes needed this week")
 
     # ── 5. Weekly digest issue ────────────────────────────────────────────────
+    issue_url = None
     if not args.no_issue:
         logger.info("Creating weekly digest issue …")
         issue_url = create_digest_issue(
@@ -463,7 +464,49 @@ def main() -> None:
             dry_run=args.dry_run,
         )
 
-    # ── 6. Summary ────────────────────────────────────────────────────────────
+    # ── 6. Write audit JSON for GitHub Pages dashboard ───────────────────────
+    top10 = sorted(scores.items(), key=lambda x: x[1]["composite"], reverse=True)[:10]
+    audit_json = {
+        "generated_at": today,
+        "sources_tracked": len(scores),
+        "cold_count": len(cold),
+        "poor_count": len(poor),
+        "candidates_count": len(candidates),
+        "top_10": [
+            {
+                "name": name,
+                "type": s["source_type"],
+                "composite": round(s["composite"], 3),
+                "hit_rate": round(s["hit_rate"], 3),
+                "freshness": round(s["freshness"], 3),
+                "impact": round(s["impact"], 3),
+                "active_days": s["active_days"],
+            }
+            for name, s in top10
+        ],
+        "cold": [
+            {"name": s["name"], "type": s["source_type"], "silent_days": s["silent_days"], "composite": round(s["composite"], 3)}
+            for s in cold
+        ],
+        "poor": [
+            {"name": s["name"], "type": s["source_type"], "composite": round(s["composite"], 3), "hit_rate": round(s["hit_rate"], 3)}
+            for s in poor
+        ],
+        "candidates": [
+            {"name": c["name"], "url": c.get("url", ""), "type": c.get("type", "—"), "weight": c.get("weight", 0.7), "reason": c.get("reason", "—")}
+            for c in candidates
+        ],
+        "pr_url": pr_url,
+        "issue_url": issue_url,
+    }
+    audit_json_path = Path(__file__).parent.parent / "docs" / "audit_latest.json"
+    if not args.dry_run:
+        audit_json_path.write_text(json.dumps(audit_json, indent=2))
+        logger.info(f"Wrote {audit_json_path}")
+    else:
+        logger.info(f"[DRY RUN] Would write {audit_json_path}")
+
+    # ── 7. Summary ────────────────────────────────────────────────────────────
     logger.info("")
     logger.info("=" * 60)
     logger.info("AUDIT COMPLETE")
