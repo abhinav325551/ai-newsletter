@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — 2026-05-25</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f5f4f0;
+      --page:         #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --light:        #aaa;
+      --border:       #e4e2dc;
+      --border-light: #eeede8;
+      --accent:       #c0392b;
+      --accent-bg:    #fdf3f2;
+      --orange:       #c0621e;
+      --orange-bg:    #fdf6f0;
+      --tag-bg:       #eeede8;
+      --tag-text:     #666;
+      --card-hover:   #fafaf7;
+      --serif:        "Source Serif 4", Georgia, serif;
+      --display:      "Playfair Display", Georgia, serif;
+      --sans:         "Inter", system-ui, sans-serif;
+      --radius:       6px;
+      --col:          960px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Outer wrapper ───────────────────────────────────────────────────── */
+    .shell {
+      max-width: var(--col);
+      margin: 0 auto;
+      background: var(--page);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════════════════ */
+    .masthead {
+      border-bottom: 3px solid var(--text);
+      padding: 2rem 2.5rem 0;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .masthead-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .masthead-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+    }
+    /* Desktop: title + sidebar stats in 2 cols */
+    .masthead-body {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: 1.25rem;
+    }
+    .masthead-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .masthead-sub {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+    }
+    .masthead-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .stat-chip {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOC BAR
+    ═══════════════════════════════════════════════════════════════════════ */
+    .toc {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toc-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .toc-items {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
+    }
+    .toc-chip {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--page);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .toc-chip:hover {
+      background: var(--accent-bg);
+      border-color: #e8b8b4;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .section:last-child { border-bottom: none; }
+
+    /* Section header — full width stripe */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem 0;
+    }
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      min-width: 1.4rem;
+    }
+    .sec-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      color: var(--light);
+    }
+
+    /* Section body */
+    .section-body { padding: 1.25rem 2.5rem 2rem; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       01 — THE BIG THING  (full-width hero)
+    ═══════════════════════════════════════════════════════════════════════ */
+    .big-thing-body {
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 2.5px solid var(--text);
+      margin-top: 1rem;
+    }
+    .big-thing-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.82;
+      color: var(--text);
+      white-space: pre-wrap;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STANDARD SECTION  — intro + 2-col item grid
+    ═══════════════════════════════════════════════════════════════════════ */
+    .sec-intro {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--border);
+      max-width: 62ch;
+    }
+    .sec-prose {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* Item card grid — 2 cols on desktop, 1 on mobile */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--page);
+    }
+    .item-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .item-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .item-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .item-title a:hover { color: var(--accent); }
+    .item-snippet {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SIGNALS  — 3-col compact list
+    ═══════════════════════════════════════════════════════════════════════ */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .signal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: var(--bg);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signal-card:hover {
+      border-color: #d0cdc5;
+      background: var(--page);
+    }
+    .signal-source {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .signal-title {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .signal-title a:hover { color: var(--accent); }
+    .signal-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PAPERS  — 2-col
+    ═══════════════════════════════════════════════════════════════════════ */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .paper-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .paper-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .paper-badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .paper-title {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .paper-title a:hover { color: var(--accent); }
+    .paper-authors {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .paper-abstract {
+      font-family: var(--sans);
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SAAS DISRUPTION  — full-width + callout block
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section-saas-disruption .sec-label { color: var(--orange); }
+    .section-saas-disruption .sec-num { color: var(--orange); }
+    .disruption-banner {
+      background: var(--orange-bg);
+      border: 1px solid #f0d5bc;
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7a3a10;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       WORTH READING  — horizontal cards
+    ═══════════════════════════════════════════════════════════════════════ */
+    .reading-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .reading-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reading-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .reading-source {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .reading-body { flex: 1; }
+    .reading-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .reading-title a:hover { color: var(--accent); }
+    .reading-summary {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .reading-arrow {
+      color: var(--border);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .reading-card:hover .reading-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      border-top: 3px solid var(--text);
+      padding: 1.75rem 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .footer-sources {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .footer-sources strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .shell { border: none; }
+      .masthead, .toc, .section-head, .section-body,
+      .big-thing-body, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .masthead-body { grid-template-columns: 1fr; gap: 0.75rem; }
+      .masthead-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+      .item-grid      { grid-template-columns: 1fr; }
+      .signals-grid   { grid-template-columns: 1fr; }
+      .papers-grid    { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr; }
+      .footer-sources { text-align: left; }
+    }
+
+    @media (min-width: 701px) and (max-width: 860px) {
+      .signals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ MASTHEAD ══════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">AI & Tech Intelligence</span>
+      <span class="masthead-date">2026-05-25</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — infrastructure to application layer</p>
+      </div>
+      <div class="masthead-stats">
+        <span class="stat-chip">29 sources</span>
+        <span class="stat-chip">claude-sonnet-4-6</span>
+        <span class="stat-chip">2026-05-25</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ TOC ═══════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <span class="toc-label">In this issue</span>
+    <div class="toc-divider"></div>
+    <div class="toc-items">
+      
+      <a class="toc-chip" href="#big_thing">The Big Thing</a>
+      
+      <a class="toc-chip" href="#infrastructure">Infrastructure & Silicon</a>
+      
+      <a class="toc-chip" href="#models_research">Models & Research</a>
+      
+      <a class="toc-chip" href="#tooling_agents">Tooling & Agents</a>
+      
+      <a class="toc-chip" href="#applications">Applications & Consumer AI</a>
+      
+      <a class="toc-chip" href="#signals">Signals from the Feed</a>
+      
+      <a class="toc-chip" href="#worth_reading">Worth Reading</a>
+      
+    </div>
+  </nav>
+
+  <!-- ══ SECTIONS ══════════════════════════════════════════════════════════ -->
+  
+  <section class="section section-big-thing" id="big_thing">
+
+    <div class="section-head">
+      <span class="sec-num">01</span>
+      <span class="sec-label">The Big Thing</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="big-thing-body">
+      <div class="big-thing-text">## THE BIG THING
+
+### Japan's AI Infrastructure Deficit Is Forcing a Reckoning — and One Company Is Sounding the Alarm
+
+Sakura Internet, Japan's largest domestic cloud and data center operator, is staring down a capital expenditure revision that should stop you cold: the company may need to spend nearly **seven times** its original infrastructure budget to keep pace with domestic AI demand, according to CEO Mitsuaki Tsukamoto speaking to Bloomberg. That's not a rounding error or a conservative-to-aggressive reforecast — that's a signal that whoever modeled Japan's AI compute appetite fundamentally underestimated it. When a major national infrastructure provider discovers mid-cycle that its capex plan is off by a factor of seven, the gap between projected and actual demand has become structurally significant.
+
+The context matters here. Sakura Internet was already operating from a position of strategic importance: the Japanese government has been actively subsidizing domestic AI infrastructure as part of its push to reduce dependence on foreign hyperscalers, particularly amid growing data sovereignty concerns. Sakura received government support under Japan's AI and semiconductor industrial policy initiatives, positioning it as a key node in the country's sovereign compute ambitions. The company isn't a marginal player scrambling for relevance — it's the designated domestic alternative. The fact that even this well-capitalized, policy-backed operator is finding its original plans inadequate tells you the demand signal coming out of Japanese enterprise and government AI adoption is running hotter than official forecasts suggested.
+
+The broader implication is this: Japan is not a unique outlier. It's a leading indicator. Every mid-tier economy that made AI infrastructure commitments in 2023 and 2024 based on then-current demand curves is likely sitting on similar miscalculations. The capex revision Sakura is telegraphing reflects a pattern visible across the infrastructure layer globally — the jump from AI experimentation to AI deployment at scale consumes an order of magnitude more compute than pilot-phase projections account for. For investors tracking the data center supply chain, this is confirmation that GPU cluster buildout, power procurement, and cooling infrastructure remain severely supply-constrained relative to what's actually being demanded, not just marketed.
+
+Watch three things here. First, whether Sakura can actually secure the capital and — more critically — the Nvidia or alternative GPU allocations needed to execute a sevenfold expansion; hardware availability, not funding, is the more likely binding constraint. Second, how Japanese institutional investors respond to a capex revision of this magnitude, since Sakura is a publicly traded company on the Tokyo Stock Exchange and this signals significant dilution or debt risk. Third, whether this disclosure accelerates policy pressure on Nvidia and TSMC to prioritize Japanese supply chains, particularly given the existing Japan-US semiconductor cooperation frameworks. The data center capacity crunch is no longer a hyperscaler problem — it's becoming a national infrastructure problem, and Sakura just made that visible.</div>
+    </div>
+
+    <!-- ── SaaS Disruption ────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-infrastructure" id="infrastructure">
+
+    <div class="section-head">
+      <span class="sec-num">02</span>
+      <span class="sec-label">Infrastructure & Silicon</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">5</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Infrastructure & Silicon
+
+The week's infrastructure story is fundamentally about the fragmentation of the global chip stack accelerating faster than most predicted: Huawei is claiming process-node progress without EUV, memory economics are quietly reshaping AI hardware margins, and falling energy costs may offer data center operators their first meaningful input cost relief in two years. The race to build sovereign AI infrastructure is no longer a 2028 problem — it's happening now, with or without TSMC.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Huawei claims chipmaking breakthrough to close gap with TSMC without cutting-edge lithography equipment** — If validated, this would represent a significant threat to the export-control strategy underpinning U.S. chip policy: sanctions assumed Huawei couldn't advance node density without EUV access, and that assumption may be eroding. [Link](https://www.bloomberg.com/news/articles/2026-05-25/huawei-touts-chipmaking-breakthrough-to-shorten-gap-with-tsmc)
+
+- **[Epoch AI via Hacker News] Memory now accounts for nearly two-thirds of AI chip component costs** — This cost-share shift has direct implications for inference economics: as KV-cache requirements balloon with longer context windows, memory is increasingly the binding constraint on both per-token cost and chip design tradeoffs, not compute. [Link](https://epoch.ai/data-insights/ai-chip-component-cost-shares)
+
+- **[Bloomberg Technology] SoftBank shares hit record highs on OpenAI IPO speculation** — SoftBank's equity position in OpenAI means a successful IPO would substantially recapitalize the firm, which has committed to deploying $500B into U.S. AI infrastructure via the Stargate joint venture — making the IPO timeline a direct upstream variable for data center buildout. [Link](https://www.bloomberg.com/news/articles/2026-05-25/softbank-shares-hit-record-high-with-lift-from-openai-ipo-hopes)
+
+- **[Axios] Crude oil drops ~$5/barrel on tentative U.S.-Iran deal outlines** — Data centers run on power, and power prices are partially indexed to natural gas and oil; a sustained de-escalation in the Strait of Hormuz could reduce energy input costs at a moment when hyperscalers are signing multi-gigawatt capacity agreements where fuel price assumptions are baked into decade-long contracts. [Link](https://www.axios.com/2026/05/24/oil-prices-iran-war-hormuz-strait-trump-tehran-peace-talks)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-25/softbank-shares-hit-record-high-with-lift-from-openai-ipo-hopes" target="_blank" rel="noopener">
+              SoftBank Shares Hit Record With Lift From OpenAI IPO Hopes
+            </a>
+          </div>
+          
+          <div class="item-snippet">SoftBank Group Corp. shares climbed to a record high, spurred by hopes of big returns from the Japanese investor’s stakes in OpenA…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-25/huawei-touts-chipmaking-breakthrough-to-shorten-gap-with-tsmc" target="_blank" rel="noopener">
+              Huawei Touts Chip Breakthrough to Shorten Gap With TSMC
+            </a>
+          </div>
+          
+          <div class="item-snippet">Huawei Technologies Co. said it has come up with a new pathway to shorten its gap with industry leader Taiwan Semiconductor Manufa…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Axios Tech</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.axios.com/2026/05/24/oil-prices-iran-war-hormuz-strait-trump-tehran-peace-talks" target="_blank" rel="noopener">
+              Oil prices sink on signs of U.S.-Iran deal
+            </a>
+          </div>
+          
+          <div class="item-snippet">Crude  oil  prices dropped about $5 per barrel Sunday evening in the first major trading since the emergence of rough and tentativ…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">The Verge</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.theverge.com/gadgets/936610/apple-macbook-air-m5-memorial-day-2026-deal-sale" target="_blank" rel="noopener">
+              Apple’s latest MacBook Air is $200 off in both sizes for Memorial Day
+            </a>
+          </div>
+          
+          <div class="item-snippet">If you’re looking for a laptop that’ll still perform well several years from now, Apple’s latest MacBook Air is hard to beat. Now,…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hacker News</span>
+            <span class="item-score">↑ 84</span>
+          </div>
+          <div class="item-title">
+            <a href="https://epoch.ai/data-insights/ai-chip-component-cost-shares" target="_blank" rel="noopener">
+              Memory has grown to nearly two-thirds of AI chip component costs
+            </a>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-models-research" id="models_research">
+
+    <div class="section-head">
+      <span class="sec-num">03</span>
+      <span class="sec-label">Models & Research</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">I need to flag a sourcing problem before proceeding.
+
+The single source provided — a Bloomberg Technology video about SpaceX's IPO positioning and market cap implications — contains **no information relevant to a Models & Research section**. It covers equity markets and IPO strategy, not foundation model releases, open-source drops, benchmarks, or research papers.
+
+**I cannot write this section accurately** using that material without fabricating model names, benchmark numbers, paper titles, or research claims — which violates the core editorial rules of this newsletter (and my own).
+
+**What I'd recommend:**
+
+To write a credible Models & Research section this week, I'd need source material covering items such as:</div>
+      
+      <div class="sec-prose">- Specific model releases (e.g., a named model from Anthropic, Google DeepMind, Meta, Mistral, etc.)
+- arXiv or peer-reviewed paper findings with actual results
+- Benchmark scores with named evals (MMLU, GPQA, SWE-bench, etc.)
+- Open-source model drops on Hugging Face or GitHub with verifiable details
+
+**If you can provide additional source material**, I'll write the section immediately to the specified format with full attribution and the opinionated, information-dense tone the newsletter requires.
+
+Alternatively, if you'd like, I can write a **clearly labeled placeholder** that explains the section is being held pending verified sourcing — some editors prefer that to silence.</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-24/how-new-mega-cap-ipo-s-will-reshape-the-markets-video" target="_blank" rel="noopener">
+              How New Mega-Cap IPOs Will Reshape the Markets
+            </a>
+          </div>
+          
+          <div class="item-snippet">SpaceX is marketing itself to IPO investors as an artificial intelligence targeting a $26.5 trillion potential market opportunity.…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-tooling-agents" id="tooling_agents">
+
+    <div class="section-head">
+      <span class="sec-num">04</span>
+      <span class="sec-label">Tooling & Agents</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">2</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Tooling & Agents
+
+The agent infrastructure layer is maturing fast enough to create problems enterprises haven't built processes to handle yet. Two dynamics are colliding this week: purpose-built agentic dev tooling is commoditizing (DeepSeek's cost-aggressive coding agent being the latest signal), while production deployments are surfacing a novel failure class that postmortem templates weren't designed to catch — context-incomplete actions that cascade correctly by every individual system's logic, yet catastrophically at the system level.</div>
+      
+      <div class="sec-prose">- **[VentureBeat] AI agents are generating a new category of production incident that no team owns** — The failure pattern is structurally distinct from traditional bugs: the agent's action was technically valid given its context, but the context itself was incomplete, causing infrastructure cascades that fell into ownership gaps between three or more teams during review. This "correct action, wrong context" failure mode has no established postmortem template, meaning it is almost certainly being systematically under-counted in enterprise reliability data. [Link](https://venturebeat.com/orchestration/ai-agents-are-quietly-generating-chaos-engineering-failures-enterprises-dont-track-yet)
+
+- **[Hacker News / esengine.github.io] DeepSeek Reasonix is a native coding agent built on DeepSeek with aggressive prompt caching and low inference cost** — Notably timed alongside DeepSeek making its V4 Pro price discount permanent (as of May 2026, per a concurrent HN thread with 384 comments), Reasonix positions itself as a cost-optimized alternative to Copilot-class coding agents for teams already running DeepSeek models — a direct infrastructure play, not just a model wrapper. [Link](https://esengine.github.io/DeepSeek-Reasonix/)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/orchestration/ai-agents-are-quietly-generating-chaos-engineering-failures-enterprises-dont-track-yet" target="_blank" rel="noopener">
+              AI agents are quietly generating chaos engineering failures enterprises don’t track yet
+            </a>
+          </div>
+          
+          <div class="item-snippet">There is a category of production incident that engineering teams are not tracking yet — because it doesn&#x27;t fit any existing …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hacker News</span>
+            <span class="item-score">↑ 86</span>
+          </div>
+          <div class="item-title">
+            <a href="https://esengine.github.io/DeepSeek-Reasonix/" target="_blank" rel="noopener">
+              DeepSeek reasonix, DeepSeek native coding agent with high caching and low cost
+            </a>
+          </div>
+          
+          <div class="item-snippet">Related ongoing thread:<p><i>DeepSeek makes the V4 Pro price discount permanent</i> - <a href="https:&#x2F;&#x2F;news.ycombinator.…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-applications" id="applications">
+
+    <div class="section-head">
+      <span class="sec-num">05</span>
+      <span class="sec-label">Applications & Consumer AI</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Applications & Consumer AI
+
+The week's consumer and enterprise AI story is less about flashy product launches and more about the stress fractures AI is creating in incumbent systems — from Apple's eroding dominance in health wearables to European regulators forcing banks to confront AI-exposed cybersecurity gaps. The most consequential deployments right now aren't consumer apps but enterprise infrastructure audits triggered by AI's attack surface expansion. Watchlist item: the health wearables arms race is accelerating faster than Apple's software roadmap can respond.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Apple Watch faces mounting competitive pressure from Whoop and Oura as AI-era health tracking raises the bar** — Whoop and Oura are outpacing Apple on continuous, sensor-driven health intelligence, exposing a product gap that Apple's current wearable lineup and HealthKit integrations haven't closed; the question is whether Apple's rumored deeper health AI features arrive before user loyalty erodes further. [Link](https://www.bloomberg.com/jp/news/newsletters/2026-05-25/TFKOC1KGCTG700)
+
+- **[Bloomberg Technology / Financial Times] ECB convened a cross-bank cybersecurity meeting specifically focused on vulnerabilities exposed by modern AI models** — This is a rare regulatory forcing function: the ECB is not merely issuing guidance but actively organizing lenders to remediate IT flaws that AI systems — likely including large language model-based tooling deployed inside banks — have surfaced, per the Financial Times. [Link](https://www.bloomberg.com/news/articles/2026-05-24/ecb-convenes-banks-to-fix-flaws-exposed-by-ai-models-ft-says)
+
+- **[Bloomberg Technology] The AI boom is delivering record returns for global momentum investors, with AI-exposed equities leading the rally despite Iran war-related growth headwinds** — This sustained momentum signals that institutional capital is treating AI infrastructure and application-layer companies as a durable growth category, not a speculative trade, even in a macro environment with active geopolitical risk. [Link](https://www.bloomberg.com/news/articles/2026-05-25/ai-rally-drives-best-run-in-global-momentum-stocks-on-record)
+
+- **[Bloomberg Technology] SoftBank is raising ¥260 billion ($1.6 billion) via retail subordinated bonds just two months after a nearly identical offering** — The rapid repeat issuance suggests SoftBank is aggressively front-loading capital for its AI investment pipeline — including its OpenAI partnership and domestic Japanese AI infrastructure commitments — using retail investors as a funding base while institutional appetite remains conditional. [Link](https://www.bloomberg.com/news/articles/2026-05-25/softbank-taps-retail-investors-with-1-6-billion-yen-bond-deal)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/jp/news/newsletters/2026-05-25/TFKOC1KGCTG700" target="_blank" rel="noopener">
+              Apple Watchに変革を、Whoopやオーラ台頭でヘルスケアアプリに課題－Power On
+            </a>
+          </div>
+          
+          <div class="item-snippet">健康ウエアラブル端末市場で競争激化、AI時代への対応課題に…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-25/ai-rally-drives-best-run-in-global-momentum-stocks-on-record" target="_blank" rel="noopener">
+              AI Rally Drives Best Run in Global Momentum Stocks on Record
+            </a>
+          </div>
+          
+          <div class="item-snippet">The AI boom is giving momentum investors their best return in decades, as the world’s hottest stocks power ahead despite worries o…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-25/china-s-cross-border-trading-crackdown-video" target="_blank" rel="noopener">
+              China’s Cross-Border Trading Crackdown
+            </a>
+          </div>
+          
+          <div class="item-snippet">China’s crackdown on cross-border stock trading could affect up to HK$250 billion ($32 billion) in Hong Kong-linked assets, accord…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-25/softbank-taps-retail-investors-with-1-6-billion-yen-bond-deal" target="_blank" rel="noopener">
+              SoftBank Taps Retail Market Again With $1.6 Billion Yen Bond
+            </a>
+          </div>
+          
+          <div class="item-snippet">SoftBank Group Corp. plans to raise ¥260 billion ($1.6 billion) through another sale of subordinated bonds aimed mainly at individ…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-25/the-china-show-5-25-2026-video" target="_blank" rel="noopener">
+              China Investigates Deadly Coal Mine Blast | The China Show 5/25/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">“Bloomberg: The China Show” is your definitive source for news and analysis on the world's second-biggest economy. From politics a…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-25/ntt-docomo-sells-tokyo-land-plots-for-371-million-joining-boom" target="_blank" rel="noopener">
+              NTT Docomo Sells Tokyo Land Plots for $371 Million, Joining Boom
+            </a>
+          </div>
+          
+          <div class="item-snippet">NTT Docomo Inc. sold two plots of land in central Tokyo for about ¥59 billion ($371 million), according to people familiar with th…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-24/ecb-convenes-banks-to-fix-flaws-exposed-by-ai-models-ft-says" target="_blank" rel="noopener">
+              ECB Convenes Banks to Fix Flaws Exposed by AI Models, FT Says
+            </a>
+          </div>
+          
+          <div class="item-snippet">The European Central Bank plans to press lenders to accelerate efforts to secure their IT systems after organizing a meeting on cy…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-24/bloomberg-this-weekend-5-24-2026-video" target="_blank" rel="noopener">
+              Bloomberg This Weekend 5/24/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">The news doesn’t stop when markets close. Hosts David Gura, Christina Ruffini and Lisa Mateo bring clarity, context and a bit of h…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-signals" id="signals">
+
+    <div class="section-head">
+      <span class="sec-num">07</span>
+      <span class="sec-label">Signals from the Feed</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">3</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Signals from the Feed
+
+This week's discourse crystallized around a single uncomfortable tension: LLMs are getting cheaper and more capable at the surface level, while evidence accumulates that they're structurally unreliable beneath it. The community is bifurcating between those racing to deploy agents in production codebases and those documenting exactly why that's a bad idea — and the empirical literature is siding with the skeptics.</div>
+      
+      <div class="signals-grid">
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.hollandtech.net/claude-is-not-your-architect/" target="_blank" rel="noopener">
+              Claude is not your architect. Stop letting it pretend
+            </a>
+          </div>
+          <div class="signal-score">↑ 83</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://arxiv.org/abs/2605.06445" target="_blank" rel="noopener">
+              Constraint Decay: The Fragility of LLM Agents in Back End Code Generation
+            </a>
+          </div>
+          <div class="signal-score">↑ 82</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-23/deepseek-to-make-permanent-75-discount-on-flagship-ai-model" target="_blank" rel="noopener">
+              DeepSeek to Make Permanent 75% Discount on Flagship AI Model
+            </a>
+          </div>
+          <div class="signal-score">↑ 82</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Papers ─────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-worth-reading" id="worth_reading">
+
+    <div class="section-head">
+      <span class="sec-num">08</span>
+      <span class="sec-label">Worth Reading</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Worth Reading
+
+The dominant narrative that AI is a software business with a software business's economics is cracking under scrutiny. What's emerging instead looks far more like industrial manufacturing — with all the supply chain fragility, capacity constraints, and contractual complexity that implies. If you're signing AI vendor agreements or modeling AI cost structures right now, this reframing is operationally urgent.</div>
+      
+      <div class="reading-list">
+        
+        <div class="reading-card">
+          <span class="reading-source">Nate B Jones Podcast</span>
+          <div class="reading-body">
+            <div class="reading-title">
+              <a href="https://natesnewsletter.substack.com/p/ai-big-tech-industrial-business" target="_blank" rel="noopener">Why Big Tech Now Runs an AI Factory</a>
+            </div>
+            
+            <div class="reading-summary">What's really happening inside the AI supply chain that powers every model you use?   The common story is that AI is a software business with a fancy backend. The reality is more complicated, and it c</div>
+            
+          </div>
+          <span class="reading-arrow">→</span>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── All other sections (infra, models, tooling, apps) ──────────── -->
+    
+
+  </section>
+  
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI & Tech Intelligence</div>
+        <div class="footer-meta">
+          Generated 2026-05-25 · claude-sonnet-4-6<br>
+          29 items across all sources
+        </div>
+      </div>
+      <div class="footer-sources">
+        <strong>Sources</strong>
+        Axios Tech, Bloomberg Technology, Exponential View, FT Tech, Hacker News, Nate B Jones Podcast, The Verge, VentureBeat AI
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
