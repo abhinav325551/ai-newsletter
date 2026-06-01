@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — 2026-06-01</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f5f4f0;
+      --page:         #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --light:        #aaa;
+      --border:       #e4e2dc;
+      --border-light: #eeede8;
+      --accent:       #c0392b;
+      --accent-bg:    #fdf3f2;
+      --orange:       #c0621e;
+      --orange-bg:    #fdf6f0;
+      --tag-bg:       #eeede8;
+      --tag-text:     #666;
+      --card-hover:   #fafaf7;
+      --serif:        "Source Serif 4", Georgia, serif;
+      --display:      "Playfair Display", Georgia, serif;
+      --sans:         "Inter", system-ui, sans-serif;
+      --radius:       6px;
+      --col:          960px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Outer wrapper ───────────────────────────────────────────────────── */
+    .shell {
+      max-width: var(--col);
+      margin: 0 auto;
+      background: var(--page);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════════════════ */
+    .masthead {
+      border-bottom: 3px solid var(--text);
+      padding: 2rem 2.5rem 0;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .masthead-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .masthead-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+    }
+    /* Desktop: title + sidebar stats in 2 cols */
+    .masthead-body {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: 1.25rem;
+    }
+    .masthead-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .masthead-sub {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+    }
+    .masthead-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .stat-chip {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOC BAR
+    ═══════════════════════════════════════════════════════════════════════ */
+    .toc {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toc-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .toc-items {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
+    }
+    .toc-chip {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--page);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .toc-chip:hover {
+      background: var(--accent-bg);
+      border-color: #e8b8b4;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .section:last-child { border-bottom: none; }
+
+    /* Section header — full width stripe */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem 0;
+    }
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      min-width: 1.4rem;
+    }
+    .sec-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      color: var(--light);
+    }
+
+    /* Section body */
+    .section-body { padding: 1.25rem 2.5rem 2rem; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       01 — THE BIG THING  (full-width hero)
+    ═══════════════════════════════════════════════════════════════════════ */
+    .big-thing-body {
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 2.5px solid var(--text);
+      margin-top: 1rem;
+    }
+    .big-thing-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.82;
+      color: var(--text);
+      white-space: pre-wrap;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STANDARD SECTION  — intro + 2-col item grid
+    ═══════════════════════════════════════════════════════════════════════ */
+    .sec-intro {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--border);
+      max-width: 62ch;
+    }
+    .sec-prose {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* Item card grid — 2 cols on desktop, 1 on mobile */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--page);
+    }
+    .item-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .item-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .item-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .item-title a:hover { color: var(--accent); }
+    .item-snippet {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SIGNALS  — 3-col compact list
+    ═══════════════════════════════════════════════════════════════════════ */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .signal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: var(--bg);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signal-card:hover {
+      border-color: #d0cdc5;
+      background: var(--page);
+    }
+    .signal-source {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .signal-title {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .signal-title a:hover { color: var(--accent); }
+    .signal-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PAPERS  — 2-col
+    ═══════════════════════════════════════════════════════════════════════ */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .paper-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .paper-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .paper-badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .paper-title {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .paper-title a:hover { color: var(--accent); }
+    .paper-authors {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .paper-abstract {
+      font-family: var(--sans);
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SAAS DISRUPTION  — full-width + callout block
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section-saas-disruption .sec-label { color: var(--orange); }
+    .section-saas-disruption .sec-num { color: var(--orange); }
+    .disruption-banner {
+      background: var(--orange-bg);
+      border: 1px solid #f0d5bc;
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7a3a10;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       WORTH READING  — horizontal cards
+    ═══════════════════════════════════════════════════════════════════════ */
+    .reading-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .reading-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reading-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .reading-source {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .reading-body { flex: 1; }
+    .reading-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .reading-title a:hover { color: var(--accent); }
+    .reading-summary {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .reading-arrow {
+      color: var(--border);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .reading-card:hover .reading-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      border-top: 3px solid var(--text);
+      padding: 1.75rem 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .footer-sources {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .footer-sources strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .shell { border: none; }
+      .masthead, .toc, .section-head, .section-body,
+      .big-thing-body, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .masthead-body { grid-template-columns: 1fr; gap: 0.75rem; }
+      .masthead-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+      .item-grid      { grid-template-columns: 1fr; }
+      .signals-grid   { grid-template-columns: 1fr; }
+      .papers-grid    { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr; }
+      .footer-sources { text-align: left; }
+    }
+
+    @media (min-width: 701px) and (max-width: 860px) {
+      .signals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ MASTHEAD ══════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">AI & Tech Intelligence</span>
+      <span class="masthead-date">2026-06-01</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — infrastructure to application layer</p>
+      </div>
+      <div class="masthead-stats">
+        <span class="stat-chip">38 sources</span>
+        <span class="stat-chip">claude-sonnet-4-6</span>
+        <span class="stat-chip">2026-06-01</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ TOC ═══════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <span class="toc-label">In this issue</span>
+    <div class="toc-divider"></div>
+    <div class="toc-items">
+      
+      <a class="toc-chip" href="#big_thing">The Big Thing</a>
+      
+      <a class="toc-chip" href="#infrastructure">Infrastructure & Silicon</a>
+      
+      <a class="toc-chip" href="#models_research">Models & Research</a>
+      
+      <a class="toc-chip" href="#applications">Applications & Consumer AI</a>
+      
+      <a class="toc-chip" href="#worth_reading">Worth Reading</a>
+      
+    </div>
+  </nav>
+
+  <!-- ══ SECTIONS ══════════════════════════════════════════════════════════ -->
+  
+  <section class="section section-big-thing" id="big_thing">
+
+    <div class="section-head">
+      <span class="sec-num">01</span>
+      <span class="sec-label">The Big Thing</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="big-thing-body">
+      <div class="big-thing-text">## The Big Thing
+
+**China's AI-Driven Delivery Wars Hit a Regulatory Wall — And Meituan Just Blinked First**
+
+The source material here is about Meituan's narrowing losses following Beijing's intervention in China's food delivery sector, and it's worth being direct with you: this story matters less as a food delivery narrative and far more as a case study in how Chinese regulators are actively reshaping the competitive dynamics of AI-powered logistics and commerce platforms. Meituan and its rivals — most notably ByteDance's Douyin and JD.com — had been deploying aggressive AI-driven demand forecasting, dynamic pricing, and autonomous dispatch optimization to undercut one another on fees and delivery times. That arms race compressed margins across the entire sector, and Beijing's repeated warnings appear to have functioned as a de facto price-floor intervention, cooling a competition that was less about human strategy and more about whose inference infrastructure could optimize unit economics faster.
+
+The context matters here. Meituan built arguably the most sophisticated last-mile AI stack in the world, processing tens of millions of daily orders through routing algorithms that outperform any Western equivalent at scale. But that technological edge became a liability when competitors — particularly Douyin, which entered food delivery in 2021 leveraging its recommendation algorithm to acquire customers at near-zero marginal cost — used their own AI advantages to wage subsidy warfare. The result was a negative-sum race where the AI was working exactly as designed, and the economics were catastrophic for everyone involved. Beijing's intervention is a rare instance of a regulator effectively calling time on an algorithmic competition before it produced a monopoly or a collapse.
+
+The broader implication for the AI landscape is uncomfortable but important: this is one of the clearest real-world examples of AI capability outpacing the ability of any single market participant to profit from it. Meituan's technology is genuinely world-class, yet that technology accelerated its own margin destruction by enabling competitors to respond faster and cheaper than any pre-AI competitive cycle would have allowed. For investors and founders watching this, the lesson isn't that AI deployment is risky — it's that in commoditized, high-frequency consumer markets, AI can create a tragedy-of-the-commons dynamic where everyone deploys optimally and the surplus accrues to consumers until regulators or capital exhaustion intervenes. That dynamic is not unique to China.
+
+**What to watch:** Whether Meituan's margin recovery holds as Beijing's pressure eventually eases, and whether Douyin de-escalates or simply waits. More importantly, watch how this regulatory playbook — informal warnings rather than formal antitrust action — gets studied by European and U.S. regulators who are watching AI-driven price competition intensify in gig logistics, ad auctions, and e-commerce. Meituan's next two earnings calls will tell you whether cooled competition means restored profitability or just a slower bleed.</div>
+    </div>
+
+    <!-- ── SaaS Disruption ────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-infrastructure" id="infrastructure">
+
+    <div class="section-head">
+      <span class="sec-num">02</span>
+      <span class="sec-label">Infrastructure & Silicon</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Infrastructure & Silicon
+
+Nvidia used Computex 2026 to execute a coordinated land-grab across every compute tier simultaneously — PC silicon, data center CPUs, and physical AI — a strategic sprawl that no single competitor can match end-to-end. The RTX Spark Superchip for laptops and desktops directly threatens Intel's and AMD's core revenue base on the client side, while the Vera chip locks in Anthropic, OpenAI, and SpaceX as anchor tenants on the data center side before the product has even shipped at scale. If Jensen Huang's week at Computex signals anything, it's that Nvidia's ambition is no longer just accelerators — it's the entire compute stack.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Nvidia announces RTX Spark Superchip for laptops and desktops, debuting in Dell and Lenovo systems this fall** — This is Nvidia's most direct assault yet on Intel's platform dominance in the Windows PC ecosystem; securing Dell and Lenovo at launch means immediate access to the two largest commercial PC distribution channels. [Link](https://www.bloomberg.com/news/videos/2026-06-01/nvidia-to-debut-new-chip-for-laptops-desktop-computers-video)
+
+- **[FT Tech] Nvidia's PC superchip framed explicitly as a challenge to Apple Silicon and Intel** — The FT's framing matters: positioning against Apple Silicon, not just Intel and AMD, suggests Nvidia is targeting premium ultrabook and creator segments where Apple has gained significant ground since M1. [Link](https://www.ft.com/content/58f984fd-d90b-4e8e-95b0-987a97c4a522)
+
+- **[Bloomberg Technology] Nvidia confirms Anthropic, OpenAI, and SpaceX as early adopters of its new Vera CPU for data centers** — Vera represents Nvidia's push into the CPU layer of the data center stack, and having three of the most compute-intensive AI operators as named customers before general availability significantly de-risks the product's commercial case. [Link](https://www.bloomberg.com/news/articles/2026-06-01/nvidia-says-anthropic-openai-among-big-users-of-new-vera-chip)
+
+- **[Bloomberg Technology] Jensen Huang says the market "got it wrong" on software stocks, arguing AI infrastructure spend flows back to software value** — Huang's public intervention in the software vs. infrastructure valuation debate is self-serving but not baseless: every Vera chip sold to OpenAI is also a vote for the monetizability of OpenAI's software layer. [Link](https://www.bloomberg.com/news/videos/2026-06-01/insight-with-haslinda-amin-6-1-2026-video)
+
+- **[Hugging Face Blog] NVIDIA releases Cosmos 3 Super and Cosmos 3 Nano on Hugging Face, positioning them as open foundation models for physical AI reasoning in robotics, autonomous vehicles, and smart spaces** — The dual-size release (Super and Nano) with Diffusers integration signals a deliberate effort to capture the open-source developer ecosystem for embodied AI, where no dominant open model standard yet exists. [Link](https://huggingface.co/blog/nvidia/cosmos-3-for-physical-ai)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/nvidia-enters-windows-laptop-market-taking-on-intel-and-amd" target="_blank" rel="noopener">
+              Nvidia Enters Windows Laptop Market, Taking On Intel and AMD
+            </a>
+          </div>
+          
+          <div class="item-snippet">Nvidia Corp. is entering the PC market with a new chip aimed at loosening the stranglehold of Intel Corp. technology in that arena…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-01/insight-with-haslinda-amin-6-1-2026-video" target="_blank" rel="noopener">
+              Nvidia CEO Says Market Got it Wrong On Software Stocks | Insight with Haslinda Amin 6/1/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Insight with Haslinda Amin, a daily news program featuring in-depth, high-profile interviews and analysis to give viewers the comp…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-01/nvidia-to-debut-new-chip-for-laptops-desktop-computers-video" target="_blank" rel="noopener">
+              Nvidia to Debut New Chip for Laptops, Desktop Computers
+            </a>
+          </div>
+          
+          <div class="item-snippet">Nvidia is entering the PC market with a new RTX Spark Superchip which will debut in laptop and desktop computers from leading PC b…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/nvidia-says-anthropic-openai-among-big-users-of-new-vera-chip" target="_blank" rel="noopener">
+              Nvidia Says Anthropic, OpenAI Among Users of New Vera Chip
+            </a>
+          </div>
+          
+          <div class="item-snippet">Nvidia Corp. said Anthropic PBC, OpenAI and SpaceX are among the first big users of its upcoming microprocessor, securing key cust…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-01/nvidia-s-huang-calls-ai-jobs-concerns-nonsense-video" target="_blank" rel="noopener">
+              Nvidia's Huang Calls AI Jobs Concerns 'Nonsense'
+            </a>
+          </div>
+          
+          <div class="item-snippet">Nvidia's Jensen Huang calls concerns of AI taking jobs “complete nonsense," saying instead that companies are hiring more software…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/58f984fd-d90b-4e8e-95b0-987a97c4a522" target="_blank" rel="noopener">
+              Nvidia unveils PC ‘superchip’ in challenge to Apple and Intel
+            </a>
+          </div>
+          
+          <div class="item-snippet">Semiconductor paired with Microsoft Windows will allow computers to run AI apps…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/e9079a98-fcdb-4041-960c-cf84cf3e1b7c" target="_blank" rel="noopener">
+              AI and real GDP: how big and how fast?
+            </a>
+          </div>
+          
+          <div class="item-snippet">Plus more on the chip cycle…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hugging Face Blog</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://huggingface.co/blog/nvidia/cosmos-3-for-physical-ai" target="_blank" rel="noopener">
+              Welcome NVIDIA Cosmos 3: The First Open Omni-model for Physical AI Reasoning and Action
+            </a>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-models-research" id="models_research">
+
+    <div class="section-head">
+      <span class="sec-num">03</span>
+      <span class="sec-label">Models & Research</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">4</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Models & Research
+
+This week's source material contains no foundation model releases, benchmark results, or research paper drops worth covering — and we won't pad this section to pretend otherwise. What the available signals *do* indicate is a macro environment increasingly shaped by cost scrutiny and infrastructure bets rather than new model capabilities, suggesting the frontier labs may be entering a quieter release cadence as compute economics come under pressure.
+
+*Note to readers: The items submitted for this section cover AI investment costs, European datacenter infrastructure, dividend markets, and startup funding — none of which fall within the Models & Research remit. Rather than misrepresent the sourcing or manufacture analysis disconnected from attributable claims, we're flagging the gap directly. Below are the closest relevant data points from the provided material:*</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Major companies are actively reconsidering AI infrastructure spending** — Harvard Kennedy School's Gautam Mukunda framed the chipmaker valuation surge as lending urgency to bubble concerns, a macro signal that could constrain compute budgets available for frontier training runs. [Link](https://www.bloomberg.com/news/videos/2026-05-31/major-companies-reconsider-ai-costs-video)
+
+- **[FT Tech] Ardian is backing a €5bn AI "gigafactory" outside Paris** — European compute buildout at this scale will eventually shape which models can be trained on-continent, relevant for EU-sovereign foundation model efforts, though no specific model commitments are named in the available excerpt. [Link](https://www.ft.com/content/6756ca48-212a-40f6-bf8f-c07d21bd856c)
+
+*For substantive Models & Research coverage, next issue will draw on primary sources including arXiv preprints, official model release posts, and benchmark leaderboard updates.*</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-05-31/major-companies-reconsider-ai-costs-video" target="_blank" rel="noopener">
+              Major Companies Reconsider AI Costs
+            </a>
+          </div>
+          
+          <div class="item-snippet">Chipmakers are by far the hottest stocks in the market, but their recent surge is lending urgency to the debate over whether inves…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/6756ca48-212a-40f6-bf8f-c07d21bd856c" target="_blank" rel="noopener">
+              French private equity group Ardian backs €5bn AI ‘gigafactory’ outside Paris
+            </a>
+          </div>
+          
+          <div class="item-snippet">Data centre and research facility to be built as Europe seeks to create ‘digital backbone for the future’…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-05-31/big-tech-is-suddenly-impacting-niche-market-for-us-dividends" target="_blank" rel="noopener">
+              Big Tech Is Suddenly Impacting Niche Market for US Dividends
+            </a>
+          </div>
+          
+          <div class="item-snippet">The dominance of a few technology giants in the benchmark S&amp;P 500 Index is now carrying over into the niche market for dividen…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/05/31/black-founders-raise-highest-amount-of-quarterly-funding-since-2022-but-theres-a-catch/" target="_blank" rel="noopener">
+              Black founders raise highest amount of quarterly funding since 2022, but there’s a catch
+            </a>
+          </div>
+          
+          <div class="item-snippet">Speaking to TechCrunch, Crunchbase’s head of research Gené Teare, said the factors holding back Black founders include “access to …</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-applications" id="applications">
+
+    <div class="section-head">
+      <span class="sec-num">05</span>
+      <span class="sec-label">Applications & Consumer AI</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Applications & Consumer AI
+
+The enterprise AI story this week is increasingly one of unmet expectations colliding with unstoppable capital allocation — companies are spending more on AI deployments while simultaneously reporting that the cost savings justifying those deployments haven't materialized. Meanwhile, a generational crack is appearing in the consumer AI narrative: the demographic most expected to embrace AI products is turning against them, a signal that the industry's product-market fit assumptions deserve serious scrutiny.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Bain & Co.: Corporate AI automation savings are "broadly falling short of projections"** — A global survey of large companies by Bain found that AI-driven cost reduction targets are being missed at scale, with Bain stating the gap "should be making executives uncomfortable" — a rare instance of a major consultancy publicly undermining the ROI case it has helped sell. [Link](https://www.bloomberg.com/news/articles/2026-06-01/bain-finds-corporate-ai-investments-based-on-returns-that-haven-t-arrived)
+
+- **[FT Tech] Young people are souring on AI, calling it "more harmful than helpful"** — This is a critical warning sign for consumer AI product lines: Gen Z, whose adoption was widely assumed to be a given, is developing active skepticism rather than the habitual engagement that underpins sustainable product growth. [Link](https://www.ft.com/content/73fc962e-ce68-4521-9c5d-841a666eed10)
+
+- **[Bloomberg Technology] LG Electronics shares up over 300% in 2026 on physical AI and robotics pivot** — LG's quadrupling valuation reflects investor conviction that the next consumer AI battleground is embodied, not software-only — a meaningful repositioning for a legacy appliance manufacturer that had been largely written off by tech investors. [Link](https://www.bloomberg.com/news/articles/2026-06-01/lg-electronics-shares-surge-more-than-300-on-physical-ai-push)
+
+- **[Bloomberg Technology] SoftBank overtakes Toyota as Japan's most valuable company** — The milestone is a direct proxy for AI enthusiasm reshaping entire national corporate hierarchies; SoftBank's valuation is now inseparable from its AI infrastructure bets, including its $100B+ Stargate commitment and Arm Holdings exposure. [Link](https://www.bloomberg.com/news/articles/2026-06-01/softbank-set-to-dethrone-toyota-as-japan-s-most-valuable-company)
+
+- **[Bloomberg Technology] Kakao union calls four-hour strike after wage and job security talks collapse** — The dispute at South Korea's dominant messaging platform — which has been aggressively integrating AI into its products — underscores a growing labor tension between AI-driven efficiency mandates and workforce expectations that is likely to spread across Asian consumer tech. [Link](https://www.bloomberg.com/news/articles/2026-06-01/kakao-union-calls-for-strike-next-week-after-wage-talks-stall)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/em-stocks-hit-record-high-on-ai-currencies-lower-as-oil-climbs" target="_blank" rel="noopener">
+              EM Stocks Hit Record High on AI, Currencies Lower as Oil Climbs
+            </a>
+          </div>
+          
+          <div class="item-snippet">Emerging Asian equities rose to a record, propelled by continuing enthusiasm for the artificial intelligence trade that’s bolstere…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/kakao-union-calls-for-strike-next-week-after-wage-talks-stall" target="_blank" rel="noopener">
+              Kakao Union Calls for Strike Next Week After Wage Talks Stall
+            </a>
+          </div>
+          
+          <div class="item-snippet">Kakao Corp.’s labor union called for a four-hour strike next week, escalating a dispute with South Korea’s biggest messaging servi…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-01/why-africa-s-population-boom-could-power-its-next-growth-era" target="_blank" rel="noopener">
+              Why Africa’s Population Boom Could Power Its Next Growth Era
+            </a>
+          </div>
+          
+          <div class="item-snippet">Could Africa’s long-misunderstood population boom become its greatest economic advantage? Economist and author Joe Studwell joins …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/bain-finds-corporate-ai-investments-based-on-returns-that-haven-t-arrived" target="_blank" rel="noopener">
+              AI Savings Misses ‘Should Be Making Executives Uncomfortable,’ Bain Says
+            </a>
+          </div>
+          
+          <div class="item-snippet">Cost savings from automation are broadly falling short of projections, according to a new Bain &amp; Co. global survey of large co…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/lg-electronics-shares-surge-more-than-300-on-physical-ai-push" target="_blank" rel="noopener">
+              LG Electronics Shares Jump Over 300% in 2026 on Physical AI Push
+            </a>
+          </div>
+          
+          <div class="item-snippet">LG Electronics Inc. shares have quadrupled this year as investors applaud the venerable Korean appliance maker’s shift into roboti…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/2395f026-5f23-4bb0-a9f3-139e68e0b28c" target="_blank" rel="noopener">
+              Is this the ultimate spin on the record deck?
+            </a>
+          </div>
+          
+          <div class="item-snippet">Vinyl that floats on air – and four more gadgets for analogue fans…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-01/softbank-set-to-dethrone-toyota-as-japan-s-most-valuable-company" target="_blank" rel="noopener">
+              SoftBank Group Overtakes Toyota as Japan’s Most Valuable Company
+            </a>
+          </div>
+          
+          <div class="item-snippet">SoftBank Group Corp. overtook Toyota Motor Corp. as Japan’s most valuable company on Monday, marking a milestone for the global ar…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/73fc962e-ce68-4521-9c5d-841a666eed10" target="_blank" rel="noopener">
+              ‘More harmful than helpful’: young people sour on AI
+            </a>
+          </div>
+          
+          <div class="item-snippet">Gen Z uses the technology more than anyone, but many fear it is weakening their job prospects and creativity…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-worth-reading" id="worth_reading">
+
+    <div class="section-head">
+      <span class="sec-num">08</span>
+      <span class="sec-label">Worth Reading</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Worth Reading
+
+The signal-to-noise problem in knowledge work is getting structurally worse: when AI can polish anyone's output to a professional sheen, the traditional proxies managers and peers use to evaluate competence — clean writing, fast turnaround, polished decks — stop functioning as reliable signals. The interesting intellectual territory this week is about what *replaces* those proxies, and who benefits when the old evidence collapses.</div>
+      
+      <div class="reading-list">
+        
+        <div class="reading-card">
+          <span class="reading-source">Nate B Jones Podcast</span>
+          <div class="reading-body">
+            <div class="reading-title">
+              <a href="https://natesnewsletter.substack.com/p/prove-value-work-ai-era" target="_blank" rel="noopener">Prove Your Value at Work in the AI Era: Judgment Artifacts</a>
+            </div>
+            
+            <div class="reading-summary">For deeper playbooks and analysis:  https://natesnewsletter.substack.com/    What's really happening when AI makes everyone's work look polished?   The common story is that AI makes people more produc</div>
+            
+          </div>
+          <span class="reading-arrow">→</span>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── All other sections (infra, models, tooling, apps) ──────────── -->
+    
+
+  </section>
+  
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI & Tech Intelligence</div>
+        <div class="footer-meta">
+          Generated 2026-06-01 · claude-sonnet-4-6<br>
+          38 items across all sources
+        </div>
+      </div>
+      <div class="footer-sources">
+        <strong>Sources</strong>
+        Axios Tech, Bloomberg Technology, FT Tech, Hugging Face Blog, Nate B Jones Podcast, TechCrunch, The Verge
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
