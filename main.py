@@ -109,6 +109,8 @@ def cli(
     logger.info("STEP 2/5 — Deduplicating")
     logger.info("=" * 60)
 
+    pre_dedup_items = list(all_items)
+
     from processors import deduplicate
     dedup_threshold = newsletter_cfg.get("dedup_title_threshold", 88)
     all_items = deduplicate(all_items, title_threshold=dedup_threshold)
@@ -145,10 +147,7 @@ def cli(
     # ── 5b. Track source performance ─────────────────────────────────────────
     try:
         from scripts.track_sources import track as track_sources
-        # all_items at this point = post-dedup, post-score, post-cluster
-        # We pass both: original pre-dedup for "fetched" counts would be ideal,
-        # but post-dedup is a good proxy. The "scored" list is the same set here.
-        track_sources(all_items, all_items)
+        track_sources(pre_dedup_items, all_items)
         logger.info("  ✓ Source performance logged")
     except Exception as exc:
         logger.warning(f"  ✗ Source tracking failed (non-fatal): {exc}")
