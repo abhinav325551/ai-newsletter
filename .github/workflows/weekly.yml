@@ -1,0 +1,74 @@
+name: Weekly Saturday Digest
+
+on:
+  schedule:
+    # Saturday 3:33 AM UTC = 9:03 AM IST (matches the daily cron)
+    - cron: "33 3 * * 6"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (skip Claude API + email + PR)"
+        type: boolean
+        required: false
+        default: false
+      no_pr:
+        description: "Skip the auto-PR for config changes"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write       # commit weekly outputs + config changes
+  pull-requests: write  # create the source-audit PR
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so the PR branch can push cleanly
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Run weekly digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # for create_pr via gh CLI
+        run: |
+          ARGS="--output-dir docs"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ "${{ github.event.inputs.no_pr }}" = "true" ]; then
+            ARGS="$ARGS --no-pr"
+          fi
+          python weekly.py $ARGS
+
+      - name: Rebuild issue index
+        run: python build_index.py
+
+      - name: Commit and push weekly outputs
+        run: |
+          git config user.name  "ai-newsletter-bot"
+          git config user.email "bot@users.noreply.github.com"
+          # If create_pr inside weekly.py left us on an audit branch with a
+          # modified config.yaml, switch back to main and restore config.yaml
+          # so we don't double-commit the proposed changes (the PR exists for
+          # human review — main should stay untouched until merge).
+          git fetch origin main
+          git checkout main
+          git checkout origin/main -- config.yaml || true
+          git add docs/ sources/performance.jsonl
+          git diff --cached --quiet || (git commit -m "weekly: $(date -u +%Y-%m-%d)" && git push origin main)

@@ -12,28 +12,40 @@ issues = sorted(
     reverse=True,
 )
 
-def fmt_date(filename: str) -> tuple[str, str]:
-    """Returns (long_date, short_date)."""
+def fmt_date(filename: str) -> tuple[str, str, bool]:
+    """Returns (long_date, short_date, is_weekly)."""
+    stem = filename.replace(".html", "")
+    is_weekly = stem.endswith("-weekly")
+    if is_weekly:
+        stem = stem[:-len("-weekly")]
     try:
-        d = datetime.strptime(filename.replace(".html", ""), "%Y-%m-%d")
-        return d.strftime("%B %d, %Y"), d.strftime("%a")
+        d = datetime.strptime(stem, "%Y-%m-%d")
+        return d.strftime("%B %d, %Y"), d.strftime("%a"), is_weekly
     except Exception:
-        s = filename.replace(".html", "")
-        return s, ""
+        return stem, "", is_weekly
 
 rows = ""
+daily_count = sum(1 for p in issues if not p.name.endswith("-weekly.html"))
+weekly_count = len(issues) - daily_count
 for i, issue in enumerate(issues):
-    long_date, day = fmt_date(issue.name)
-    latest_badge = '<span class="badge">Latest</span>' if i == 0 else ""
+    long_date, day, is_weekly = fmt_date(issue.name)
+    badges = []
+    if i == 0:
+        badges.append('<span class="badge">Latest</span>')
+    if is_weekly:
+        badges.append('<span class="badge badge-weekly">Weekly</span>')
+    badge_html = " ".join(badges)
+    desc = "Saturday week-in-review" if is_weekly else "Full stack AI briefing"
+    card_class = "issue-card weekly" if is_weekly else "issue-card"
     rows += f"""
-      <a class="issue-card" href="{issue.name}">
+      <a class="{card_class}" href="{issue.name}">
         <div class="issue-num-wrap">
           <div class="issue-day">{day}</div>
           <div class="issue-num">#{len(issues) - i}</div>
         </div>
         <div class="issue-body">
-          <div class="issue-date">{long_date} {latest_badge}</div>
-          <div class="issue-desc">Full stack AI briefing</div>
+          <div class="issue-date">{long_date} {badge_html}</div>
+          <div class="issue-desc">{desc}</div>
         </div>
         <span class="issue-arrow">→</span>
       </a>"""
@@ -187,6 +199,12 @@ html = f"""<!DOCTYPE html>
       text-transform: uppercase; background: var(--accent); color: white;
       padding: 0.1rem 0.4rem; border-radius: 3px;
     }}
+    .badge-weekly {{ background: #1e5b8a; }}
+    .issue-card.weekly {{
+      background: linear-gradient(to right, #f0f5fa 0%, #ffffff 30%);
+      border-left: 3px solid #1e5b8a;
+    }}
+    .issue-card.weekly:hover {{ border-color: #1e5b8a; background: #f0f5fa; }}
     .empty {{ text-align: center; padding: 4rem 0; color: var(--light); font-style: italic; font-size: 0.9rem; }}
 
     /* Footer */
@@ -208,7 +226,7 @@ html = f"""<!DOCTYPE html>
   <header class="masthead">
     <div class="masthead-top">
       <span class="masthead-eyebrow">Intelligence Briefing</span>
-      <span class="masthead-date">Runs weekdays · 9 AM IST</span>
+      <span class="masthead-date">Weekdays daily · Saturday weekly · 9 AM IST</span>
     </div>
     <div class="masthead-body">
       <div>
@@ -216,7 +234,7 @@ html = f"""<!DOCTYPE html>
         <p class="masthead-sub">The full AI stack — from silicon to SaaS disruption</p>
       </div>
       <div class="masthead-chips">
-        <span class="chip">{len(issues)} issues</span>
+        <span class="chip">{daily_count} daily + {weekly_count} weekly</span>
         <span class="chip">Powered by Claude</span>
       </div>
     </div>

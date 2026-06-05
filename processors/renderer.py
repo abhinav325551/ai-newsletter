@@ -1,6 +1,11 @@
-"""Render newsletter sections to Markdown and HTML using Jinja2 templates."""
+"""Render newsletter sections to Markdown and HTML using Jinja2 templates.
+
+Also writes a `.json` sidecar with the structured per-section item data so the
+Saturday weekly digest can aggregate the week's stories without re-fetching.
+"""
 from __future__ import annotations
 
+import json
 import os
 from datetime import datetime
 from pathlib import Path
@@ -60,5 +65,34 @@ def render(
     html_path = output_dir / f"{date_str}.html"
     html_path.write_text(html_tmpl.render(**ctx), encoding="utf-8")
     logger.info(f"[Renderer] HTML → {html_path}")
+
+    # JSON sidecar — structured data for the weekly digest aggregator
+    sidecar = {
+        "date": date_str,
+        "total_items": len(all_items),
+        "source_names": source_names,
+        "sections": [
+            {
+                "id": sec.id,
+                "title": sec.title,
+                "intro": sec.intro or "",
+                "summary": sec.summary or "",
+                "items": [
+                    {
+                        "title": getattr(it, "title", "") or "",
+                        "url": getattr(it, "url", "") or "",
+                        "source_name": getattr(it, "source_name", "") or "",
+                        "source_type": getattr(it, "source_type", "") or "",
+                        "score": getattr(it, "score", 0) or 0,
+                    }
+                    for it in sec.items
+                ],
+            }
+            for sec in ordered_sections
+        ],
+    }
+    sidecar_path = output_dir / f"{date_str}.json"
+    sidecar_path.write_text(json.dumps(sidecar, ensure_ascii=False, indent=2), encoding="utf-8")
+    logger.info(f"[Renderer] JSON sidecar → {sidecar_path}")
 
     return md_path, html_path
