@@ -57,9 +57,11 @@ jobs:
           python weekly.py $ARGS
 
       - name: Rebuild issue index
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python build_index.py
 
       - name: Commit and push weekly outputs
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name  "ai-newsletter-bot"
           git config user.email "bot@users.noreply.github.com"
