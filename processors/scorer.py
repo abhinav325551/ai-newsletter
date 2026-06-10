@@ -49,6 +49,46 @@ _INFRA_KEYWORDS = re.compile(
     "|".join(_SECTION_PATTERNS[0][1]), re.IGNORECASE
 )
 
+# AI-relevance anchor: an item must mention at least one of these to be
+# classified into an editorial section. Items that fail this check land in
+# "off_topic" (which is not declared in config.yaml's sections list, so it
+# never gets summarised or rendered). This prevents non-AI Bloomberg stories
+# from becoming the Big Thing and causing Claude to refuse the summary.
+_AI_ANCHOR_RE = re.compile(
+    r"\b("
+    # Core AI/ML terms
+    r"A\.?I\.?|AGI|LLMs?|GPT|chat[Gg]pt|"
+    r"artificial intelligence|machine learning|deep learning|neural network|"
+    # Major labs / models
+    r"claude|gemini|llama|mistral|deepseek|grok|qwen|opus|sonnet|haiku|"
+    r"openai|anthropic|deepmind|google\s+ai|meta\s+ai|xai|cohere|"
+    r"hugging\s*face|huggingface|stability\s*ai|inflection|"
+    # Silicon / accelerators
+    r"nvidia|jensen\s+huang|H100|H200|B[12]00|GB\d+|blackwell|hopper|vera\s+rubin|"
+    r"AMD|cerebras|groq|tenstorrent|sambanova|TPU|NPU|HBM\d?|CoWoS|"
+    r"semiconductor|foundry|wafer|silicon|"
+    # Infrastructure
+    r"hyperscaler|data\s*center|datacenter|"
+    # Agents / tooling
+    r"agent\w*|copilot|cursor|devin|langchain|langgraph|"
+    # Concepts
+    r"inference|fine.?tun\w*|pre.?train\w*|transformer|multimodal|"
+    r"embedding|foundation\s+model|frontier\s+model|reasoning\s+model|RAG|"
+    # Consumer AI products / brands
+    r"midjourney|sora|perplexity|runway|pika|character\.ai|"
+    r"Siri|Apple\s+Intelligence|Copilot|"
+    # CJK basic
+    r"人工智能|機械学習|大模型|大語言模型|生成式"
+    r")",
+    re.IGNORECASE,
+)
+
+
+def _has_ai_anchor(item: FeedItem) -> bool:
+    """Return True if the item contains at least one AI/tech anchor term."""
+    text = f"{item.title} {item.summary or ''} {item.full_text or ''}"
+    return bool(_AI_ANCHOR_RE.search(text))
+
 
 def _compute_recency_boost(pub: datetime | None) -> float:
     if not pub:
@@ -77,18 +117,36 @@ def _engagement_score(item: FeedItem) -> float:
 
 def _detect_section(item: FeedItem) -> str:
     text = f"{item.title} {item.summary}".lower()
+    has_anchor = _has_ai_anchor(item)
+
     for section_id, patterns in _SECTION_PATTERNS:
         for pat in patterns:
             if re.search(pat, text, re.IGNORECASE):
+                # The "applications" pattern is intentionally loose — it
+                # matches generic words like "app", "raises", "funding",
+                # "startup". That sweeps in non-AI funding/bond/IPO stories.
+                # Gate that section on a positive AI-anchor hit; let the
+                # tighter section patterns (infrastructure, models_research,
+                # tooling_agents, saas_disruption) pass on their own merits.
+                if section_id == "applications" and not has_anchor:
+                    continue
                 return section_id
-    # Fallback by source type
+
+    # Source-type fallbacks for content that wasn't keyword-matched but is
+    # still from an AI-relevant source channel.
     if item.source_type == "arxiv":
         return "papers"
     if item.source_type == "podcast":
         return "worth_reading"
     if item.source_type in ("twitter", "reddit", "hn"):
         return "signals"
-    return "applications"
+
+    # Final fallback: only land in "applications" if the item has at least
+    # one AI/tech anchor term. Otherwise mark off-topic so it can't become
+    # the Big Thing or fill a section with non-AI content.
+    if has_anchor:
+        return "applications"
+    return "off_topic"
 
 
 def score_and_classify(items: list[FeedItem]) -> list[FeedItem]:
@@ -105,6 +163,12 @@ def score_and_classify(items: list[FeedItem]) -> list[FeedItem]:
 
         if not item.section:
             item.section = _detect_section(item)
+
+        # Off-topic items get their score halved so they can never beat a
+        # genuine AI story on ties. They're also filtered out of Big Thing
+        # selection upstream in main.py.
+        if item.section == "off_topic":
+            item.score = item.score // 2
 
     # Sort by score descending within each section
     items.sort(key=lambda x: x.score, reverse=True)

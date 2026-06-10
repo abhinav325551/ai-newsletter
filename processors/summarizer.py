@@ -61,6 +61,42 @@ Always attribute claims to specific sources. Flag unconfirmed reports with "(unc
 "(rumored)". Never fabricate URLs or statistics."""
 
 
+# Phrases Claude tends to emit when it correctly refuses to write a Big Thing
+# about non-AI source material. If any of these show up in the first 600 chars
+# of the response, we treat the output as a refusal and drop the section
+# rather than shipping the refusal text as the lead story.
+_REFUSAL_MARKERS = (
+    "i don't have",
+    "i'm not able",
+    "i cannot",
+    "i can't write",
+    "what i'd recommend",
+    "what you should do",
+    "what i can do instead",
+    "source material",  # appears in phrases like "the source material doesn't contain"
+    "doesn't contain",
+    "no meaningful ai angle",
+    "no ai angle",
+    "fabricating",
+    "no legitimate",
+    "hold this slot",
+)
+
+
+def _looks_like_refusal(text: str) -> bool:
+    if not text:
+        return True
+    head = text[:600].lower()
+    hits = sum(1 for m in _REFUSAL_MARKERS if m in head)
+    # Two or more markers in the opening = high-confidence refusal.
+    # A very short response (< 400 chars) with even one marker is also suspect.
+    if hits >= 2:
+        return True
+    if hits >= 1 and len(text.strip()) < 400:
+        return True
+    return False
+
+
 def _summarize_big_thing(client: anthropic.Anthropic, top_item: FeedItem, related: list[FeedItem]) -> str:
     context = _items_to_context([top_item] + related[:3])
     prompt = f"""Write "The Big Thing" section for today's newsletter.
@@ -75,7 +111,14 @@ Source material:
 {context}
 
 Write in second person ("you") where appropriate. Be direct and analytical."""
-    return _call_claude(client, _SYSTEM, prompt)
+    result = _call_claude(client, _SYSTEM, prompt)
+    if _looks_like_refusal(result):
+        logger.warning(
+            f"[Summarizer] Big Thing output looks like a refusal — dropping. "
+            f"Top item was [{top_item.source_name}] {top_item.title[:80]}"
+        )
+        return ""
+    return result
 
 
 def _summarize_section(

@@ -156,15 +156,34 @@ def cli(
     max_per_section = newsletter_cfg.get("max_items_per_section", 8)
     items_by_section: dict[str, list] = defaultdict(list)
 
-    # For big_thing: pick the highest-scoring non-signals item
-    non_signal_items = [i for i in all_items if i.section not in ("signals", "papers", "worth_reading", "podcast")]
-    if non_signal_items:
-        top_item = non_signal_items[0]
+    # For big_thing: prefer the highest-scoring item from an AI-core section.
+    # We exclude signals/papers/worth_reading/podcast (those have their own
+    # treatment) AND off_topic (non-AI items that would cause Claude to refuse
+    # the Big Thing summary, shipping a refusal as the lead story).
+    BIG_THING_CORE_SECTIONS = (
+        "infrastructure", "models_research", "tooling_agents", "saas_disruption"
+    )
+    BIG_THING_EXCLUDED = ("signals", "papers", "worth_reading", "podcast", "off_topic")
+
+    core_candidates = [i for i in all_items if i.section in BIG_THING_CORE_SECTIONS]
+    # Fall back to applications (which now requires an AI anchor to be assigned)
+    # if no core section produced anything; never fall back to off_topic.
+    fallback_candidates = [i for i in all_items if i.section == "applications"]
+
+    top_item = None
+    if core_candidates:
+        top_item = core_candidates[0]
+    elif fallback_candidates:
+        top_item = fallback_candidates[0]
+
+    if top_item is not None:
         top_item.section = "big_thing"
         items_by_section["big_thing"] = [top_item]
         skip_uid = top_item.uid
+        logger.info(f"  Big Thing pick: [{top_item.source_name}] {top_item.title[:90]}")
     else:
         skip_uid = None
+        logger.warning("  No AI-relevant item available for Big Thing — section will be skipped")
 
     for item in all_items:
         if skip_uid and item.uid == skip_uid:
