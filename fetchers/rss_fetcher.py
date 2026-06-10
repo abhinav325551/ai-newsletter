@@ -1,4 +1,11 @@
-"""RSS fetcher for mainstream news publishers."""
+"""RSS fetcher for mainstream news publishers.
+
+Uses a realistic Mozilla User-Agent string because many publishers (Substack,
+Cloudflare-fronted sites) now serve a bot-challenge HTML page to unknown UAs.
+The previous string ``ai-newsletter/1.0`` caused ~15 feeds to return HTML or
+Cloudflare CAPTCHA pages from GitHub Actions runner IPs even when the same
+URLs returned proper XML from regular browsers.
+"""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,6 +16,14 @@ import feedparser
 from loguru import logger
 
 from .base import FeedItem
+
+# Match a current Firefox UA. Updated periodically — feedparser's default
+# ``feedparser/X.Y +http://...`` and any ``*-bot*`` string get blocked or
+# served challenge pages by Substack-fronted feeds in CI.
+_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64; rv:122.0) "
+    "Gecko/20100101 Firefox/122.0"
+)
 
 
 def _parse_date(entry: Any) -> datetime | None:
@@ -33,7 +48,13 @@ def fetch_rss_feed(
 ) -> list[FeedItem]:
     items: list[FeedItem] = []
     try:
-        feed = feedparser.parse(url, request_headers={"User-Agent": "ai-newsletter/1.0"})
+        feed = feedparser.parse(
+            url,
+            request_headers={
+                "User-Agent": _USER_AGENT,
+                "Accept": "application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8",
+            },
+        )
         if feed.bozo and not feed.entries:
             logger.warning(f"[RSS] {name}: malformed feed — {feed.bozo_exception}")
             return items
