@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — 2026-06-11</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f5f4f0;
+      --page:         #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --light:        #aaa;
+      --border:       #e4e2dc;
+      --border-light: #eeede8;
+      --accent:       #c0392b;
+      --accent-bg:    #fdf3f2;
+      --orange:       #c0621e;
+      --orange-bg:    #fdf6f0;
+      --tag-bg:       #eeede8;
+      --tag-text:     #666;
+      --card-hover:   #fafaf7;
+      --serif:        "Source Serif 4", Georgia, serif;
+      --display:      "Playfair Display", Georgia, serif;
+      --sans:         "Inter", system-ui, sans-serif;
+      --radius:       6px;
+      --col:          960px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Outer wrapper ───────────────────────────────────────────────────── */
+    .shell {
+      max-width: var(--col);
+      margin: 0 auto;
+      background: var(--page);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════════════════ */
+    .masthead {
+      border-bottom: 3px solid var(--text);
+      padding: 2rem 2.5rem 0;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .masthead-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .masthead-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+    }
+    /* Desktop: title + sidebar stats in 2 cols */
+    .masthead-body {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: 1.25rem;
+    }
+    .masthead-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .masthead-sub {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+    }
+    .masthead-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .stat-chip {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOC BAR
+    ═══════════════════════════════════════════════════════════════════════ */
+    .toc {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toc-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .toc-items {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
+    }
+    .toc-chip {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--page);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .toc-chip:hover {
+      background: var(--accent-bg);
+      border-color: #e8b8b4;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .section:last-child { border-bottom: none; }
+
+    /* Section header — full width stripe */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem 0;
+    }
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      min-width: 1.4rem;
+    }
+    .sec-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      color: var(--light);
+    }
+
+    /* Section body */
+    .section-body { padding: 1.25rem 2.5rem 2rem; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       01 — THE BIG THING  (full-width hero)
+    ═══════════════════════════════════════════════════════════════════════ */
+    .big-thing-body {
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 2.5px solid var(--text);
+      margin-top: 1rem;
+    }
+    .big-thing-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.82;
+      color: var(--text);
+      white-space: pre-wrap;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STANDARD SECTION  — intro + 2-col item grid
+    ═══════════════════════════════════════════════════════════════════════ */
+    .sec-intro {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--border);
+      max-width: 62ch;
+    }
+    .sec-prose {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* Item card grid — 2 cols on desktop, 1 on mobile */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--page);
+    }
+    .item-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .item-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .item-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .item-title a:hover { color: var(--accent); }
+    .item-snippet {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SIGNALS  — 3-col compact list
+    ═══════════════════════════════════════════════════════════════════════ */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .signal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: var(--bg);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signal-card:hover {
+      border-color: #d0cdc5;
+      background: var(--page);
+    }
+    .signal-source {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .signal-title {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .signal-title a:hover { color: var(--accent); }
+    .signal-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PAPERS  — 2-col
+    ═══════════════════════════════════════════════════════════════════════ */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .paper-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .paper-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .paper-badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .paper-title {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .paper-title a:hover { color: var(--accent); }
+    .paper-authors {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .paper-abstract {
+      font-family: var(--sans);
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SAAS DISRUPTION  — full-width + callout block
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section-saas-disruption .sec-label { color: var(--orange); }
+    .section-saas-disruption .sec-num { color: var(--orange); }
+    .disruption-banner {
+      background: var(--orange-bg);
+      border: 1px solid #f0d5bc;
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7a3a10;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       WORTH READING  — horizontal cards
+    ═══════════════════════════════════════════════════════════════════════ */
+    .reading-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .reading-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reading-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .reading-source {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .reading-body { flex: 1; }
+    .reading-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .reading-title a:hover { color: var(--accent); }
+    .reading-summary {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .reading-arrow {
+      color: var(--border);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .reading-card:hover .reading-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      border-top: 3px solid var(--text);
+      padding: 1.75rem 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .footer-sources {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .footer-sources strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .shell { border: none; }
+      .masthead, .toc, .section-head, .section-body,
+      .big-thing-body, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .masthead-body { grid-template-columns: 1fr; gap: 0.75rem; }
+      .masthead-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+      .item-grid      { grid-template-columns: 1fr; }
+      .signals-grid   { grid-template-columns: 1fr; }
+      .papers-grid    { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr; }
+      .footer-sources { text-align: left; }
+    }
+
+    @media (min-width: 701px) and (max-width: 860px) {
+      .signals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ MASTHEAD ══════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">AI & Tech Intelligence</span>
+      <span class="masthead-date">2026-06-11</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — infrastructure to application layer</p>
+      </div>
+      <div class="masthead-stats">
+        <span class="stat-chip">80 sources</span>
+        <span class="stat-chip">claude-sonnet-4-6</span>
+        <span class="stat-chip">2026-06-11</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ TOC ═══════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <span class="toc-label">In this issue</span>
+    <div class="toc-divider"></div>
+    <div class="toc-items">
+      
+      <a class="toc-chip" href="#big_thing">The Big Thing</a>
+      
+      <a class="toc-chip" href="#infrastructure">Infrastructure & Silicon</a>
+      
+      <a class="toc-chip" href="#models_research">Models & Research</a>
+      
+      <a class="toc-chip" href="#tooling_agents">Tooling & Agents</a>
+      
+      <a class="toc-chip" href="#applications">Applications & Consumer AI</a>
+      
+      <a class="toc-chip" href="#saas_disruption">SaaS Disruption Watch</a>
+      
+      <a class="toc-chip" href="#signals">Signals from the Feed</a>
+      
+      <a class="toc-chip" href="#papers">Papers of the Week</a>
+      
+    </div>
+  </nav>
+
+  <!-- ══ SECTIONS ══════════════════════════════════════════════════════════ -->
+  
+  <section class="section section-big-thing" id="big_thing">
+
+    <div class="section-head">
+      <span class="sec-num">01</span>
+      <span class="sec-label">The Big Thing</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="big-thing-body">
+      <div class="big-thing-text">## The Big Thing: TDK's Acquisition of Fabric8Labs Signals a Hardware Bet on AI Infrastructure
+
+The story you need to understand this week isn't about a new model release or a funding round — it's about the physical substrate of AI compute. TDK USA CEO Jim Tran confirmed to Bloomberg's Shery Ahn that the Japanese electronics giant is moving to acquire Fabric8Labs, a San Diego-based startup specializing in electrochemical additive manufacturing (ECAM) — a process that 3D-prints metal components at microscopic precision using copper deposition rather than traditional subtractive machining. The deal is explicitly framed as part of TDK's broader push into the data center business, connecting a cutting-edge fabrication technology to the insatiable demand for custom, high-density hardware that AI workloads require.
+
+To understand why this matters, you need context on both parties. TDK is not a peripheral player — it's a $15B+ revenue components giant whose fingerprints are on virtually every hard drive, sensor, and passive component in modern electronics, including magnetic recording heads where precision manufacturing is existential. Fabric8Labs, founded in 2018 and backed by investors including Oklo-linked deep-tech funds, has developed ECAM technology capable of producing copper-based metal parts with feature resolutions that conventional manufacturing cannot match at scale. The relevance to data centers is direct: as AI accelerators push thermal and power density to new extremes, the interconnects, cooling structures, and custom chassis components required increasingly exceed what standard manufacturing can deliver cost-effectively. Fabric8Labs' process offers a potential path to on-demand, geometrically complex metal parts that could reshape how hyperscalers source hardware.
+
+The broader implication here is that the AI infrastructure race is forcing consolidation not just in chips and software, but in the manufacturing layer that feeds them. NVIDIA's dominance in GPUs has created a secondary scramble among component suppliers, EMS firms, and materials companies to lock in positions across the supply chain. TDK's move mirrors a pattern you've seen from Murata, Kyocera, and other Japanese components specialists who are pivoting from consumer electronics exposure — a shrinking market — toward data center adjacencies. If Fabric8Labs' ECAM process can be scaled under TDK's manufacturing infrastructure and customer relationships, it gives TDK a differentiated offering precisely where hyperscalers are most cost-sensitive: custom metal fabrication for next-generation rack and cooling architectures.
+
+What to watch: First, deal terms and valuation, which have not been disclosed — this will signal how aggressively TDK is pricing frontier manufacturing IP. Second, whether this acquisition accelerates ECAM's entry into specific hyperscaler qualification pipelines; TDK's existing relationships with Microsoft, Google, and major ODMs would be the obvious on-ramp. Third, watch for competitive responses from materials and EMS competitors — if TDK is paying a premium for this capability, it validates the thesis that advanced metal fabrication is a genuine bottleneck in AI hardware scaling, and others will move quickly.</div>
+    </div>
+
+    <!-- ── SaaS Disruption ────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-infrastructure" id="infrastructure">
+
+    <div class="section-head">
+      <span class="sec-num">02</span>
+      <span class="sec-label">Infrastructure & Silicon</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Infrastructure & Silicon
+
+The AI infrastructure buildout is entering a credibility crisis: capital costs are outpacing revenue convincingly enough to spook bond markets and equity investors simultaneously, while a single $35B chip financing deal for one AI lab underscores just how capital-intensive the frontier has become. The era of "build it and they will come" data center financing is giving way to genuine scrutiny of unit economics — a shift that will separate disciplined operators from speculative overbuilders.</div>
+      
+      <div class="sec-prose">- **[FT] Apollo and Blackstone raise $35B in chip financing for Anthropic** — The sheer scale of this deal — private credit markets now underwriting AI silicon directly — signals that traditional equity and debt markets can't move fast enough to fund frontier training infrastructure, pushing labs toward bespoke financing structures with significant leverage implications. [Link](https://www.ft.com/content/c49e0eff-0776-4103-8eaf-1b049fbf9d3f)
+
+- **[Bloomberg] Oracle shares fall after data center capex exceeds estimates** — Oracle's miss on capital expenditure guidance is a concrete data point that hyperscaler-adjacent AI infrastructure businesses are burning faster than investors modeled; profitability timelines for the AI infrastructure cohort are being revised downward. [Link](https://www.bloomberg.com/news/articles/2026-06-10/oracle-reports-higher-than-expected-data-center-spending)
+
+- **[Bloomberg] Citi warns bond investors growing more selective on data center financing** — Citigroup analysts flagging selective credit appetite is an early leading indicator: when fixed-income desks tighten scrutiny ahead of equity markets, it typically precedes a broader repricing of infrastructure risk premiums. [Link](https://www.bloomberg.com/news/articles/2026-06-10/citi-says-investors-growing-more-selective-on-data-center-bonds)
+
+- **[Bloomberg] ASML cutting fewer jobs than planned following Dutch union negotiations, layoffs delayed to May 1** — A smaller-than-announced headcount reduction at the world's sole EUV lithography supplier obscures the underlying signal: ASML is managing demand uncertainty in its order book, which directly tracks the cadence of next-generation fab capacity expansions feeding AI chip supply. [Link](https://www.bloomberg.com/news/articles/2026-06-10/asml-asml-to-cut-fewer-jobs-than-planned-delays-layoffs-until-may)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">OpenAI Blog</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://openai.com/index/prc-linked-influence-operations-ai-debates" target="_blank" rel="noopener">
+              PRC-linked influence operations are targeting AI debates in the US
+            </a>
+          </div>
+          
+          <div class="item-snippet">A new report from OpenAI details PRC-linked influence operations using AI to target U.S. tech debates, data center narratives, tar…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-10/oracle-reports-higher-than-expected-data-center-spending" target="_blank" rel="noopener">
+              Oracle Falls After Data Center Costs Overshadow AI Growth
+            </a>
+          </div>
+          
+          <div class="item-snippet">Oracle Corp. shares declined in premarket trading after the company reported quarterly capital expenses that were higher than esti…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-10/asml-asml-to-cut-fewer-jobs-than-planned-delays-layoffs-until-may" target="_blank" rel="noopener">
+              ASML to Cut Fewer Jobs Than Planned After Union Deal
+            </a>
+          </div>
+          
+          <div class="item-snippet">Chip-equipment maker ASML Holding NV will cut fewer jobs than planned, with redundancies not expected to take effect until May 1, …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-10/citi-says-investors-growing-more-selective-on-data-center-bonds" target="_blank" rel="noopener">
+              Citi Says Investors Growing More Selective on Data Center Bonds
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bond investors are increasingly scrutinizing financing deals linked to artificial intelligence infrastructure buildouts, according…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Axios Tech</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.axios.com/2026/06/10/iran-war-aftershocks-oil-coal-climate" target="_blank" rel="noopener">
+              How the Iran war aftershocks are hitting oil, coal, climate
+            </a>
+          </div>
+          
+          <div class="item-snippet">Data: U.S. Energy Information Administration; Chart: Ben Geman/Axios  With the Iran war now over 100 days old, here's the latest r…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/c49e0eff-0776-4103-8eaf-1b049fbf9d3f" target="_blank" rel="noopener">
+              Apollo and Blackstone raise $35bn in chip financing deal for Anthropic
+            </a>
+          </div>
+          
+          <div class="item-snippet">Transaction is one of the largest private credit fundraisings, fuelling Claude maker’s AI growth plans…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">LangChain Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.langchain.com/blog/full-text-search-in-smithdb-designing-an-inverted-index-for-object-storage" target="_blank" rel="noopener">
+              Full Text Search in SmithDB: Designing an Inverted Index for Object Storage
+            </a>
+          </div>
+          
+          <div class="item-snippet">SmithDB supports full-text search and JSON filtering over agent traces with a median (P50) latency of 400 ms, even though the unde…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/06/10/everyone-wants-a-piece-of-teslas-battery-business/" target="_blank" rel="noopener">
+              Everyone wants a piece of Tesla’s battery business
+            </a>
+          </div>
+          
+          <div class="item-snippet">Electricity demand from AI data centers is pushing everyone — including automakers like GM and Ford — into the energy storage busi…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-models-research" id="models_research">
+
+    <div class="section-head">
+      <span class="sec-num">03</span>
+      <span class="sec-label">Models & Research</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">13</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Models & Research
+
+The week's research signal points in two directions simultaneously: frontier model benchmarks are getting harder to game just as a contrarian architecture movement quietly challenges the assumption that transformers and massive compute budgets are the only path to capable foundation models. Meanwhile, the emerging consensus that more memory always equals better agents is taking its first serious empirical hits.</div>
+      
+      <div class="sec-prose">- **[VentureBeat] GPT-5.5 beats Claude Fable 5 on UC Berkeley's new Agents' Last Exam (ALE) benchmark** — Built with input from 300+ domain experts and designed to evaluate long-horizon, economically valuable professional workflows, ALE is a meaningful step beyond saturated academic benchmarks; the result is a genuine upset given Anthropic's recent agentic momentum. [Link](https://venturebeat.com/technology/surprise-upset-gpt-5-5-beats-claude-fable-5-on-brutal-new-agents-last-exam-benchmark)
+
+- **[VentureBeat] Sapient's HRM-Text trained a foundation LLM from scratch for ~$1,500** — The architecture swaps standard Transformers for a Hierarchical Recurrent Model (HRM) optimized for sample efficiency, directly attacking the cost and data-scale assumptions that keep enterprise foundation model training off the table; claims remain unverified by independent replication (unconfirmed). [Link](https://venturebeat.com/technology/researchers-say-they-trained-a-foundation-model-from-scratch-for-about-1-500)
+
+- **[TechCrunch] New research finds memory tools can degrade AI model performance** — The finding cuts against a core product narrative across nearly every major AI assistant: that persistent memory is an unambiguous quality multiplier; the mechanism appears to involve context pollution from low-quality or misattributed memory retrievals. [Link](https://techcrunch.com/2026/06/10/how-memory-tools-can-make-ai-models-worse/)
+
+- **[arXiv] "Redesign Mixture-of-Experts Routers with Manifold Power Iteration"** — The paper targets a known structural weakness in MoE routing—that router matrix rows are poor proxies for expert affinity—proposing manifold power iteration to better encode expert representations, a potentially high-leverage optimization given how central MoE scaling has become to frontier model efficiency. [Link](http://arxiv.org/abs/2606.12397v1)
+
+- **[LangChain Blog] LangChain launches LangChain Labs, focused on continual learning for agents** — Partnering with Harvey, NVIDIA, Prime Intellect, Fireworks, and Baseten, the initiative targets a genuine unsolved problem—using an agent's own production traces, feedback, and eval results as training signal—though translating that into reliable capability improvement at runtime remains an open research question. [Link](https://www.langchain.com/blog/introducing-langchain-labs)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-10/the-close-6-10-2026-video" target="_blank" rel="noopener">
+              US Inflation Picks Up, Eroding Paychecks | The Close 6/10/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bloomberg Television brings you the latest news and analysis leading up to the final minutes and seconds before and after the clos…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-10/oracle-s-earnings-really-strong-rbc-s-jaluria-video" target="_blank" rel="noopener">
+              Oracle's Earnings 'Really Strong,' RBC's Jaluria Says
+            </a>
+          </div>
+          
+          <div class="item-snippet">Rishi Jaluria, RBC Capital Markets software equity research managing director, reacts to Oracle's fourth-quarter earnings. Speakin…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/da121259-3823-4109-bf7f-f7ff21d3118f" target="_blank" rel="noopener">
+              ‘We’re back in the Stone Age’: Russia’s spies turn off the internet
+            </a>
+          </div>
+          
+          <div class="item-snippet">Shutdowns have made one of the world’s most online nations resort to cash, paper maps and pet cams…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/06/10/how-memory-tools-can-make-ai-models-worse/" target="_blank" rel="noopener">
+              How memory tools can make AI models worse
+            </a>
+          </div>
+          
+          <div class="item-snippet">New research suggests that AI memory systems can degrade model performance and encourage sycophantic tendencies.…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">LangChain Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.langchain.com/blog/introducing-langchain-labs" target="_blank" rel="noopener">
+              Introducing LangChain Labs
+            </a>
+          </div>
+          
+          <div class="item-snippet">LangChain Labs is a new applied research effort focused on continual learning for agents, with partners advancing open research on…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/technology/researchers-say-they-trained-a-foundation-model-from-scratch-for-about-1-500" target="_blank" rel="noopener">
+              Researchers say they trained a foundation model from scratch for about $1,500
+            </a>
+          </div>
+          
+          <div class="item-snippet">Training a foundation LLM from scratch costs millions and requires internet-scale data — which is why most enterprises don&#x27;t …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/technology/surprise-upset-gpt-5-5-beats-claude-fable-5-on-brutal-new-agents-last-exam-benchmark" target="_blank" rel="noopener">
+              Surprise upset: GPT-5.5 beats Claude Fable 5 on brutal new Agents’ Last Exam benchmark
+            </a>
+          </div>
+          
+          <div class="item-snippet">Researchers from the University of California, Berkeley&#x27;s Center for Responsible, Decentralized Intelligence (RDI), alongside…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.12397v1" target="_blank" rel="noopener">
+              Redesign Mixture-of-Experts Routers with Manifold Power Iteration
+            </a>
+          </div>
+          
+          <div class="item-snippet">Router is the cornerstone component to the Mixture-of-Experts models. Serving as expert proxies, the rows of the router matrix com…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-tooling-agents" id="tooling_agents">
+
+    <div class="section-head">
+      <span class="sec-num">04</span>
+      <span class="sec-label">Tooling & Agents</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Tooling & Agents
+
+The week's sharpest thinking on agent infrastructure centers on a structural question the industry has largely avoided: what agents can actually *do* versus what they can merely *reason about*. LangChain's client-side tooling post and Sarah Guo's "untrainable" framework both point at the same gap — the hard moat in agents isn't model intelligence, it's privileged access to runtime state that server-side orchestration simply cannot observe. Meanwhile, early-stage capital continues flowing into bets against hyperscaler lock-in, suggesting the market expects the tooling layer to fragment before it consolidates.</div>
+      
+      <div class="sec-prose">- **[LangChain Blog] Agents lack direct access to browser state, local memory, and client-side APIs — "headless tools" are proposed as the architectural fix** — LangChain argues that server-side tool calling is structurally blind to the most valuable runtime context (DOM state, local storage, app-specific actions), and that surfacing these as first-class structured tools is the missing link between demos and production-grade agents. [Link](https://www.langchain.com/blog/agents-and-applications)
+
+- **[Latent Space] Sarah Guo's "Model Labs vs. Agent Labs" framework distinguishes between capabilities that can be trained into weights versus those that must be built into infrastructure** — The "untrainable" category — persistent memory, tool orchestration, real-time data access — is precisely where agent infrastructure startups have defensible ground that frontier model vendors cannot simply absorb with the next training run. [Link](https://www.latent.space/p/ainews-open-models-model-labs-vs)
+
+- **[TechCrunch] Niteshift, founded by two early Datadog engineers, raised a $7M seed led by Greylock's Jerry Chen to build an AI coding agent explicitly positioned against Big AI vendor lock-in** — The angel roster — Reid Hoffman, Datadog's Olivier Pomel and Alexis Lê-Quôc, Braintrust's Ankur Goyal, Reflection AI's Misha Laskin — signals that operator-class engineers with observability backgrounds see a real gap in model-agnostic coding infrastructure. [Link](https://techcrunch.com/2026/06/10/datadog-veterans-launch-ai-coding-startup-niteshift-on-a-bet-against-big-ai-lock-in/)
+
+- **[Semafor] Klarna CEO Sebastian Siemiatkowski argues brand preference persists in agentic commerce, pushing back on the thesis that AI shopping agents will commoditize merchant relationships** — This has direct implications for agent tool designers: if consumer preference signals survive the human-to-agent transition, payment and commerce orchestration layers will need preference-encoding mechanisms, not just price-optimization APIs. [Link](https://www.semafor.com/article/06/09/2026/klarna-on-the-fight-for-top-of-wallet-in-an-ai-agentic-commerce-world)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Latent Space</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.latent.space/p/ainews-open-models-model-labs-vs" target="_blank" rel="noopener">
+              [AINews] Open Models, Model Labs vs Agent Labs, and What's Untrainable — Sarah Guo
+            </a>
+          </div>
+          
+          <div class="item-snippet">a quiet day lets us reflect on a great essay…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">FT Tech</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.ft.com/content/b277360e-bf23-4366-afd7-acab940f66b7" target="_blank" rel="noopener">
+              We will need a new tax code for the wealth AI creates
+            </a>
+          </div>
+          
+          <div class="item-snippet">The question isn’t whether mass underemployment arrives but whether we have a policy framework ready when it does…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Meta AI Blog</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://about.fb.com/news/2026/06/how-to-verify-age-online/" target="_blank" rel="noopener">
+              Why Social Media Bans Alone Can’t Solve the Age Verification Dilemma
+            </a>
+          </div>
+          
+          <div class="item-snippet">To help ensure young people stay safe online, we need a practical, centralized framework that verifies the ages of people using ou…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">LangChain Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.langchain.com/blog/agents-and-applications" target="_blank" rel="noopener">
+              The Missing Link Between Agents and Applications
+            </a>
+          </div>
+          
+          <div class="item-snippet">Most AI agent tools run on servers, limiting access to browser APIs, device capabilities, and frontend state. Discover how LangCha…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">TechCrunch</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://techcrunch.com/2026/06/10/datadog-veterans-launch-ai-coding-startup-niteshift-on-a-bet-against-big-ai-lock-in/" target="_blank" rel="noopener">
+              Datadog veterans launch AI coding startup Niteshift on a bet against Big AI lock-in
+            </a>
+          </div>
+          
+          <div class="item-snippet">AI coding agent startup Niteshift has raised a $7 million seed round from a who's who of angels. It's betting companies will want …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">The Verge</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.theverge.com/gadgets/948044/framework-laptop-13-pro-delay-shipment-july-august" target="_blank" rel="noopener">
+              Framework delays its first Laptop 13 Pro shipments by a month
+            </a>
+          </div>
+          
+          <div class="item-snippet">The Framework Laptop 13 Pro is delayed. The new 13-inch Framework flagship was set to launch in June, but shipments from the first…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Semafor Tech</span>
+            <span class="item-score">↑ 72</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.semafor.com/article/06/09/2026/klarna-on-the-fight-for-top-of-wallet-in-an-ai-agentic-commerce-world" target="_blank" rel="noopener">
+              Klarna on the fight for ‘top of wallet’ in an AI agentic commerce world
+            </a>
+          </div>
+          
+          <div class="item-snippet">CEO Sebastian Siemiatkowski thinks there’s still a place for brand loyalty and perks in a bot shopping world. Up next: Klarna airp…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">The Verge</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.theverge.com/business/948083/kalshi-prediction-markets-insider-trading" target="_blank" rel="noopener">
+              Kalshi adds required employment verification for some prediction market bets
+            </a>
+          </div>
+          
+          <div class="item-snippet">The CFTC is considering its first regulation for prediction markets, as arrests over "insider trading" on everything from military…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-applications" id="applications">
+
+    <div class="section-head">
+      <span class="sec-num">05</span>
+      <span class="sec-label">Applications & Consumer AI</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Applications & Consumer AI
+
+The through-line this week is organizational stress at the application layer: companies that rushed AI into their product and workforce strategies are now dealing with the human fallout — leadership reshuffles, labor pushback, and the hard realization that "AI-first" requires more than a rebrand. Meanwhile, consumer health AI continues its quiet march toward clinical-grade sensing, suggesting the real consumer AI battleground in 2026 is the body, not the chatbot.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Oura replaces its smart ring hardware alongside new health detection capabilities targeting hypertension and sleep apnea** — Moving from fitness tracking into passive clinical screening is a significant regulatory and liability step; if Oura can validate these signals at scale, it reframes the wearable as a continuous diagnostic tool rather than a wellness accessory. [Link](https://www.bloomberg.com/news/videos/2026-06-11/oura-s-jayaraman-on-new-model-health-features-video)
+
+- **[Bloomberg Technology] Alibaba ousted the head of its DingTalk productivity platform following an internal dispute over the app's role in Alibaba's AI strategy** — The departure signals genuine internal disagreement about whether enterprise productivity tools should be AI delivery vehicles or standalone businesses — a tension every major platform company is navigating right now. [Link](https://www.bloomberg.com/news/articles/2026-06-11/alibaba-s-dingtalk-chief-departs-after-debate-about-ai-focus)
+
+- **[Bloomberg Technology] A Chinese state-run newspaper issued an unusually direct warning about AI's displacement of workers, calling for explicit labor protections** — State media intervention at this level suggests Beijing is getting ahead of social instability risk, not just optics; expect regulatory guardrails on enterprise AI deployment in China to harden faster than in the West. [Link](https://www.bloomberg.com/news/articles/2026-06-11/ai-wave-sparks-alarm-in-china-with-call-to-protect-worker-rights)
+
+- **[Bloomberg Technology] Igor Babuschkin, co-founder of xAI, has left to launch a new startup focused on personalized AI** — Babuschkin's departure is the highest-profile exit yet from the xAI talent bleed, and "personalized AI" as a founding thesis implies a direct architectural bet against the one-model-serves-all approach that xAI and OpenAI currently champion. [Link](https://www.bloomberg.com/news/articles/2026-06-10/xai-co-founder-babuschkin-unveils-new-startup-for-personalized-ai)
+
+- **[OpenAI Blog] OpenAI announced support for the EU Code of Practice on AI-generated content transparency, extending its existing provenance and watermarking work** — Signing onto the EU Code before it becomes mandatory is a calculated move to shape implementation standards while demonstrating regulatory goodwill — particularly valuable as the EU AI Act's enforcement timeline tightens. [Link](https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem)
+
+- **[Bloomberg Technology] European corporate margins are forecast to expand for the first time since 2022, with AI cited alongside oil prices as a key driver** — The pairing of AI and commodity windfalls as margin catalysts is analytically sloppy but politically useful — it will make it harder for European policymakers to aggressively regulate enterprise AI deployment when it's propping up earnings recovery. [Link](https://www.bloomberg.com/news/articles/2026-06-11/european-company-margins-expand-for-first-time-since-2022-on-ai-oil)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-11/oura-s-jayaraman-on-new-model-health-features-video" target="_blank" rel="noopener">
+              Oura's Jayaraman on New Model, Health Features
+            </a>
+          </div>
+          
+          <div class="item-snippet">Tanvi Jayaraman, Health AI Clinical Lead at Oura, discusses the smart ring maker's new model and its new wellness capabilities tha…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-11/ai-wave-sparks-alarm-in-china-with-call-to-protect-worker-rights" target="_blank" rel="noopener">
+              AI Wave Sparks Alarm in China With Call to Protect Worker Rights
+            </a>
+          </div>
+          
+          <div class="item-snippet">China’s rapid adoption of artificial intelligence in the workplace has prompted an unusually blunt call from a state-run newspaper…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-11/alibaba-s-dingtalk-chief-departs-after-debate-about-ai-focus" target="_blank" rel="noopener">
+              Alibaba’s Dingtalk Chief Departs After Debate About AI Focus
+            </a>
+          </div>
+          
+          <div class="item-snippet">Alibaba Group Holding Ltd. has replaced the head of its Dingtalk app, making a high-profile leadership change after an internal de…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-11/european-company-margins-expand-for-first-time-since-2022-on-ai-oil" target="_blank" rel="noopener">
+              Europe Margins Poised for First Growth Since 2022 on Oil, AI
+            </a>
+          </div>
+          
+          <div class="item-snippet">European companies’ margins are set to expand for the first time since 2022, driven by soaring commodity prices and artificial int…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">OpenAI Blog</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem" target="_blank" rel="noopener">
+              Supporting Europe’s work in ensuring a trustworthy AI ecosystem
+            </a>
+          </div>
+          
+          <div class="item-snippet">OpenAI supports the EU Code of Practice on AI content transparency, advancing provenance standards and tools to help people unders…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-11/air-india-crash-report-delayed-on-unfinished-exam-of-ge-engines" target="_blank" rel="noopener">
+              Air India Crash Report to Miss One-Year Deadline With Engine Probe Pending
+            </a>
+          </div>
+          
+          <div class="item-snippet">Investigators will miss Friday’s one-year deadline to explain why an Air India Ltd. jetliner crashed right after takeoff because a…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-10/chanos-bearish-on-spacex-valuation-fueled-by-hopes-and-dreams" target="_blank" rel="noopener">
+              Short Seller Chanos Is Bearish on SpaceX Valuation Fueled by ‘Hopes and Dreams’
+            </a>
+          </div>
+          
+          <div class="item-snippet">Veteran short seller James Chanos said SpaceX’s blockbuster public debut is being driven more by investor enthusiasm for Elon Musk…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-10/xai-co-founder-babuschkin-unveils-new-startup-for-personalized-ai" target="_blank" rel="noopener">
+              XAI Co-Founder Babuschkin Unveils New Startup for Personalized AI
+            </a>
+          </div>
+          
+          <div class="item-snippet">A team of former employees from Elon Musk’s xAI have formed a new startup focused on personalized artificial intelligence, marking…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-saas-disruption" id="saas_disruption">
+
+    <div class="section-head">
+      <span class="sec-num">06</span>
+      <span class="sec-label">SaaS Disruption Watch</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">2</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="disruption-banner">## SaaS Disruption Watch
+
+The clearest signal this week isn't a product launch — it's an org chart. Alibaba's forced leadership change at DingTalk, driven explicitly by an internal fight over AI strategy, illustrates the core tension now fracturing every incumbent productivity SaaS: the old build-for-workflows logic is colliding head-on with build-for-AI-agents logic, and the people who built the former are losing. The pressure isn't theoretical anymore; it's showing up in executive departures, product pivots, and labor market stress simultaneously.</div>
+      <div class="sec-prose">---
+
+• **[Bloomberg Technology] Alibaba's DingTalk chief departs after internal debate over AI focus** — DingTalk, Alibaba's enterprise collaboration platform and a direct competitor to Slack, Feishu, and Microsoft Teams in Chinese enterprise, lost its top executive after a reported internal dispute over whether the product should be repositioned as an AI-native platform or maintain its current workflow-first architecture. This is the DingTalk-vs.-Feishu dynamic made visceral: ByteDance's Feishu has moved more aggressively on embedded LLM features, and DingTalk's leadership apparently couldn't agree on how fast to follow. The mechanism of disruption here is *internal strategic paralysis* caused by AI incumbency pressure — the same dynamic threatening Salesforce, Zendesk, and ServiceNow globally. [Link](https://www.bloomberg.com/news/articles/2026-06-11/alibaba-s-dingtalk-chief-departs-after-debate-about-ai-focus)
+
+• **[Bloomberg Technology] AI wave sparks alarm in China with call to protect worker rights** — A state-run Chinese newspaper issued an unusually direct warning about AI-driven labor displacement, signaling that automation pressure from AI tools is now visible enough to trigger state-level political intervention. For HR-tech and workforce-management SaaS incumbents — think Moka, Beisen, or globally, Workday and SAP SuccessFactors — this is a leading indicator: when governments start legislating AI's role in employment decisions, the compliance and liability surface area for AI-augmented HR software expands dramatically, potentially freezing enterprise purchasing cycles or mandating costly product retrofits. [Link](https://www.bloomberg.com/news/articles/2026-06-11/ai-wave-sparks-alarm-in-china-with-call-to-protect-worker-rights)
+
+• **[Bloomberg Technology] Oura's Jayaraman on new model and health features including blood pressure and sleep apnea detection** — Oura's clinical AI lead confirmed the smart ring is expanding into passive, continuous detection of high blood pressure and sleep apnea — conditions that currently require dedicated medical devices and, critically, periodic clinical software subscriptions for monitoring and reporting. This is a direct hardware-plus-AI pincer attack on remote patient monitoring (RPM) SaaS players like Dario Health, Biofourmis, and Withings Health Solutions, whose business models depend on patients needing separate, condition-specific monitoring devices feeding into proprietary software platforms. Oura consolidates that into a single wearable with an AI inference layer, collapsing the per-condition SaaS stack. [Link](https://www.bloomberg.com/news/videos/2026-06-11/oura-s-jayaraman-on-new-model-health-features-video)
+
+• **[Bloomberg Technology] xAI co-founder Babuschkin unveils new startup focused on personalized AI** — Igor Babuschkin's departure from xAI to build a personalized AI startup is the structural threat to general-purpose SaaS productivity tools in miniature: if the next generation of AI assistants are deeply personalized at the model level rather than bolted onto existing SaaS interfaces, the entire middleware layer — Notion AI, Monday.com AI, HubSpot's Breeze — becomes redundant. The mechanism is *model personalization displacing app-layer customization*; instead of configuring a SaaS tool to fit your workflow, the model learns your workflow directly. [Link](https://www.bloomberg.com/news/articles/2026-06-10/xai-co-founder-babuschkin-unveils-new-startup-for-personalized-ai)</div>
+    </div>
+
+    <!-- ── Signals ────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-signals" id="signals">
+
+    <div class="section-head">
+      <span class="sec-num">07</span>
+      <span class="sec-label">Signals from the Feed</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">8</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Signals from the Feed
+
+The week's discourse coalesced around a single uncomfortable truth: the AI industry is simultaneously over-restricting legitimate technical users and under-delivering on the economic promises that justify current pricing. Anthropic is catching heat from both directions — researchers say its new Fable model is too locked down to be useful for security work, while OpenAI is reportedly preparing price cuts that would make Claude's tiers look expensive. Meanwhile, the infrastructure arms race is getting genuinely weird.</div>
+      
+      <div class="signals-grid">
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/" target="_blank" rel="noopener">
+              Cybersecurity researchers aren't happy about the guardrails on Anthropic's Fable
+            </a>
+          </div>
+          <div class="signal-score">↑ 84</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://samwilkinson.io/posts/2026-06-09-anthropics-model-naming-extrapolated" target="_blank" rel="noopener">
+              Anthropic's model naming, extrapolated
+            </a>
+          </div>
+          <div class="signal-score">↑ 83</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://burr.apache.org/" target="_blank" rel="noopener">
+              Apache Burr: Build reliable AI agents and applications
+            </a>
+          </div>
+          <div class="signal-score">↑ 82</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://news.ycombinator.com/item?id=48476474" target="_blank" rel="noopener">
+              Notes on DeepSeek
+            </a>
+          </div>
+          <div class="signal-score">↑ 81</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.cnbc.com/2026/06/11/openai-mulls-slashing-prices-ahead-of-competition-from-anthropic-wsj.html" target="_blank" rel="noopener">
+              OpenAI mulls slashing prices as it competes with Anthropic for users
+            </a>
+          </div>
+          <div class="signal-score">↑ 81</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://techcrunch.com/2026/06/04/meta-steals-a-tactic-from-tesla-and-builds-data-centers-in-tents/" target="_blank" rel="noopener">
+              Meta steals a tactic from Tesla and builds data centers in tents
+            </a>
+          </div>
+          <div class="signal-score">↑ 79</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.theatlantic.com/magazine/2026/07/uk-productivity-economy-reform-party/687303/" target="_blank" rel="noopener">
+              Britain’s output per person is now only just above that of Mississippi
+            </a>
+          </div>
+          <div class="signal-score">↑ 78</div>
+        </div>
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://github.com/grzegorz-raczek-unit8/claude-quota" target="_blank" rel="noopener">
+              Show HN: macOS menu bar gauges for your Claude Code quota
+            </a>
+          </div>
+          <div class="signal-score">↑ 77</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Papers ─────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-papers" id="papers">
+
+    <div class="section-head">
+      <span class="sec-num">09</span>
+      <span class="sec-label">Papers of the Week</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">8</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Papers of the Week
+
+This week's preprint batch reflects two converging pressures on the field: the rising cost of inference and training at scale, and the growing demand for AI systems that work reliably in physical and clinical environments where errors have real consequences. Researchers are attacking inefficiency from multiple angles — context compression, speculative decoding, and sensor-free force estimation — while a separate thread of work pushes toward more interpretable, controllable training pipelines. The practical bent is notable; several papers prioritize deployment constraints over benchmark chasing.</div>
+      
+      <div class="papers-grid">
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12411v1" target="_blank" rel="noopener">Context-Driven Incremental Compression for Multi-Turn Dialogue Generation</a>
+          </div>
+          <div class="paper-authors">Yeongseo Jung, Jaehyeok Kim, Eunseo Jung et al.</div>
+          <div class="paper-abstract">Modern conversational agents condition on an ever-growing dialogue history at each turn, incurring redundant attention and encoding costs that grow with conversation length. Naive truncation or summarization degrades fid…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12406v1" target="_blank" rel="noopener">FACTR 2: Learning External Force Sensing for Commodity Robot Arms Improves Policy Learning</a>
+          </div>
+          <div class="paper-authors">Steven Oh, Jason Jingzhou Liu, Tony Tao et al.</div>
+          <div class="paper-abstract">Contact-rich manipulation requires force sensitivity, but many robot arms lack dedicated force sensors due to their high cost. We present Neural External Torque Estimation (NEXT), a data-driven method that estimates exte…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12382v1" target="_blank" rel="noopener">SPEA2$^+$: Improved Density Estimation in SPEA2 with Provable Runtime Guarantees</a>
+          </div>
+          <div class="paper-authors">Duc-Cuong Dang, Andre Opris, Dirk Sudholt</div>
+          <div class="paper-abstract">The Strength Pareto Evolutionary Algorithm 2 (SPEA2) is a popular and prominent evolutionary algorithm for solving multi-objective optimisation problems. Despite its popularity, theoretical analyses of SPEA2 have only ap…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12370v1" target="_blank" rel="noopener">Breaking Entropy Bounds: Accelerating RL Training via MTP with Rejection Sampling</a>
+          </div>
+          <div class="paper-authors">Yucheng Li, Huiqiang Jiang, Yang Xu et al.</div>
+          <div class="paper-abstract">Reinforcement learning (RL) has become a key component in modern large language models, yet the rollout stage remains the key bottleneck in RL training pipelines. Although Multi-Token Prediction (MTP) offers a natural so…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12368v1" target="_blank" rel="noopener">DepthMaster: Unified Monocular Depth Estimation for Perspective and Panoramic Images</a>
+          </div>
+          <div class="paper-authors">Pengfei Wang, Shihao Wang, Liyi Chen et al.</div>
+          <div class="paper-abstract">While monocular depth estimation has achieved significant progress, achieving generalized metric depth estimation for both narrow field-of-view (FoV) perspectives and $360^\circ$ panoramas remains an unsolved challenge. …</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12365v1" target="_blank" rel="noopener">Ambient Diffusion Policy: Imitation Learning from Suboptimal Data in Robotics</a>
+          </div>
+          <div class="paper-authors">Adam Wei, Nicholas Pfaff, Thomas Cohn et al.</div>
+          <div class="paper-abstract">We propose Ambient Diffusion Policy, a simple and principled method for imitation learning from suboptimal data in robotics. High-quality, task-specific robot data is expensive and time-consuming to collect, while subopt…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12360v1" target="_blank" rel="noopener">Anatomy of Post-Training: Using Interpretability to Characterize Data and Shape the Learning Signal</a>
+          </div>
+          <div class="paper-authors">Leon Bergen, Usha Bhalla, Sidharth Baskaran et al.</div>
+          <div class="paper-abstract">Language-model post-training is the main stage at which model behavior is shaped, yet it still largely involves optimization of scalar rewards that summarize diverse desiderata. This abstraction gives practitioners littl…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.12346v1" target="_blank" rel="noopener">Atlas H&E-TME: Scalable AI-Based Tissue Profiling at Expert Pathologist-Level Accuracy</a>
+          </div>
+          <div class="paper-authors">Kai Standvoss, Miriam Hägele, Rosemarie Krupar et al.</div>
+          <div class="paper-abstract">Hematoxylin and eosin (H&E) staining is the cornerstone of histopathology, yet scalable, quantitative analysis of H&E whole-slide images (WSIs) remains a central challenge in computational pathology. We present Atlas H&E…</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Worth Reading ──────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI & Tech Intelligence</div>
+        <div class="footer-meta">
+          Generated 2026-06-11 · claude-sonnet-4-6<br>
+          80 items across all sources
+        </div>
+      </div>
+      <div class="footer-sources">
+        <strong>Sources</strong>
+        AI Snake Oil, Axios Tech, Bloomberg Technology, FT Tech, Hacker News, LangChain Blog, Latent Space, Meta AI Blog, OpenAI Blog, Semafor Tech, Stratechery, TechCrunch, The Verge, VentureBeat AI, Wired AI, arXiv
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
