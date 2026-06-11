@@ -227,6 +227,78 @@ blogs:
     url: "https://www.sequoiacap.com/feed/"
     weight: 0.85
 
+  # ── 2026-06-10 additions: lab/hyperscaler primary sources ───────────────────
+  # Probed against the major LLM labs; these are the working RSS endpoints.
+  # Anthropic, xAI, Cohere, DeepSeek, AI2, Perplexity, Stability — no RSS
+  # exists; those are handled via the lab_scrapers section below.
+  - name: "Google Research Blog"
+    url: "https://research.google/blog/rss/"
+    weight: 0.9
+  - name: "Apple ML Research"
+    url: "https://machinelearning.apple.com/rss.xml"
+    weight: 0.95
+  - name: "Microsoft AI Blog"
+    url: "https://blogs.microsoft.com/ai/feed/"
+    weight: 0.85
+  - name: "Microsoft Research Blog"
+    url: "https://www.microsoft.com/en-us/research/feed/"
+    weight: 0.85
+  - name: "NVIDIA Blog"
+    url: "https://blogs.nvidia.com/feed/"
+    weight: 0.9
+  - name: "AWS Machine Learning Blog"
+    url: "https://aws.amazon.com/blogs/machine-learning/feed/"
+    weight: 0.8
+  - name: "Amazon Science"
+    url: "https://www.amazon.science/index.rss"
+    weight: 0.8
+  - name: "Alibaba Qwen"
+    url: "https://qwenlm.github.io/blog/index.xml"
+    weight: 0.95
+  - name: "Databricks Blog"
+    url: "https://www.databricks.com/feed"
+    weight: 0.75
+  - name: "Snowflake Blog"
+    url: "https://www.snowflake.com/rss"
+    weight: 0.65
+  - name: "Sakana AI"
+    url: "https://sakana.ai/feed"
+    weight: 0.8
+
+# ── Lab HTML scrapers ──────────────────────────────────────────────────────────
+# Labs without working RSS whose news/blog index is crawlable. Each entry maps
+# to a per-site scraper function in fetchers/lab_scraper.py keyed by `type`.
+lab_scrapers:
+  - name: "Anthropic"
+    url: "https://www.anthropic.com/news"
+    type: "anthropic"
+    weight: 1.0
+  - name: "Allen Institute (AI2)"
+    url: "https://allenai.org/news"
+    type: "ai2"
+    weight: 0.85
+
+# ── HuggingFace org model-release feeds ────────────────────────────────────────
+# Labs that don't expose a public blog/news index BUT publish their model
+# releases on HuggingFace. Each new model card is treated as a release event.
+# Uses HF's /api/models?author=ORG&sort=lastModified — no auth needed.
+hf_orgs:
+  - name: "xAI"
+    org: "xai-org"
+    weight: 0.95
+  - name: "DeepSeek"
+    org: "deepseek-ai"
+    weight: 0.95
+  - name: "Perplexity AI"
+    org: "perplexity-ai"
+    weight: 0.85
+  - name: "Stability AI"
+    org: "stabilityai"
+    weight: 0.75
+  - name: "01.AI / Yi"
+    org: "01-ai"
+    weight: 0.7
+
 # ── Podcast RSS feeds ──────────────────────────────────────────────────────────
 podcasts:
   - name: "Latent Space Podcast"

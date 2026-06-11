@@ -6,6 +6,7 @@ from .hn_fetcher import fetch_hacker_news
 from .reddit_fetcher import fetch_reddit
 from .twitter_fetcher import fetch_twitter
 from .research_fetcher import fetch_research
+from .lab_scraper import fetch_lab_scrapers, fetch_hf_orgs
 
 __all__ = [
     "fetch_news_rss",
@@ -16,4 +17,6 @@ __all__ = [
     "fetch_reddit",
     "fetch_twitter",
     "fetch_research",
+    "fetch_lab_scrapers",
+    "fetch_hf_orgs",
 ]

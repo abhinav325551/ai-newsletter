@@ -66,6 +66,8 @@ def cli(
     from fetchers import (
         fetch_blogs,
         fetch_hacker_news,
+        fetch_hf_orgs,
+        fetch_lab_scrapers,
         fetch_news_rss,
         fetch_podcasts,
         fetch_reddit,
@@ -80,14 +82,16 @@ def cli(
 
     all_items = []
     fetchers = [
-        ("News RSS",    lambda: fetch_news_rss(config, since_dt)),
-        ("Substacks",   lambda: fetch_substacks(config, since_dt)),
-        ("Blogs",       lambda: fetch_blogs(config, since_dt)),
-        ("Podcasts",    lambda: fetch_podcasts(config, since_dt)),
-        ("Hacker News", lambda: fetch_hacker_news(config, since_dt)),
-        ("Reddit",      lambda: fetch_reddit(config, since_dt)),
-        ("Twitter/X",   lambda: fetch_twitter(config, since_dt)),
-        ("Research",    lambda: fetch_research(config, since_dt)),
+        ("News RSS",     lambda: fetch_news_rss(config, since_dt)),
+        ("Substacks",    lambda: fetch_substacks(config, since_dt)),
+        ("Blogs",        lambda: fetch_blogs(config, since_dt)),
+        ("Lab scrapers", lambda: fetch_lab_scrapers(config, since_dt)),
+        ("HF orgs",      lambda: fetch_hf_orgs(config, since_dt)),
+        ("Podcasts",     lambda: fetch_podcasts(config, since_dt)),
+        ("Hacker News",  lambda: fetch_hacker_news(config, since_dt)),
+        ("Reddit",       lambda: fetch_reddit(config, since_dt)),
+        ("Twitter/X",    lambda: fetch_twitter(config, since_dt)),
+        ("Research",     lambda: fetch_research(config, since_dt)),
     ]
 
     for name, fn in fetchers:
