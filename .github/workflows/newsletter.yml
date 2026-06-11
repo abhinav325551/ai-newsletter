@@ -50,9 +50,11 @@ jobs:
           python main.py $ARGS
 
       - name: Build issue index
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python build_index.py
 
       - name: Commit and push docs/ and source performance log
+        if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name  "ai-newsletter-bot"
           git config user.email "bot@users.noreply.github.com"
