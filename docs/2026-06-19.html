@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — 2026-06-19</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f5f4f0;
+      --page:         #ffffff;
+      --text:         #1a1a1a;
+      --muted:        #6b6b6b;
+      --light:        #aaa;
+      --border:       #e4e2dc;
+      --border-light: #eeede8;
+      --accent:       #c0392b;
+      --accent-bg:    #fdf3f2;
+      --orange:       #c0621e;
+      --orange-bg:    #fdf6f0;
+      --tag-bg:       #eeede8;
+      --tag-text:     #666;
+      --card-hover:   #fafaf7;
+      --serif:        "Source Serif 4", Georgia, serif;
+      --display:      "Playfair Display", Georgia, serif;
+      --sans:         "Inter", system-ui, sans-serif;
+      --radius:       6px;
+      --col:          960px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Outer wrapper ───────────────────────────────────────────────────── */
+    .shell {
+      max-width: var(--col);
+      margin: 0 auto;
+      background: var(--page);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════════════════ */
+    .masthead {
+      border-bottom: 3px solid var(--text);
+      padding: 2rem 2.5rem 0;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .masthead-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .masthead-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+    }
+    /* Desktop: title + sidebar stats in 2 cols */
+    .masthead-body {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: 1.25rem;
+    }
+    .masthead-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .masthead-sub {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+    }
+    .masthead-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .stat-chip {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       TOC BAR
+    ═══════════════════════════════════════════════════════════════════════ */
+    .toc {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-label {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .toc-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .toc-items {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: nowrap;
+    }
+    .toc-chip {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--page);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .toc-chip:hover {
+      background: var(--accent-bg);
+      border-color: #e8b8b4;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .section:last-child { border-bottom: none; }
+
+    /* Section header — full width stripe */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem 0;
+    }
+    .sec-num {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      min-width: 1.4rem;
+    }
+    .sec-label {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .sec-count {
+      font-family: var(--sans);
+      font-size: 0.63rem;
+      color: var(--light);
+    }
+
+    /* Section body */
+    .section-body { padding: 1.25rem 2.5rem 2rem; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       01 — THE BIG THING  (full-width hero)
+    ═══════════════════════════════════════════════════════════════════════ */
+    .big-thing-body {
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 2.5px solid var(--text);
+      margin-top: 1rem;
+    }
+    .big-thing-text {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.82;
+      color: var(--text);
+      white-space: pre-wrap;
+      max-width: 68ch;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       STANDARD SECTION  — intro + 2-col item grid
+    ═══════════════════════════════════════════════════════════════════════ */
+    .sec-intro {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 1.25rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--border);
+      max-width: 62ch;
+    }
+    .sec-prose {
+      font-family: var(--serif);
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    /* Item card grid — 2 cols on desktop, 1 on mobile */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .item-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--page);
+    }
+    .item-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .item-tag {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .item-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+    }
+    .item-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+    .item-title a:hover { color: var(--accent); }
+    .item-snippet {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SIGNALS  — 3-col compact list
+    ═══════════════════════════════════════════════════════════════════════ */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .signal-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      background: var(--bg);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .signal-card:hover {
+      border-color: #d0cdc5;
+      background: var(--page);
+    }
+    .signal-source {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .signal-title {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .signal-title a:hover { color: var(--accent); }
+    .signal-score {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      color: var(--light);
+      margin-top: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PAPERS  — 2-col
+    ═══════════════════════════════════════════════════════════════════════ */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .paper-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .paper-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .paper-badge {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .paper-title {
+      font-family: var(--display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .paper-title a:hover { color: var(--accent); }
+    .paper-authors {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .paper-abstract {
+      font-family: var(--sans);
+      font-size: 0.73rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SAAS DISRUPTION  — full-width + callout block
+    ═══════════════════════════════════════════════════════════════════════ */
+    .section-saas-disruption .sec-label { color: var(--orange); }
+    .section-saas-disruption .sec-num { color: var(--orange); }
+    .disruption-banner {
+      background: var(--orange-bg);
+      border: 1px solid #f0d5bc;
+      border-left: 4px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7a3a10;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       WORTH READING  — horizontal cards
+    ═══════════════════════════════════════════════════════════════════════ */
+    .reading-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .reading-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--page);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .reading-card:hover {
+      border-color: #d0cdc5;
+      background: var(--card-hover);
+    }
+    .reading-source {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .reading-body { flex: 1; }
+    .reading-title {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text);
+    }
+    .reading-title a:hover { color: var(--accent); }
+    .reading-summary {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .reading-arrow {
+      color: var(--border);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .reading-card:hover .reading-arrow { color: var(--muted); transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      border-top: 3px solid var(--text);
+      padding: 1.75rem 2.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      line-height: 1.65;
+    }
+    .footer-sources {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--light);
+      line-height: 1.7;
+      text-align: right;
+    }
+    .footer-sources strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .shell { border: none; }
+      .masthead, .toc, .section-head, .section-body,
+      .big-thing-body, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .masthead-body { grid-template-columns: 1fr; gap: 0.75rem; }
+      .masthead-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+      .item-grid      { grid-template-columns: 1fr; }
+      .signals-grid   { grid-template-columns: 1fr; }
+      .papers-grid    { grid-template-columns: 1fr; }
+      .footer-grid    { grid-template-columns: 1fr; }
+      .footer-sources { text-align: left; }
+    }
+
+    @media (min-width: 701px) and (max-width: 860px) {
+      .signals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ MASTHEAD ══════════════════════════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-eyebrow">AI & Tech Intelligence</span>
+      <span class="masthead-date">2026-06-19</span>
+    </div>
+    <div class="masthead-body">
+      <div>
+        <h1 class="masthead-title">AI & Tech Intelligence</h1>
+        <p class="masthead-sub">The full AI stack — infrastructure to application layer</p>
+      </div>
+      <div class="masthead-stats">
+        <span class="stat-chip">68 sources</span>
+        <span class="stat-chip">claude-sonnet-4-6</span>
+        <span class="stat-chip">2026-06-19</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ TOC ═══════════════════════════════════════════════════════════════ -->
+  <nav class="toc">
+    <span class="toc-label">In this issue</span>
+    <div class="toc-divider"></div>
+    <div class="toc-items">
+      
+      <a class="toc-chip" href="#big_thing">The Big Thing</a>
+      
+      <a class="toc-chip" href="#infrastructure">Infrastructure & Silicon</a>
+      
+      <a class="toc-chip" href="#models_research">Models & Research</a>
+      
+      <a class="toc-chip" href="#tooling_agents">Tooling & Agents</a>
+      
+      <a class="toc-chip" href="#applications">Applications & Consumer AI</a>
+      
+      <a class="toc-chip" href="#signals">Signals from the Feed</a>
+      
+      <a class="toc-chip" href="#papers">Papers of the Week</a>
+      
+    </div>
+  </nav>
+
+  <!-- ══ SECTIONS ══════════════════════════════════════════════════════════ -->
+  
+  <section class="section section-big-thing" id="big_thing">
+
+    <div class="section-head">
+      <span class="sec-num">01</span>
+      <span class="sec-label">The Big Thing</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="big-thing-body">
+      <div class="big-thing-text">## THE BIG THING
+
+**OpenAI Is Quietly Building a Health AI Moat — And It's Bigger Than You Think**
+
+OpenAI this week announced that GPT-5.5 Instant will power upgraded health intelligence features inside ChatGPT, framing the move as bringing "frontier health intelligence to more people." But the headline undersells what's actually happening strategically. More than 230 million people already use ChatGPT weekly for health and wellness queries — that's not a product launch, that's a distribution reality that every health-focused AI startup, every telemedicine platform, and every hospital system should be treating as a five-alarm signal. OpenAI didn't build a health product and then find users; it found 230 million users already using a general-purpose tool for health decisions, and is now deliberately optimizing for that behavior. That sequencing matters enormously.
+
+The upgrade is notably shaped by what OpenAI describes as "physician-led evaluation," signaling that the company is investing in clinical credibility infrastructure — not just model capability. This is the part that tends to get glossed over in coverage focused on benchmark scores. Building reliable evaluation pipelines with medical professionals is expensive, slow, and organizationally complex. It's also a meaningful barrier to replication. OpenAI is doing this while simultaneously operating at consumer scale, a combination that purpose-built health AI companies like Babylon Health never achieved and that even well-funded players like Hippocratic AI are still chasing. The context here is worth noting: this push comes after OpenAI faced credible criticism that earlier versions of ChatGPT gave inconsistent or potentially dangerous health guidance, suggesting the physician-led evaluation layer is partly a response to documented failure modes, not just a proactive feature addition.
+
+The broader implication is a potential market compression event for the health AI sector. You now have a product with 230 million weekly active users, frontier model performance, and a clinical evaluation process sitting directly on top of what was already the most common first stop for health questions. Standalone health AI apps compete on trust, accuracy, and accessibility — ChatGPT is rapidly claiming all three simultaneously. The companies most immediately exposed are consumer-facing health information platforms (think WebMD-adjacent properties), AI symptom checkers, and "AI health coach" startups that raised on the premise that a dedicated product would outperform a general-purpose assistant. That premise is getting harder to defend with each iteration.
+
+**What to watch:** OpenAI has not disclosed what, if any, FDA regulatory strategy accompanies this expansion — a critical omission given that the line between "health information" and "medical advice" is exactly where regulatory exposure lives. Watch for whether the company files for FDA enforcement discretion or pursues any form of Software as a Medical Device (SaMD) classification, as that would signal an intent to move into clinical workflows rather than staying in the consumer wellness lane. Also watch for partnership announcements with insurance companies or EHR vendors; if OpenAI starts connecting ChatGPT's health layer to structured patient data, the competitive dynamic shifts from "better search" to "ambient clinical intelligence" — a fundamentally different and far more consequential category.</div>
+    </div>
+
+    <!-- ── SaaS Disruption ────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-infrastructure" id="infrastructure">
+
+    <div class="section-head">
+      <span class="sec-num">02</span>
+      <span class="sec-label">Infrastructure & Silicon</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Infrastructure & Silicon
+
+The week's infrastructure story is really two stories running in parallel: a domestic semiconductor industrial policy push gaining visible momentum, while the export control architecture underpinning US chip dominance shows signs of serious strain. Meanwhile, power grid constraints are emerging as the binding constraint on AI factory buildout, shifting regulatory attention from compute itself to the electrons that feed it.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Intel stock surged to a record after Trump publicly announced an Apple-Intel chip design and domestic production partnership** — details on workshare, process node, and whether this involves Intel Foundry Services remain unspecified, but the market reaction (Intel shares soaring, the Philadelphia Semiconductor Index SOX advancing 6.4% to a record high on June 18) signals investor conviction that US fab policy is moving from rhetoric to contracted revenue. [Link](https://www.bloomberg.com/news/articles/2026-06-18/intel-intc-share-price-soars-after-trump-says-it-struck-apple-chip-deal)
+
+- **[Bloomberg Technology] (Unconfirmed) Commerce Secretary Howard Lutnick told ASML senior leaders that an advanced lithography machine — likely an EUV or High-NA EUV unit — may have reached China in violation of US-led export restrictions** — if confirmed, this would represent the most serious export control breach since the restrictions tightened, and would put pressure on the Dutch government and ASML's internal end-use verification processes simultaneously. [Link](https://www.bloomberg.com/news/articles/2026-06-19/us-tells-asml-it-s-concerned-china-may-have-top-chip-tool)
+
+- **[Bloomberg Technology] Meta secured new AI compute agreements with data center developer Crusoe** — Crusoe specializes in stranded and flared-gas-powered data centers, suggesting Meta is prioritizing capacity acquisition speed and cost over grid-tied power optics, a notable strategic choice given ongoing ESG scrutiny of hyperscaler energy use. [Link](https://www.bloomberg.com/news/articles/2026-06-18/meta-strikes-new-ai-computing-deals-with-data-center-firm-crusoe)
+
+- **[NVIDIA Blog] FERC issued a major ruling on large-load grid interconnection, directly affecting how AI factories and semiconductor fabs connect to the US electrical grid** — NVIDIA framed this as a five-layer AI infrastructure issue, signaling that power interconnection timelines — not chip availability — are now a primary bottleneck for domestic AI factory deployment. [Link](https://blogs.nvidia.com/blog/ferc-large-load-interconnection/)
+
+- **[Bloomberg Technology] Three Amazon workers allege the company violated a Seattle municipal ordinance by questioning them after they testified in support of data center regulation** — the incident reveals the political fault lines opening up around data center siting and labor rights as hyperscaler infrastructure expands into dense urban jurisdictions with active municipal governance. [Link](https://www.bloomberg.com/news/articles/2026-06-18/amazon-workers-say-data-center-testimony-prompted-interrogation)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-19/us-tells-asml-it-s-concerned-china-may-have-top-chip-tool" target="_blank" rel="noopener">
+              US Tells ASML It’s Concerned China May Have Top Chip Tool
+            </a>
+          </div>
+          
+          <div class="item-snippet">Dutch chip-equipment giant ASML Holding NV is contending with its biggest challenge yet under the Trump administration: In a serie…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-19/us-tells-asml-china-may-have-top-chip-tool-video" target="_blank" rel="noopener">
+              US Tells ASML China May Have Top Chip Tool
+            </a>
+          </div>
+          
+          <div class="item-snippet">ASML Holding NV, the Dutch chip-equipment giant, is grappling with a major challenge after US  Commerce Secretary Howard Lutnick w…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-18/bloomberg-tech-6-18-2026-video" target="_blank" rel="noopener">
+              President Trump Announces Apple and Intel Chip Collaboration | Bloomberg Tech 6/18/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bloomberg's Ed Ludlow discusses the latest announcement made by President Donald Trump, which will see Apple and Intel joining for…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-18/intel-intc-share-price-soars-after-trump-says-it-struck-apple-chip-deal" target="_blank" rel="noopener">
+              Intel Rallies to Record After Trump Touts Apple Chip Deal
+            </a>
+          </div>
+          
+          <div class="item-snippet">Intel Corp.’s stock surged Thursday after US President Donald Trump said the chipmaker will work with Apple Inc. to design and pro…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-18/us-stock-futures-rise-with-intel-leading-semiconductor-rally" target="_blank" rel="noopener">
+              Stocks Rise With Nvidia Leading as Semiconductor Companies Surge
+            </a>
+          </div>
+          
+          <div class="item-snippet">US stocks rose on Thursday as chips shares extended Wednesday’s rally. Nvidia Corp. topped S&amp;P 500 Index gainers on a points b…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-18/meta-strikes-new-ai-computing-deals-with-data-center-firm-crusoe" target="_blank" rel="noopener">
+              Meta Strikes New AI Computing Deals With Data Center Firm Crusoe
+            </a>
+          </div>
+          
+          <div class="item-snippet">Meta Platforms Inc. has secured new agreements to get AI computing power from data center developer Crusoe, bolstering the infrast…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-18/amazon-workers-say-data-center-testimony-prompted-interrogation" target="_blank" rel="noopener">
+              Amazon Workers Say Data Center Testimony Prompted HR Calls
+            </a>
+          </div>
+          
+          <div class="item-snippet">Three Amazon.com Inc. workers say the company violated a Seattle ordinance by interrogating them after they testified in favor of …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">NVIDIA Blog</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="https://blogs.nvidia.com/blog/ferc-large-load-interconnection/" target="_blank" rel="noopener">
+              How FERC’s Large-Load Interconnection Actions Help Address Grid Stress, Improve Affordability
+            </a>
+          </div>
+          
+          <div class="item-snippet">In a consequential grid infrastructure decision, the Federal Energy Regulatory Commission (FERC) today issued a major milestone on…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-models-research" id="models_research">
+
+    <div class="section-head">
+      <span class="sec-num">03</span>
+      <span class="sec-label">Models & Research</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">14</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Models & Research
+
+This week's research signal points toward a maturing anxiety in the field: as foundation models get embedded deeper into agentic workflows, the attack surface expands faster than the safety tooling. Two separate disclosure threads — one on privacy leakage in deep research agents, one on prompt injection across enterprise AI stacks — suggest the frontier has quietly shifted from "can the model reason?" to "can the model be trusted with your data?" Meanwhile, a handful of architectural papers push the capability frontier on video understanding and 3D generation, largely under the radar.</div>
+      
+      <div class="sec-prose">- **[Hugging Face / ServiceNow] MosaicLeaks benchmark demonstrates that deep research agents leak private document contents through external web queries** — The paper introduces a multi-hop QA task that forces agents to interleave private local documents with public retrieval, and finds that across all tested models, sensitive information surfaces in outbound queries with alarming regularity; no specific accuracy numbers are disclosed in the abstract, making it difficult to rank models, but the attack vector itself is novel and underappreciated. [Link](https://huggingface.co/blog/ServiceNow/mosaicleaks)
+
+- **[arXiv] "How Transparent is DiffusionGemma?" probes whether continuous latent-space computation degrades reasoning interpretability** — The paper decomposes transparency into "variable transparency" and a second component, arguing that DiffusionGemma's diffusion-based architecture — which performs a larger share of computation outside discrete token space than standard autoregressive LLMs — meaningfully complicates standard interpretability methods; a timely question given Google's apparent push toward diffusion LM architectures. [Link](http://arxiv.org/abs/2606.20560v1)
+
+- **[arXiv] TimeProVe introduces a propose-then-verify framework for long-video temporal reasoning, targeting hours-long untrimmed video** — Rather than dense VLM processing (computationally prohibitive) or sparse captioning (which misses motion-critical evidence), TimeProVe uses a two-stage pipeline that first proposes candidate temporal segments before verifying them — a sensible engineering tradeoff for activity-of-daily-living benchmarks where relevant events are sparse. [Link](http://arxiv.org/abs/2606.20561v1)
+
+- **[arXiv] JanusMesh generates 3D visual illusions — single meshes with semantically distinct appearances from different viewpoints — in zero-shot via cross-space denoising** — Existing optimization-based methods are slow and produce oversaturated colors; JanusMesh's feed-forward approach addresses both failure modes simultaneously, and the zero-shot framing suggests it generalizes without per-scene fine-tuning, though quantitative comparisons against prior work are not detailed in the abstract. [Link](http://arxiv.org/abs/2606.20563v1)
+
+- **[arXiv] CalTennis releases 11M+ frames (51 hours) of synchronized multi-camera tennis video for monocular-to-3D pose estimation benchmarking** — At 10× the size of existing in-the-wild human motion video datasets and 3× larger than existing MOCAP benchmarks, captured across 40 players at 60Hz with 2–6 synchronized cameras, CalTennis sets a new data scale ceiling for sports biomechanics and human pose research from Caltech. [Link](http://arxiv.org/abs/2606.20542v1)
+
+- **[arXiv] UNIEGO proposes proxy-mediated learning to unify egocentric video representations across viewpoints, modalities, and foundation model backbones** — The core argument — that no single viewpoint, modality, or model can fully capture human action from a wearable camera — motivates a representation learning framework designed to stay deployable at egocentric inference time despite being trained on richer multi-source supervision; directly relevant to AR/VR and robotics pipelines. [Link](http://arxiv.org/abs/2606.20559v1)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-18/the-close-6-18-2026-video" target="_blank" rel="noopener">
+              Fed Rate-Hike Bets Fuel Equities Rally | The Close 6/18/2026
+            </a>
+          </div>
+          
+          <div class="item-snippet">Bloomberg Television brings you the latest news and analysis leading up to the final minutes and seconds before and after the clos…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hugging Face Blog</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="https://huggingface.co/blog/ServiceNow/mosaicleaks" target="_blank" rel="noopener">
+              MosaicLeaks: Can your research agent keep a secret?
+            </a>
+          </div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/security/copilot-searched-your-mailbox-litellm-handed-out-admin" target="_blank" rel="noopener">
+              Copilot searched your mailbox. LiteLLM handed out admin keys. Run this 5-check audit before your stack is next
+            </a>
+          </div>
+          
+          <div class="item-snippet">Two AI tools broke in the same way in the same two weeks, and four research teams proved it. The pattern underneath every disclosu…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.20563v1" target="_blank" rel="noopener">
+              JanusMesh: Fast and Zero-Shot 3D Visual Illusion Generation via Cross-Space Denoising
+            </a>
+          </div>
+          
+          <div class="item-snippet">Creating 3D visual illusions, a single 3D mesh that reveals entirely different semantics from various viewing angles, is a fascina…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.20561v1" target="_blank" rel="noopener">
+              TimeProVe: Propose, then Verify for Efficient Long Video Temporal Reasoning in Activities of Daily Living
+            </a>
+          </div>
+          
+          <div class="item-snippet">Long Video Question Answering (LVQA) requires identifying sparse, query-relevant evidence within hours-long untrimmed videos. Exis…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.20560v1" target="_blank" rel="noopener">
+              How Transparent is DiffusionGemma?
+            </a>
+          </div>
+          
+          <div class="item-snippet">LLM reasoning transparency is a critical affordance for understanding model decisions, mitigating misuse and misalignment, and deb…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.20559v1" target="_blank" rel="noopener">
+              UNIEGO: Proxies as Mediators for Unified Egocentric Video Representation Learning
+            </a>
+          </div>
+          
+          <div class="item-snippet">Egocentric video understanding is inherently limited by the narrow perspective of wearable cameras: a single viewpoint, a single m…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">arXiv</span>
+            <span class="item-score">↑ 78</span>
+          </div>
+          <div class="item-title">
+            <a href="http://arxiv.org/abs/2606.20542v1" target="_blank" rel="noopener">
+              CalTennis: Large Multi-View Tennis Video Dataset and Benchmark of Monocular-to-3D Pose Estimation
+            </a>
+          </div>
+          
+          <div class="item-snippet">The Caltech Tennis Dataset (CalTennis) is a large-scale video benchmark for evaluating monocular-to-3D pose estimation in the wild…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-tooling-agents" id="tooling_agents">
+
+    <div class="section-head">
+      <span class="sec-num">04</span>
+      <span class="sec-label">Tooling & Agents</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">12</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Tooling & Agents
+
+The agent infrastructure stack is maturing fast along two distinct axes this week: the abstraction layer is moving upward (no-code builders, managed runtimes) while the security and optimization primitives underneath are finally catching up to production realities. The gap between "agent that works in a demo" and "agent that works in production" is the defining engineering problem of 2025—and this week's releases are explicit attempts to close it.</div>
+      
+      <div class="sec-prose">- **[LangChain Blog] LangSmith launches a no-code Agent Builder with built-in memory and guided prompt creation** — LangChain is making a deliberate push beyond developer audiences; the move signals that the framework layer is commoditizing fast enough that the next competitive moat is distribution into business-user workflows, not raw capability. [Link](https://www.langchain.com/blog/langsmith-agent-builder)
+
+- **[AWS Machine Learning Blog] Amazon Bedrock AgentCore is now generally available, promising production-grade agent deployment in minutes** — AWS is productizing the full agent loop—tool execution, memory, orchestration, and sandboxing—directly inside Bedrock, putting significant pressure on standalone agent infrastructure startups who built businesses on exactly this gap. [Link](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-harness-is-now-generally-available-go-from-idea-to-production-grade-agent-in-minutes/)
+
+- **[VentureBeat] A new AI optimization framework claims 2.5x improvement over Claude Code and Codex on identical compute budgets** — The framing—fixing hallucinations and missed constraints in RAG-based agents through systematic optimization of chunking, retrieval, and prompts rather than model swaps—is the right one, and the 2.5x benchmark figure is notable if it holds up against independent replication. [Link](https://venturebeat.com/orchestration/new-ai-optimization-framework-beats-claude-code-and-codex-by-2-5x-on-the-same-compute-budget)
+
+- **[Snowflake Blog] Snowflake publishes a Data-Model-Agent security framework for enterprise agentic deployments** — The core problem Snowflake is surfacing is real and underappreciated: agents that can query sensitive data, rewrite configs, and trigger workflows at scale represent a fundamentally different threat surface than chatbots, and most enterprise security teams have no policy layer for it yet. [Link](https://www.snowflake.com/content/snowflake-site/global/en/blog/securing-the-agentic-enterprise)
+
+- **[VentureBeat] Adobe ships agentic AI workflows across Premiere Pro, Photoshop, Illustrator, InDesign, and Frame.io in public beta** — Adobe is making a structurally important bet: positioning its agent as a production orchestration layer rather than a generation tool, which is a meaningful distinction—it means the agent manages multi-step creative pipelines rather than just outputting assets on demand. [Link](https://venturebeat.com/orchestration/adobe-embeds-agentic-ai-workflows-across-creative-cloud-shifting-from-media-generation-to-production-orchestration)
+
+- **[Hacker News / TesterArmy] YC P26 company TesterArmy launches agent-based end-to-end testing for web and mobile apps using natural-language test specification** — Agentic QA is a credible wedge—manual test maintenance is a genuine pain point—but the critical unanswered question is reliability under adversarial conditions where the UI changes unexpectedly, exactly the scenario where rule-based scripts still outperform generative agents. [Link](https://tester.army)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Stratechery</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://stratechery.com/2026/an-interview-with-michael-morton-about-e-commerce-in-the-age-of-ai/" target="_blank" rel="noopener">
+              An Interview with Michael Morton About E-Commerce in the Age of AI
+            </a>
+          </div>
+          
+          <div class="item-snippet">An interview with Michael Morton about e-commerce and AI, including the challenges of unfalsifiable bear cases, distribution versu…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">LangChain Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.langchain.com/blog/langsmith-agent-builder" target="_blank" rel="noopener">
+              Introducing LangSmith’s No Code Agent Builder
+            </a>
+          </div>
+          
+          <div class="item-snippet">Build AI agents without code using LangSmith Agent Builder. Create agents with memory, guided prompts, and MCP tools—no technical …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">AWS Machine Learning Blog</span>
+            <span class="item-score">↑ 74</span>
+          </div>
+          <div class="item-title">
+            <a href="https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-harness-is-now-generally-available-go-from-idea-to-production-grade-agent-in-minutes/" target="_blank" rel="noopener">
+              Amazon Bedrock AgentCore harness is now generally available: Go from idea to production-grade agent in minutes
+            </a>
+          </div>
+          
+          <div class="item-snippet">Today, Amazon Bedrock AgentCore harness is generally available. Two API calls (CreateHarness to define an agent, and InvokeHarness…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">The Verge</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.theverge.com/tech/952441/yueban-xiaoban-self-driving-autonomous-toilet" target="_blank" rel="noopener">
+              This robotic self-driving toilet comes to you
+            </a>
+          </div>
+          
+          <div class="item-snippet">During a recent expo in Shanghai that focuses on elderly care, assistive devices, and rehabilitation medicine, a Chinese company c…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Snowflake Blog</span>
+            <span class="item-score">↑ 69</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.snowflake.com/content/snowflake-site/global/en/blog/securing-the-agentic-enterprise" target="_blank" rel="noopener">
+              Agentic AI Security: Snowflake's Data-Model-Agent Framework
+            </a>
+          </div>
+          
+          <div class="item-snippet">Snowflake's Data-Model-Agent framework secures the agentic enterprise with prompt injection defense, zero-copy governance and audi…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/orchestration/new-ai-optimization-framework-beats-claude-code-and-codex-by-2-5x-on-the-same-compute-budget" target="_blank" rel="noopener">
+              New AI optimization framework beats Claude Code and Codex by 2.5x on the same compute budget
+            </a>
+          </div>
+          
+          <div class="item-snippet">Imagine your engineering team just deployed an AI agent to search through internal company documents and answer employee questions…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">VentureBeat AI</span>
+            <span class="item-score">↑ 71</span>
+          </div>
+          <div class="item-title">
+            <a href="https://venturebeat.com/orchestration/adobe-embeds-agentic-ai-workflows-across-creative-cloud-shifting-from-media-generation-to-production-orchestration" target="_blank" rel="noopener">
+              Adobe embeds agentic AI workflows across Creative Cloud, shifting from media generation to production orchestr…
+            </a>
+          </div>
+          
+          <div class="item-snippet">Adobe has announced  a major expansion of its &quot;creative agent&quot; across its flagship Creative Cloud suite and upgraded Fir…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Hacker News</span>
+            <span class="item-score">↑ 80</span>
+          </div>
+          <div class="item-title">
+            <a href="https://tester.army" target="_blank" rel="noopener">
+              Launch HN: TesterArmy (YC P26) – Agents that test web and mobile apps
+            </a>
+          </div>
+          
+          <div class="item-snippet">Hey HN - we’re Oskar, Szymon, and Piotr, and we’re building TesterArmy (<a href="https:&#x2F;&#x2F;tester.army">https:&#x2F;&#x2F;…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-applications" id="applications">
+
+    <div class="section-head">
+      <span class="sec-num">05</span>
+      <span class="sec-label">Applications & Consumer AI</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">16</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Applications & Consumer AI
+
+The week's consumer and enterprise AI story splits cleanly in two: governments and corporations are simultaneously trying to lock down AI deployments they can't fully control while racing to expand the ones they can. The Anthropic Mythos situation crystallizes a tension that will define enterprise AI adoption in 2026 — regulatory intervention can sever access overnight, making early partnerships and private previews strategically valuable in ways they weren't before. Meanwhile, OpenAI is quietly consolidating its enterprise position not through model improvements but through administrative infrastructure, which is often how platform lock-in actually happens.</div>
+      
+      <div class="sec-prose">- **[Bloomberg Technology] Some early Mythos testers retain access despite US government shutdown order** — The carve-out for select preview partners suggests Anthropic structured its early-access agreements to survive regulatory intervention, or that specific use cases received exemptions — either interpretation has significant implications for how enterprises should structure AI vendor contracts going forward. [Link](https://www.bloomberg.com/news/articles/2026-06-19/early-users-of-anthropic-mythos-still-have-access-after-us-order)
+
+- **[OpenAI Blog] ChatGPT Enterprise gains granular usage analytics and updated spend controls for admins** — OpenAI is solving a real enterprise procurement problem — AI deployments routinely fail to scale past pilot because finance and IT can't instrument them like other software — and shipping admin tooling ahead of competitors is a durable moat that model benchmarks can't easily dislodge. [Link](https://openai.com/index/chatgpt-enterprise-spend-controls)
+
+- **[Latent Space] GLM-5.2 clears community vibe checks; Z.ai forecasts open release of Fable model by December** — If GLM-5.2 is genuinely competitive with GPT-class models as informal evaluations suggest, it marks the first time an open-weight frontier model has credibly closed the gap on reasoning tasks — though Z.ai's December timeline for Open Fable should be treated with caution (unconfirmed). [Link](https://www.latent.space/p/ainews-glm-gpt-glm-52-passes-vibe)
+
+- **[Bloomberg Technology] FedHIVE CEO says US government is moving faster than ever to secure data as enterprise AI adoption accelerates** — Michael Cardaci's framing — that compliance and data sovereignty requirements are hardening in real time — points to a near-term bifurcation in the enterprise AI market between vendors who can credibly keep data within US infrastructure and those who cannot. [Link](https://www.bloomberg.com/news/videos/2026-06-18/companies-move-to-secure-data-amid-ai-security-risks-video)</div>
+      
+      
+      <div class="item-grid">
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-19/early-users-of-anthropic-mythos-still-have-access-after-us-order" target="_blank" rel="noopener">
+              Early Users of Anthropic Mythos Still Have Access After US Order
+            </a>
+          </div>
+          
+          <div class="item-snippet">Some firms chosen early on by Anthropic PBC to test the Mythos AI model ahead of a wider release have preserved their access to a …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 83</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-19/traders-latest-ai-related-play-is-a-struggling-car-parts-stock" target="_blank" rel="noopener">
+              Traders’ Latest AI-Related Play Is a Struggling Car Parts Stock
+            </a>
+          </div>
+          
+          <div class="item-snippet">Investors looking for the stock market’s next artificial intelligence winner have honed in on embattled French car parts maker Val…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">OpenAI Blog</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://openai.com/index/chatgpt-enterprise-spend-controls" target="_blank" rel="noopener">
+              New usage analytics and updated spend controls for enterprises
+            </a>
+          </div>
+          
+          <div class="item-snippet">OpenAI introduces new spend controls and usage analytics for ChatGPT Enterprise, helping organizations manage costs and scale AI w…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Latent Space</span>
+            <span class="item-score">↑ 81</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.latent.space/p/ainews-glm-gpt-glm-52-passes-vibe" target="_blank" rel="noopener">
+              [AINews] GLM > GPT? GLM-5.2 passes vibe check; Z.ai forecasts Open Fable by December
+            </a>
+          </div>
+          
+          <div class="item-snippet">With GLM-5.2 passing everyone's vibe check, the open models story finally becomes a real frontier story.…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-18/companies-move-to-secure-data-amid-ai-security-risks-video" target="_blank" rel="noopener">
+              Companies Move to Secure Data as AI Increases Security Risks
+            </a>
+          </div>
+          
+          <div class="item-snippet">Michael Cardaci, CEO of FedHIVE said that the government is moving 'faster than its ever moved before' to secure data and make sur…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-18/sevenrooms-ceo-on-new-reservation-organizing-platform-video" target="_blank" rel="noopener">
+              SevenRooms CEO on New Reservation Organizing Platform
+            </a>
+          </div>
+          
+          <div class="item-snippet">Joel Montaniel, Co-Founder and CEO of SevenRooms, discussed the company's new platform, Channel Connect, which aims to simplify re…</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/videos/2026-06-18/fmr-disney-exec-media-consolidating-around-new-model-video" target="_blank" rel="noopener">
+              Fmr. Disney Exec: Media Consolidating Around New Model
+            </a>
+          </div>
+          
+          <div class="item-snippet">Kevin Mayer, former Walt Disney Direct-to-Consumer & International Chair, discusses Fox's recent $22 billion acquisition of Roku, …</div>
+          
+        </div>
+        
+        <div class="item-card">
+          <div class="item-card-top">
+            <span class="item-tag">Bloomberg Technology</span>
+            <span class="item-score">↑ 79</span>
+          </div>
+          <div class="item-title">
+            <a href="https://www.bloomberg.com/news/articles/2026-06-18/us-to-fast-track-grid-connections-for-ai-data-centers" target="_blank" rel="noopener">
+              US Acts to Speed Up Power Grid Hook-Ups for AI Data Centers
+            </a>
+          </div>
+          
+          <div class="item-snippet">US regulators have taken their biggest step yet to speed the connection of data centers to the country’s grids while simultaneousl…</div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+  </section>
+  
+  <section class="section section-signals" id="signals">
+
+    <div class="section-head">
+      <span class="sec-num">07</span>
+      <span class="sec-label">Signals from the Feed</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">1</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Signals from the Feed
+
+The tension between AI lab fundraising structures and U.S. export control law is no longer theoretical — it's landing in congressional inboxes and compliance departments simultaneously. The Anthropic-SK Telecom-Mythos triangle is this week's clearest illustration of how quickly a strategic investment partnership can become a geopolitical liability, and the HN thread dissecting it was notably more legally literate than usual. Expect this category of story — foreign capital, AI capability transfer, ambiguous corporate structures — to dominate the policy conversation through the rest of 2026.</div>
+      
+      <div class="signals-grid">
+        
+        <div class="signal-card">
+          <span class="signal-source">Hacker News</span>
+          <div class="signal-title">
+            <a href="https://www.wired.com/story/sk-telecom-anthropic-mythos-export-controls/" target="_blank" rel="noopener">
+              The Korean telecom giant at the center of Anthropic's Mythos controversy
+            </a>
+          </div>
+          <div class="signal-score">↑ 79</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Papers ─────────────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+  <section class="section section-papers" id="papers">
+
+    <div class="section-head">
+      <span class="sec-num">09</span>
+      <span class="sec-label">Papers of the Week</span>
+      <div class="sec-rule"></div>
+      <span class="sec-count">8</span>
+    </div>
+
+    <!-- ── 01 The Big Thing ────────────────────────────────────────────── -->
+    
+    <div class="section-body">
+      <div class="sec-intro">## Papers of the Week
+
+This week's preprints cluster around a shared anxiety: that AI systems are less trustworthy than their benchmark numbers suggest. Three distinct research threads converge on the same diagnosis — models lack persistent internal state, their uncertainty estimates are poorly calibrated under real-world conditions, and their safety alignment is more brittle than previously understood. The field is quietly shifting from capability demonstrations toward the harder, less glamorous work of making systems reliable.</div>
+      
+      <div class="papers-grid">
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20557v1" target="_blank" rel="noopener">Optimal Deterministic Multicalibration and Omniprediction</a>
+          </div>
+          <div class="paper-authors">Georgy Noarov, Aaron Roth</div>
+          <div class="paper-abstract">A model is multicalibrated on a collection of group weights $G$ if it is calibrated -- i.e. unbiased even conditional on its prediction -- not just overall, but also after reweighting contexts by each $g \in G$. It is a …</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20556v1" target="_blank" rel="noopener">Thinking in Boxes: 3D Editing in Real Images Made Easy</a>
+          </div>
+          <div class="paper-authors">Pradhaan S Bhat, Naveen Chandra R, Rishubh Parihar et al.</div>
+          <div class="paper-abstract">Text and 2D-conditioning interfaces provide weak, ambiguous control over spatial transformations in image editing -- particularly under large object motions and camera changes. Prior work has used 3D primitives such as b…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20547v1" target="_blank" rel="noopener">The Token Is a Group Element: On Lie-Algebra Attention over Matrix Lie Groups</a>
+          </div>
+          <div class="paper-authors">Przemyslaw Musialski</div>
+          <div class="paper-abstract">We place the attention token on the group: a token is an element $g_i$ of a matrix Lie group $G$ -- a bare transformation, with no feature payload and no external action $ρ(g)$ carrying it. To our knowledge this is the f…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20545v1" target="_blank" rel="noopener">Current World Models Lack a Persistent State Core</a>
+          </div>
+          <div class="paper-authors">Jinpeng Lu, Dexu Zhu, Haoyuan Shi et al.</div>
+          <div class="paper-abstract">World models are increasingly regarded as a decisive step toward artificial general intelligence, yet modeling the physical world demands more than rendering convincing frames on demand: it requires an internal world sta…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20544v1" target="_blank" rel="noopener">Toward Calibrated Mixture-of-Experts Under Distribution Shift</a>
+          </div>
+          <div class="paper-authors">Gina Wong, Drew Prinster, Suchi Saria et al.</div>
+          <div class="paper-abstract">Calibration aligns a model's predictive uncertainty with the frequencies of its empirical outcomes and is important for understanding and trusting reported probabilities. Recent work shows that enforcing calibration at t…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20531v1" target="_blank" rel="noopener">VisDom: Sparse Novel View Synthesis with Visible Domain Constraint</a>
+          </div>
+          <div class="paper-authors">Mariia Gladkova*, Tarun Yenamandra*, Edmond Boyer et al.</div>
+          <div class="paper-abstract">Sparse novel view synthesis (NVS) remains challenging due to the ambiguity of recovering 3D geometry from few input views. While NeRF- and Gaussian Splatting (GS)-based methods perform well with dense supervision, they o…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20510v1" target="_blank" rel="noopener">Efficient and Sound Probabilistic Verification for AI Agents</a>
+          </div>
+          <div class="paper-authors">Alaia Solko-Breslin, Pramod Kaushik Mudrakarta, Mihai Christodorescu et al.</div>
+          <div class="paper-abstract">Securing AI agents that operate in complex digital environments has become a critical need, and runtime monitoring approaches that formulate and enforce policies expressed in a formal language like Datalog offer a promis…</div>
+        </div>
+        
+        <div class="paper-card">
+          <span class="paper-badge">arXiv</span>
+          <div class="paper-title">
+            <a href="http://arxiv.org/abs/2606.20508v1" target="_blank" rel="noopener">What Do Safety-Aligned LLMs Learn From Mixed Compliance Demonstrations?</a>
+          </div>
+          <div class="paper-authors">Sihui Dai, Mann Patel</div>
+          <div class="paper-abstract">Prior work has shown that in-context demonstrations can jailbreak language models, but it remains unclear how models interpret different types of compliance demonstrations. We study this by mixing benign compliance demon…</div>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- ── Worth Reading ──────────────────────────────────────────────── -->
+    
+
+  </section>
+  
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI & Tech Intelligence</div>
+        <div class="footer-meta">
+          Generated 2026-06-19 · claude-sonnet-4-6<br>
+          68 items across all sources
+        </div>
+      </div>
+      <div class="footer-sources">
+        <strong>Sources</strong>
+        AWS Machine Learning Blog, Axios Tech, Bloomberg Technology, FT Tech, Hacker News, Hugging Face Blog, LangChain Blog, Latent Space, NVIDIA Blog, OpenAI Blog, Semafor Tech, Snowflake Blog, Stratechery, TechCrunch, The Verge, VentureBeat AI, arXiv
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
