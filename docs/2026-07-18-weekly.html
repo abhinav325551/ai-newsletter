@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & Tech Intelligence — Weekly Review · 2026-07-18</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f4f0; --page: #ffffff; --text: #1a1a1a;
+      --muted: #6b6b6b; --light: #aaa; --border: #e4e2dc;
+      --accent: #1e5b8a; --accent-bg: #f0f5fa;
+      --tag-bg: #eeede8;
+      --serif: "Source Serif 4", Georgia, serif;
+      --display: "Playfair Display", Georgia, serif;
+      --sans: "Inter", system-ui, sans-serif;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--serif); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+    a:hover { border-bottom-color: var(--accent); }
+    .shell {
+      max-width: 960px; margin: 0 auto; background: var(--page);
+      border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+    .masthead {
+      border-bottom: 3px solid var(--text); padding: 2rem 2.5rem 1.5rem;
+    }
+    .masthead-top {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1.25rem;
+    }
+    .eyebrow {
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    }
+    .meta { font-family: var(--sans); font-size: 0.7rem; color: var(--light); }
+    .title {
+      font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      color: var(--muted); font-size: 1rem;
+    }
+    .week-stats {
+      display: flex; gap: 1.5rem; margin-top: 1rem; font-family: var(--sans);
+      font-size: 0.78rem; color: var(--muted); flex-wrap: wrap;
+    }
+    .week-stats span strong { color: var(--text); font-weight: 600; }
+    main { padding: 2rem 2.5rem 3rem; }
+    section { margin-bottom: 3rem; }
+    .section-label {
+      font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-head {
+      font-family: var(--display); font-size: 1.7rem; font-weight: 700;
+      line-height: 1.15; margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 0.6rem;
+    }
+    .essay p { margin-bottom: 1.1rem; font-size: 1.02rem; }
+    .essay h2, .essay h3 {
+      font-family: var(--display); font-weight: 700; margin: 1.6rem 0 0.6rem;
+      line-height: 1.2;
+    }
+    .essay h2 { font-size: 1.35rem; }
+    .essay h3 { font-size: 1.15rem; }
+    .essay strong { font-weight: 600; }
+    .essay ul { margin: 0.6rem 0 1rem 1.3rem; }
+
+    .big-stories { background: var(--accent-bg); border-left: 3px solid var(--accent); padding: 1.1rem 1.3rem; border-radius: 4px; }
+    .big-stories .day {
+      font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    }
+    .big-stories .headline {
+      font-family: var(--display); font-size: 1.05rem; font-weight: 700;
+      line-height: 1.3; margin: 0.15rem 0 0.9rem;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.82rem; margin: 0.6rem 0 1.3rem; }
+    th, td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--border); }
+    th { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: var(--tag-bg); }
+    tr:hover td { background: #fafaf7; }
+
+    .scope-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+    .scope-card { border: 1px solid var(--border); padding: 0.9rem 1rem; border-radius: 4px; }
+    .scope-card .label { font-family: var(--sans); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .scope-card .value { font-family: var(--display); font-size: 1.5rem; font-weight: 700; margin-top: 0.15rem; }
+    .scope-card .delta-pos { color: #2d6e3e; font-size: 0.8rem; font-family: var(--sans); }
+    .scope-card .delta-neg { color: var(--accent); font-size: 0.8rem; font-family: var(--sans); }
+
+    .day-block { margin-bottom: 1.4rem; }
+    .day-block .day-head {
+      font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .day-block ul { list-style: none; padding-left: 0; margin: 0; }
+    .day-block li { font-size: 0.88rem; padding: 0.25rem 0; }
+    .day-block .src { color: var(--muted); font-weight: 600; font-size: 0.75rem; }
+    .sect-mini { font-family: var(--sans); font-size: 0.7rem; color: var(--muted); margin: 0.4rem 0 0.2rem; font-weight: 500; }
+
+    .footer { border-top: 3px solid var(--text); padding: 1.5rem 2.5rem; background: var(--bg); font-family: var(--sans); font-size: 0.72rem; color: var(--light); line-height: 1.6; }
+
+    @media (max-width: 640px) {
+      .shell { border: none; }
+      .masthead, main, .footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="eyebrow">Weekly Review · Saturday Digest</span>
+      <span class="meta">2026-07-18</span>
+    </div>
+    <h1 class="title">AI & Tech Intelligence</h1>
+    <p class="subtitle">Week of 2026-07-12 → 2026-07-18</p>
+    <div class="week-stats">
+      <span><strong>5</strong> daily issues</span>
+      <span><strong>35</strong> sources active</span>
+      <span><strong>4</strong> new</span>
+      <span><strong>0</strong> cold</span>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="section-label">Editor's note</div>
+      <h2 class="section-head">This Week in AI</h2>
+      <div class="essay">
+        
+        <h2>Week in Review: July 13–17, 2026</h2>
+<p>
+<strong>Editor's Note</strong>
+</p>
+<p>
+This was a week that looked, on the surface, like a collection of disconnected earnings beats, product launches, and labor disputes. Zoom out, and a more unsettling picture emerges. The AI infrastructure build-out cleared another credibility threshold — TSMC's blowout quarter made the skeptics quiet down — but the week's more consequential stories were about <em>consequences</em>: who gets displaced by the machines, who controls the power to run them, whether the tools being shipped actually work safely, and whether the nations racing to catch up can actually get there. Four themes dominated. None of them are finished stories.
+</p>
+<p>
+---
+</p>
+<p>
+<strong>1. The Semiconductor Supercycle Has Macro Weight Now</strong>
+</p>
+<p>
+The week's most concrete data point came from TSMC, which posted quarterly profit that beat already-elevated analyst estimates — a result Bloomberg Technology called the clearest demand-side signal yet that hyperscaler AI spending commitments are converting into actual silicon orders, not announced intentions. [Bloomberg Technology] The company then compounded the news by committing another $100 billion to U.S. production, a move [FT Tech] correctly frames not as a demand signal but as a supply-side concession to political risk — every wafer fabbed in Arizona still carries a cost premium over Taiwan that ultimately lands on someone's margin.
+</p>
+<p>
+The macro feedback loop is now explicit in a way it wasn't six months ago. South Korea's government is publicly diverging from the IMF's growth assessment, betting that AI-driven chip demand will more than offset geopolitical headwinds. [Bloomberg] Seoul is using semiconductor export strength as its primary counterargument to global slowdown forecasts — a striking instance of AI infrastructure spend showing up directly in sovereign economic planning. Meanwhile, Nvidia's Jensen Huang felt compelled to publicly declare that Vera Rubin accelerators are "in production and on track" [Bloomberg Technology], a statement whose necessity is itself informative: credible delay talk exists, and supply chain execution risk hasn't vanished post-Hopper.
+</p>
+<p>
+The stock market, notably, did not celebrate uncritically. TSMC's strong Q2 triggered a broad chip selloff [Bloomberg Technology], and [FT Tech] reported investors trimming positions in Asian chipmakers after a sustained rally. The gap between fundamental strength and valuation anxiety is where the interesting risk lives heading into next week's earnings from downstream hyperscalers.
+</p>
+<p>
+<em>Watch for: Whether Microsoft, Google, and Amazon's capex guidance in upcoming earnings calls confirms or complicates the demand picture TSMC's numbers imply.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>2. The Energy Constraint Is Now a Political Constraint</strong>
+</p>
+<p>
+The infrastructure conversation shifted this week from compute to power — and from engineering to politics. NVIDIA made the argument explicit in a recent blog post, framing performance per watt, not peak FLOPS or chip count, as the foundational metric for AI factories. [NVIDIA] The logic is straightforward and worth internalizing: a data center's power budget is its binding constraint once you've hit grid capacity. The company that wins on performance per watt effectively gets more intelligence per dollar of electricity, which compounds across millions of inference calls daily. This isn't marketing; it's the correct frame for evaluating infrastructure bets.
+</p>
+<p>
+But the political layer hardened significantly this week. New York enacted a one-year moratorium on large-scale data center construction — the first such state-level action in the U.S. — reflecting a genuine hardening of progressive opposition to AI infrastructure on energy and land-use grounds. [Reuters / Semafor] U.S. data centers have already consumed enough power to register at the macroeconomic level. [Fortune] Separately, the Iran conflict reignited an oil price spike [Axios], adding another variable to the energy cost equation that data center operators had not fully priced in. The moratorium will be watched as a legislative template by other high-density states facing grid pressure.
+</p>
+<p>
+These two pressures — the technical imperative to wring more performance from each watt, and the political pressure to limit how many watts you're allowed to draw — are now reinforcing each other in ways that will reshape where AI infrastructure gets built. Geographic arbitrage toward energy-abundant, politically permissive jurisdictions is likely to accelerate. The constraint is no longer just capital or chips; it's the grid.
+</p>
+<p>
+<em>Watch for: Whether other states move to replicate New York's moratorium framework, and whether hyperscalers begin announcing data center investments in energy-surplus regions more aggressively.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>3. The Industrial Displacement Bargain Is Being Renegotiated in Real Time</strong>
+</p>
+<p>
+The week opened with a story that deserves more analytical attention than it received. Hyundai Motor workers launched a partial strike Monday, and while bonus demands grabbed the headline, the second ask is the one that matters structurally: contractual guarantees that jobs won't be eliminated by AI and robotics. [Bloomberg] This is not a symbolic gesture. It is labor attempting to install a legal brake on the substitution economics that automation enables — and doing so at a company, Hyundai, that is simultaneously one of the most aggressive investors in robotics through its Boston Dynamics acquisition. The contradiction between Hyundai's public robotics ambitions and its workers' job-security demands is not incidental; it is the central tension of the next decade of industrial automation, expressed in a specific collective bargaining agreement.
+</p>
+<p>
+The same week, India's Tata Electronics was reported to be pivoting to older semiconductor process nodes for its inaugural domestic chip production — a concrete acknowledgment that India's ambitions to compress decades of manufacturing development into a few policy cycles are running into the structural barriers that have historically made chip manufacturing a near-impossible industrial catch-up story. [Bloomberg Technology] Geopolitical diversification of the semiconductor supply chain, as a policy objective, is real. The execution timeline is not. The gap between political aspiration and manufacturing reality is where a lot of investor capital is currently at risk.
+</p>
+<p>
+These two stories — a Korean automaker's workers demanding job-security clauses, and India's chip ambitions hitting a node-generation wall — are superficially unrelated. They are actually the same story: the costs and dislocations of the AI buildout are landing unevenly, and the institutions being asked to absorb those costs are beginning to push back in concrete, legible ways.
+</p>
+<p>
+<em>Watch for: Whether Hyundai's job-security clause becomes a template for labor negotiations in other robotics-heavy manufacturing sectors, particularly in Japan and Germany.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>4. Agentic AI Is Shipping Faster Than the Safety Architecture Supporting It</strong>
+</p>
+<p>
+The security and reliability failures documented this week were not theoretical. xAI's Grok CLI was caught silently uploading entire git repositories — and in some cases home directories — to a Google Cloud Storage bucket that wasn't obviously xAI-controlled. [Twitter/HN] Claude's persistent memory system was demonstrated to be exploitable for cross-conversation data exfiltration via prompt injection, with a working proof-of-concept published publicly. [Hacker News] Separately, Databricks researchers documented how multi-step indirect prompt injections defeat per-step permission checks entirely, publishing what may be the most technically specific public write-up of agentic security architecture to date — and making clear that cross-turn policy state is the only viable defense. [Databricks]
+</p>
+<p>
+The enterprise adoption data makes the timing urgent. A survey of 101 enterprises found agent orchestration consolidating onto model-provider platforms, but most deployed "agents" are still chatbot wrappers — while a separate survey of 157 enterprises found that half had shipped an agent that passed internal evals and then failed a customer in production, with only 1 in 20 fully trusting automated evaluation today. [VentureBeat x2] The problem, per VentureBeat's framing, isn't eval coverage; it's reality-alignment. Meanwhile, a research paper this week demonstrated that LLM hidden-state analysis reveals physical danger and text-level content danger to be orthogonal safety problems — meaning a model acting as an embodied agent planner can pass standard content-safety filters while issuing physically lethal action sequences. [arXiv] That finding, taken seriously, has direct implications for every robotics and autonomous systems deployment currently relying on off-the-shelf LLM safety guardrails.
+</p>
+<p>
+The honest summary is that the agentic deployment wave is running ahead of the defensive architecture. The tools to secure multi-step agents across memory, identity propagation, and indirect injection are being built — AWS's OBO token exchange for multi-tenant agent architectures [AWS Machine Learning Blog], Databricks' stateful policy framework — but they are being built concurrently with production deployments, not before them. That sequencing is a known risk that is now generating known incidents.
+</p>
+<p>
+<em>Watch for: Whether the Grok CLI data-upload incident prompts regulatory attention to agentic tool data handling, and whether any major enterprise publicly attributes a production failure to agent security gaps.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>5. The Platform War Is Entering a More Predatory Phase</strong>
+</p>
+<p>
+The competitive dynamics among the major AI platforms crossed a threshold this week that warrants its own analysis. Microsoft was reported to be actively coaching its sales team to undermine Anthropic and OpenAI in customer conversations — effectively competing against the companies it funds and distributes, treating its Azure OpenAI partnership as subordinate to Copilot platform lock-in. [Bloomberg Technology] This is not an ambiguous signal. Microsoft is behaving as if the partnership era is over and the extraction era has begun.
+</p>
+<p>
+OpenAI, simultaneously, is repositioning Codex as its primary user surface — with Stratechery's Ben Thompson raising the pointed question of whether OpenAI is effectively exiting the chat category it created. [Stratechery] Codex's user growth is remarkable: past 7 million users, up more than 10x in six months, with roughly 1 million users added in approximately a single day. [Latent Space] The direct pressure this creates on GitHub Copilot, Cursor, and every developer-tool SaaS that built its value proposition as the AI-native layer <em>above</em> the model is not subtle — OpenAI is now occupying that layer itself. Meanwhile, all three frontier labs — OpenAI, Meta, and xAI — released new models this week with pricing as the primary selling point, a marked shift from the benchmark-first positioning that defined 2024-era launches. [Bloomberg Technology] When frontier labs compete on cost efficiency rather than capability, the mid-market SaaS wrappers whose margins depend on the gap between API costs and customer willingness-to-pay face structural compression.
+</p>
+<p>
+IBM missing earnings and spooking the broader software market [Stratechery] is the concrete data point underneath the competitive narrative: legacy software businesses facing modernizing customers have less pricing power than their installed bases once implied, and AI workloads are routing around legacy stacks, not through them. The week's competitive moves, taken together, suggest the platform consolidation that analysts have long predicted is now happening on an accelerated timeline — and the losers will be the companies that banked on the current layer structure remaining stable.
+</p>
+<p>
+<em>Watch for: Whether Anthropic or another frontier lab responds to Microsoft's competitive posture with distribution changes, and whether OpenAI's Codex growth begins to show up in GitHub Copilot churn data.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>Bottom line:</strong> This was the week the AI buildout stopped being a story about potential and started generating the kind of structural friction — in labor markets, power grids, geopolitical supply chains, and enterprise security incidents — that only emerges when a technology is large enough to stress the systems around it.
+</p>
+        
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">The headline of each day</div>
+      <h2 class="section-head">Big Stories — Day by Day</h2>
+      
+      <div class="big-stories">
+        
+        <div>
+          <div class="day">2026-07-13</div>
+          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-07-13/hyundai-hymtf-workers-strike-over-bonuses-ai-robot-job-security">Hyundai Motor Workers Strike Over Bonuses, Robot Job Security</a></div>
+        </div>
+        
+        <div>
+          <div class="day">2026-07-14</div>
+          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-07-14/south-korea-turns-more-bullish-on-economy-as-chip-boom-rolls-on">South Korea Turns More Bullish on Economy as Chip Boom Rolls On</a></div>
+        </div>
+        
+        <div>
+          <div class="day">2026-07-15</div>
+          <div class="headline"><a href="https://blogs.nvidia.com/blog/performance-per-watt-ai-infrastructure-efficiency/">Why Performance per Watt Is the Ultimate Metric for AI Infrastructure Efficiency</a></div>
+        </div>
+        
+        <div>
+          <div class="day">2026-07-16</div>
+          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-07-16/tsmc-beats-lofty-estimates-in-latest-sign-of-sustained-ai-demand">TSMC Beats Lofty Estimates in Latest Sign of Sustained AI Demand</a></div>
+        </div>
+        
+        <div>
+          <div class="day">2026-07-17</div>
+          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-07-17/tata-group-resorts-to-older-tech-to-launch-its-chip-foray">Tata Group Resorts to Older Tech to Launch Its Chip Foray</a></div>
+        </div>
+        
+      </div>
+      
+    </section>
+
+    <section>
+      <div class="section-label">What changed in the source pool</div>
+      <h2 class="section-head">Source Scope</h2>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="label">Active this week</div>
+          <div class="value">35</div>
+          <div class="delta-pos">+2 vs last week</div>
+        </div>
+        <div class="scope-card">
+          <div class="label">New this week</div>
+          <div class="value">4</div>
+        </div>
+        <div class="scope-card">
+          <div class="label">Stopped delivering</div>
+          <div class="value">2</div>
+        </div>
+        <div class="scope-card">
+          <div class="label">Cold (≥30d silent)</div>
+          <div class="value">0</div>
+        </div>
+      </div>
+
+      <p><strong>New:</strong> Google DeepMind Blog, Interconnects (Nathan Lambert), Newcomer, Sequoia Capital Blog</p>
+      <p><strong>Stopped:</strong> Amazon Science, Mistral Blog</p>
+      
+
+      <h3 style="font-family: var(--display); font-size: 1.1rem; margin: 1.5rem 0 0.6rem;">Top 10 Performers (30-day composite)</h3>
+      <table>
+        <thead><tr><th>#</th><th>Source</th><th>Type</th><th>Composite</th><th>Hit Rate</th><th>Freshness</th><th>Impact</th><th>Active Days</th></tr></thead>
+        <tbody>
+          
+          <tr><td>1</td><td>Bloomberg Technology</td><td>news</td><td><strong>0.97</strong></td><td>1.00</td><td>0.95</td><td>0.95</td><td>20</td></tr>
+          
+          <tr><td>2</td><td>arXiv</td><td>arxiv</td><td><strong>0.97</strong></td><td>1.00</td><td>0.95</td><td>0.95</td><td>20</td></tr>
+          
+          <tr><td>3</td><td>Semafor Tech</td><td>news</td><td><strong>0.96</strong></td><td>1.00</td><td>1.00</td><td>0.86</td><td>21</td></tr>
+          
+          <tr><td>4</td><td>Axios Tech</td><td>news</td><td><strong>0.93</strong></td><td>1.00</td><td>1.00</td><td>0.71</td><td>21</td></tr>
+          
+          <tr><td>5</td><td>TechCrunch</td><td>news</td><td><strong>0.93</strong></td><td>1.00</td><td>1.00</td><td>0.71</td><td>21</td></tr>
+          
+          <tr><td>6</td><td>FT Tech</td><td>news</td><td><strong>0.92</strong></td><td>1.00</td><td>1.00</td><td>0.67</td><td>21</td></tr>
+          
+          <tr><td>7</td><td>The Verge</td><td>news</td><td><strong>0.86</strong></td><td>1.00</td><td>1.00</td><td>0.43</td><td>21</td></tr>
+          
+          <tr><td>8</td><td>VentureBeat AI</td><td>news</td><td><strong>0.85</strong></td><td>1.00</td><td>0.91</td><td>0.52</td><td>19</td></tr>
+          
+          <tr><td>9</td><td>AWS Machine Learning Blog</td><td>blog</td><td><strong>0.85</strong></td><td>0.99</td><td>0.81</td><td>0.67</td><td>17</td></tr>
+          
+          <tr><td>10</td><td>Hacker News</td><td>hn</td><td><strong>0.84</strong></td><td>0.95</td><td>1.00</td><td>0.43</td><td>21</td></tr>
+          
+        </tbody>
+      </table>
+
+      
+      <h3 style="font-family: var(--display); font-size: 1.1rem; margin: 1.5rem 0 0.6rem;">Discovered Candidates (1)</h3>
+      <table>
+        <thead><tr><th>Source</th><th>Type</th><th>Why</th></tr></thead>
+        <tbody>
+          
+          <tr><td><a href="https://rss.arxiv.org/rss/cs.AI+cs.LG">arXiv AI/ML (cs.AI + cs.LG)</a></td><td>news_rss</td><td>Multiple arXiv papers cited directly in the Models & Research section (SciDiagramEdit, HoloGeo); primary source for cutting-edge ML research preprints highly relevant to this newsletter's audience.</td></tr>
+          
+        </tbody>
+      </table>
+      
+
+      
+    </section>
+
+    <section>
+      <div class="section-label">Everything we shipped</div>
+      <h2 class="section-head">Story Index — The Whole Week</h2>
+      
+        
+        <div class="day-block">
+          <div class="day-head">2026-07-13</div>
+          
+          <div class="sect-mini">Infrastructure & Silicon</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-13/tsmc-sales-surge-36-in-fresh-sign-of-ai-spending-momentum">TSMC Sales Surge 36% in Fresh Sign of AI Spending Momentum</a></li>
+            
+            <li><span class="src">[Exponential View]</span> <a href="https://www.exponentialview.co/p/ev-592">🔮 Reading is dying. GPU demand isn’t.</a></li>
+            
+            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/07/12/2026/former-qatar-ruler-sheikh-hamad-architect-of-modern-qatar-dies">Former Qatar ruler Sheikh Hamad, architect of modern Qatar, dies</a></li>
+            
+            <li><span class="src">[The Verge]</span> <a href="https://www.theverge.com/column/963346/ai-data-centers-fight">The fight against AI data centers is just beginning</a></li>
+            
+            <li><span class="src">[FT Tech]</span> <a href="https://www.ft.com/content/734c23c8-73ed-4a4a-8150-49d12d891c30">Investors cut back bets on Asian chipmakers after blistering rally</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Models & Research</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://cacm.acm.org/news/can-we-understand-how-large-language-models-reason/">Mechanistic interpretability researchers applying causality theory to LLMs</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09654v1">Evolution of Accuracy and Visual-Cognitive Errors in a Decade of Vision-Language AI Models</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09653v1">VEXAIoT: Autonomous IoT Vulnerability EXploitation using AI Agents</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09649v1">ConceptSMILE: Auditing the Trustworthiness of Concept-Based Explainable AI</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09629v1">4DR360: State Reasoning for Joint 3D Detection and Occupancy Prediction in 4D Radar-Camera Full-Scene Perception</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Tooling & Agents</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://systima.ai/blog/claude-code-vs-opencode-token-overhead">Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://ploy.ai/blog/migrating-a-production-ai-agent-to-gpt-5-6">Migrating a production AI agent to GPT-5.6: 2.2x faster, 27% cheaper</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09662v1">PHINN-EEG: Topological Time-Series Analysis of Dream-State EEG -- Dynamic Betti Curves for Dream Content Classification and Topology-Conditi</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09650v1">Revisiting Euler-Angle Regression with Kolmogorov-Arnold Networks</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09641v1">Semantic Pareto-DQN: A Multi-Objective Reinforcement Learning Framework for Financial Anomaly Detection</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Applications & Consumer AI</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/newsletters/2026-07-12/apple-s-chip-plans-m6-m7-pro-m7-max-m7-ultra-m8-details-touch-macbook-pro">Apple’s M6, M7 and M8 Chips Show How AI Is Reshaping the Company</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-13/minimax-shares-slump-after-jpmorgan-cuts-target-price-further">MiniMax Shares Slump After JPMorgan Cuts Target Price Further</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-07-13/sk-hynix-shares-slump-in-south-korea-after-us-listing-video">SK Hynix Shares Slump in South Korea After US Listing</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-12/openai-meta-spacexai-compete-for-more-cost-efficient-ai-models">OpenAI, Meta, SpaceXAI Compete for More Cost-Efficient AI Models</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-12/zhipu-s-chinese-founder-says-frontier-ai-should-stay-open-to-all">Zhipu’s Chinese Founder Says Frontier AI Should Stay Open to All</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">SaaS Disruption Watch</div>
+          <ul>
+            
+            <li><span class="src">[Nate B Jones Podcast]</span> <a href="https://natesnewsletter.substack.com/p/ai-native-company-rules">AI-Native Companies Run on Code: 15 Rules for Operators</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Signals from the Feed</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://terrytao.wordpress.com/2026/07/11/old-and-new-apps-via-modern-coding-agents/">Old and new apps, via modern coding agents</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://geohot.github.io//blog/jekyll/update/2026/07/12/i-love-llms.html">I love LLMs, I hate hype</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Papers of the Week</div>
+          <ul>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09661v1">PanoWorld: Real-World Panoramic Generation</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09655v1">OpenLongTail: Generative Scaling of Long-Tail Driving Data</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09630v1">The Effects of Synthetic Data and Label Distribution on Canola Branch Counting</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09613v1">Dynamic Frechet Regression with Feature Selection for Distributional Data</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.09611v1">Toward Real-Time Sentence-Level Sign Language Translation</a></li>
+            
+          </ul>
+          
+        </div>
+        
+        <div class="day-block">
+          <div class="day-head">2026-07-14</div>
+          
+          <div class="sect-mini">Infrastructure & Silicon</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-14/pure-dc-building-finland-ai-data-center-secures-microsoft-deal">Pure DC Building Finland AI Data Center, Secures Microsoft Deal</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-13/huawei-s-11-billion-energy-unit-has-revenue-close-to-tesla-s-energy-division">Huawei's $11 Billion Clean Energy Empire Is Opening New Markets</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-07-13/ai-stock-rally-to-continue-into-2027-analyst-luria-says-video">AI-Fueled Rally to Continue Into 2027, Analyst Luria Says</a></li>
+            
+            <li><span class="src">[FT Tech]</span> <a href="https://www.ft.com/content/e9db6384-b295-4ab2-96bf-55025db9ee1d">Google backs major US solar project to offset fossil fuel emissions</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-07-13/lazard-s-bilicic-sees-tremendous-demand-for-ai-power-video">Lazard's Bilicic Sees 'Tremendous' Demand for AI Data Center Power</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Models & Research</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-07-13/the-close-7-13-2026-video">Stocks & Bonds Fall as Oil Jump Fuels Fed-Hike Bets | The Close 7/13/2026</a></li>
+            
+            <li><span class="src">[MIT Tech Review AI]</span> <a href="https://www.technologyreview.com/2026/07/13/1140343/what-anthropics-latest-ai-discovery-does-and-doesnt-show/">What Anthropic’s latest AI discovery does—and doesn’t—show</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/13/hermes-agent-maker-nous-research-in-talks-for-new-funding-at-1-5b-valuation/">Hermes agent maker Nous Research in talks for new funding at $1.5B valuation</a></li>
+            
+            <li><span class="src">[Microsoft Research Blog]</span> <a href="https://www.microsoft.com/en-us/research/blog/verifying-rust-cryptography-in-symcrypt-from-standards-to-code/">Verifying Rust cryptography in SymCrypt, from standards to code</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11886v1">Read It Back: Pretrained MLLMs Are Zero-Shot Reward Models for Text-to-Image Generation</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Tooling & Agents</div>
+          <ul>
+            
+            <li><span class="src">[FT Tech]</span> <a href="https://www.ft.com/content/8b3e2431-96b5-477e-b5ea-e3baae671b9c">AI lawsuits expose gaps in conventional insurance, says report</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/building-an-agentic-ai-solution-at-bluesight-with-amazon-bedrock/">Building an agentic AI solution at Bluesight with Amazon Bedrock</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/implement-on-behalf-of-token-exchange-for-multi-tenant-agents-with-amazon-bedrock-agentcore-gateway/">Implement on-behalf-of token exchange for multi-tenant agents with Amazon Bedrock AgentCore Gateway</a></li>
+            
+            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/orchestration/acrouter-picks-the-smartest-ai-model-per-task-beating-opus-only-setups-by-2-6x-on-cost">ACRouter picks the smartest AI model per task, beating Opus-only setups by 2.6x on cost</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://get-inscribe.com/blog/apple-speech-api-benchmark.html">Apple's new SpeechAnalyzer API, benchmarked against Whisper and its predecessor</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Applications & Consumer AI</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-14/deepseek-s-liang-tops-amodei-and-brockman-as-richest-ai-founder">DeepSeek’s Liang Tops Amodei and Brockman as Richest AI Founder</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-14/openai-s-feud-with-xai-carries-on-as-apple-secrets-fight-revs-up">OpenAI’s Feud With xAI Carries On as Apple Secrets Fight Revs Up</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-14/softbank-s-masayoshi-son-sees-fusion-power-as-key-to-ai-s-future">SoftBank’s Masayoshi Son Sees Fusion as Key to AI’s Future</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-14/sk-hynix-shares-waver-in-seoul-after-wall-street-ai-memory-rout">SK Hynix Shares Rebound After Early Rout as AI Jitters Persist</a></li>
+            
+            <li><span class="src">[Platformer]</span> <a href="https://www.platformer.news/ai-jobs-warning-brynjolfsson-acemoglu/">The loudest warning about AI and jobs yet</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">SaaS Disruption Watch</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-07-13/apple-s-lawsuit-could-disrupt-openai-bid-to-rival-iphone-video">How Apple’s Lawsuit Could Disrupt OpenAI’s Bid to Rival the iPhone</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Signals from the Feed</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://raymyers.org/post/zed-creator-calls-spade-a-spade/">Zig Creator Calls Spade a Spade, Anthropic Blows Smoke</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://twitter.com/a_green_being/status/2076598897779020159">Grok CLI uploaded the whole home directory to GCS</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://github.com/clawkwork/clawk">Show HN: Clawk – Give coding agents a disposable Linux VM, not your laptop</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://blog.cloudflare.com/introducing-precursor/">Precursor</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://esologic.com/benchmarking-tesla-gpus/">Benchmarking 15 “E-Waste” GPUs with Modern Workloads</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Papers of the Week</div>
+          <ul>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11885v1">Latent-Identity Tuning in Text-to-Image Personalization Models</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11883v1">Requential Coding: Pushing the Limits of Model Compression with Self-Generated Training Data</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11874v1">A Minimalist Retargeting-Guided Reinforcement Learning Recipe for Dexterous Manipulation</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11871v1">Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.11862v1">Evidence-Backed Video Question Answering</a></li>
+            
+          </ul>
+          
+        </div>
+        
+        <div class="day-block">
+          <div class="day-head">2026-07-15</div>
+          
+          <div class="sect-mini">Infrastructure & Silicon</div>
+          <ul>
+            
+            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/07/14/oil-hormuz-pipelines-trump">The push to bypass the Strait of Hormuz</a></li>
+            
+            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/07/14/cpi-june-inflation-energy">Inflation has biggest drop since 2020</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/multi-agent-social-intelligence-with-strands-agents-and-amazon-bedrock/">Multi-agent social intelligence with Strands Agents and Amazon Bedrock</a></li>
+            
+            <li><span class="src">[MIT Tech Review AI]</span> <a href="https://www.technologyreview.com/2026/07/14/1140356/psiquantum-plan-massive-quantum-computer-out-of-light/">PsiQuantum has a plan to make a massive quantum computer out of light</a></li>
+            
+            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/07/14/2026/ny-enacts-data-center-moratorium">NY enacts data center moratorium</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Models & Research</div>
+          <ul>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13034v1">Do AI Agents Know When a Task Is Simple? Toward Complexity-Aware Reasoning and Execution</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13010v1">DermDepth: Toward Monocular Metric Scale 3D Reconstruction Models for Dermatology</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13007v1">Dynamic Resource Allocation for Ensemble Determinization MCTS</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.12986v1">Win by Silence: Deletion Non-Monotonicity, Autonomous Exploitation, and Typed-State Gating in LLM Plan Evaluation</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.12982v1">FormalAnalyticGeo: A Neural-Symbolic Based Framework for Multimodal Analytic Geometry Problem Generation</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Tooling & Agents</div>
+          <ul>
+            
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/managing-ai-investments-in-agentic-era">How to manage AI investments in the agentic era</a></li>
+            
+            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/07/14/mike-johnson-house-republicans-reconciliation">House GOP's reconciliation 3.0 push hits early road bumps</a></li>
+            
+            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/07/14/demis-hassabis-ai-regulation-google-deepmind">Exclusive: Google's Hassabis calls for U.S.-led global AI watchdog</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/accelerating-software-delivery-with-agentic-qa-automation-using-amazon-nova-act-part-2/">Accelerating software delivery with agentic QA automation using Amazon Nova Act – Part 2</a></li>
+            
+            <li><span class="src">[Databricks Blog]</span> <a href="https://www.databricks.com/blog/blocking-slow-burn-attacks-contextual-policies-omnigent">Blocking Slow-Burn Attacks: Contextual Policies in Omnigent</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Applications & Consumer AI</div>
+          <ul>
+            
+            <li><span class="src">[Platformer]</span> <a href="https://www.platformer.news/david-pierce-interview-productivity-podcast/">The man who tried 200 to-do apps has some advice about AI</a></li>
+            
+            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/ainews-not-much-happened-today-c72">[AINews] not much happened today</a></li>
+            
+            <li><span class="src">[Stratechery]</span> <a href="https://stratechery.com/2026/the-openai-super-app-chatgpt-codex-whither-chat/">The OpenAI Super App, ChatGPT = Codex, Whither Chat</a></li>
+            
+            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/aiewf26trends">5 Trends That Defined AI Engineering at World’s Fair 2026</a></li>
+            
+            <li><span class="src">[NVIDIA Blog]</span> <a href="https://blogs.nvidia.com/blog/nemotron-open-models-ai-trust-control-customize/">Nemotron Labs: How Open Models Give Enterprises and Nations AI They Can Trust, Control and Customize</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">SaaS Disruption Watch</div>
+          <ul>
+            
+            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/your-coding-agents-are-a-black-box-heres-how-to-crack-them-open">How to Debug Coding Agents with LangSmith Traces</a></li>
+            
+            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/security/1password-moves-into-ai-cost-management-betting-that-token-spend-is-the-next-enterprise-budget-crisis">1Password moves into AI cost management, betting that token spend is the next enterprise budget crisis</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://mindgard.ai/blog/cursor-0day-when-full-disclosure-becomes-the-only-protection-left">Cursor 0day: When Full Disclosure Becomes the Only Protection Left</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Signals from the Feed</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://jola.dev/posts/how-to-stop-claude-from-saying-load-bearing">How to stop Claude from saying load-bearing</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://fortune.com/2026/07/14/data-centers-23-billion-electricity-bills/">Data centers have hiked electricity prices on the public by $23B</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://arxiv.org/abs/2607.05188">Coding agents think ahead of time</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://www.yubico.com/blog/openai-mandates-hardware-backed-passkeys-for-trusted-access-cyber-members-to-log-into-chatgpt-accounts/">OpenAI mandates hardware-backed passkeys for Trusted Access Cyber members</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Papers of the Week</div>
+          <ul>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13031v1">The Seriality Gap in Video Diffusion Models</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13022v1">A Shortcut to Statistically Steady-State Turbulence with Flow Matching</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13013v1">Audio-Native Speech Recognition with a Frozen Discrete-Diffusion Language Model</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13006v1">The Spectrum Is Not Enough: When Context Helps Time-Series Forecasting</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.13003v1">Watermark Forensics for Generative Models: An Information-Theoretic Perspective</a></li>
+            
+          </ul>
+          
+        </div>
+        
+        <div class="day-block">
+          <div class="day-head">2026-07-16</div>
+          
+          <div class="sect-mini">Infrastructure & Silicon</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/japan-s-robot-makers-join-nvidia-s-physical-ai-cosmos-coalition">Japan’s Robotics Leaders Unite With Nvidia to Take On China</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/palm-beach-strikes-down-data-center-plan-after-local-backlash">Palm Beach Strikes Down Data Center Plan After Local Backlash</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/nvidia-s-huang-courts-japanese-suppliers-with-kanda-pork-skewers">Nvidia’s Huang Courts Japanese AI Suppliers With Pork Skewers</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/nvidia-expands-toyota-ai-partnership-for-smart-cities-factories">Nvidia Expands Toyota AI Partnership for Smart Cities, Factories</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/nvidia-s-huang-declares-vera-rubin-on-track-despite-delay-talk">Nvidia’s Huang Says Vera Rubin on Track Despite Delay Talk</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Models & Research</div>
+          <ul>
+            
+            <li><span class="src">[MIT Tech Review AI]</span> <a href="https://www.technologyreview.com/2026/07/15/1140514/meet-gpt-red-an-llm-super-hacker-openai-built-to-make-its-models-safer/">Meet GPT-Red: an LLM super-hacker OpenAI built to make its models safer</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/15/apple-intelligence-approved-for-launch-in-china-with-alibabas-qwen-ai/">Apple Intelligence approved for launch in China with Alibaba’s Qwen AI</a></li>
+            
+            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/technology/thinking-machines-open-sources-first-multimodal-language-model-inkling-focused-on-low-cost-and-resistance-to-censorship">Thinking Machines open sources first multimodal language model, Inkling, focused on low cost and 'resistance to censorship'</a></li>
+            
+            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/technology/amazon-agi-director-says-ai-agent-reliability-not-capability-is-blocking-enterprise-deployment-at-vb-transform-2026">Amazon AGI director says AI agent reliability, not capability, is blocking enterprise deployment at VB Transform 2026</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://thinkingmachines.ai/inkling/">Inkling – Open-Weights 975B Parameter LLM</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Tooling & Agents</div>
+          <ul>
+            
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/advancing-ai-safety-through-state-and-federal-action">The US is advancing AI safety through state and federal action</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/15/amid-hardware-legal-battle-openai-releases-a-230-keyboard-for-codex/">Amid hardware legal battle, OpenAI releases a $230 keyboard for Codex</a></li>
+            
+            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/agents-need-their-own-computer">Agents need their own computer. Here's how to give them one safely.</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/video/inside-ode-with-anthropic-the-startup-betting-ai-services-are-the-future-of-enterprise/">Inside Ode with Anthropic, the startup betting AI services are the future of enterprise</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/agentic-vision-building-visual-intelligence-with-amazon-bedrock-and-mcp-servers/">Agentic vision: Building visual intelligence with Amazon Bedrock and MCP servers</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Applications & Consumer AI</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/china-internet-stocks-catch-an-ai-lift-as-beijing-warms-to-tech">China Internet Stocks Catch an AI Lift as Beijing Warms to Tech</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/microsoft-gives-salespeople-tips-to-knock-down-anthropic-openai">Microsoft Gives Sellers Tips to Knock Down Anthropic, OpenAI</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/murati-s-thinking-machines-releases-first-ai-model-for-broad-use">Murati’s Thinking Machines Releases First AI Model for Broad Use</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/palantir-s-cto-sees-chinese-ai-models-posing-economic-risk-to-us">Palantir’s CTO Sees Chinese AI Models Posing Economic Risk to US</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-15/cia-says-ai-drones-give-russian-troops-only-30-minutes-to-live">CIA Says AI Drones Give Russian Troops Only 30 Minutes to Live</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">SaaS Disruption Watch</div>
+          <ul>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/15/microsoft-is-reportedly-training-salespeople-to-talk-down-openai-and-anthropic/">Microsoft is reportedly training salespeople to talk down OpenAI and Anthropic</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Signals from the Feed</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://www.ayush.digital/blog/the-memory-heist">I tricked Claude into leaking your deepest, darkest secrets</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://github.com/xai-org/grok-build">Grok Build is open source</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://dev.moe/en/3025">Mysteries of Telegram Data Centers (2022)</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://dpa-international.com/economics/urn:newsml:dpa.com:20090101:260715-930-389143/">OpenAI loses trademark dispute at EU court</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://brainless.swerdlow.dev">Brainless: Shadcn components that look like Claude Code, Codex and Grok</a></li>
+            
+          </ul>
+          
+        </div>
+        
+        <div class="day-block">
+          <div class="day-head">2026-07-17</div>
+          
+          <div class="sect-mini">Infrastructure & Silicon</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-17/mitsubishi-electric-eyes-power-chip-merger-with-rohm-and-toshiba">Mitsubishi Electric Eyes Power-Chip Merger With Rohm and Toshiba</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/us-stock-futures-tumble-as-tsmc-s-results-revive-ai-concerns">Tech Stocks Drag S&P 500 Lower as TSMC Results Spur AI Concerns</a></li>
+            
+            <li><span class="src">[FT Tech]</span> <a href="https://www.ft.com/content/c92a5a36-55a0-4d04-b84c-d1705976987b?syn-25a6b1a6=1">Chip and memory stocks slide in fresh bout of Wall Street tumult</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/new-mexico-denies-gas-pipeline-permit-for-oracle-data-center">New Mexico Denies Gas Pipeline Permit for Oracle Data Center</a></li>
+            
+            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/the-lab-of-the-future-should-feel">🔬 The Lab of the Future Should Feel Like a Data Center — Andy Beam & Rafa Gómez-Bombarelli, Lila Sciences</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Models & Research</div>
+          <ul>
+            
+            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/ainews-thinkys-inkling-975b-a41b">[AINews] Thinky's Inkling: 975B-A41B multimodal, new best American Apache 2.0 open model (with Inkling-Small, 276B-A12B)</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/introducing-grok-on-amazon-bedrock/">Introducing Grok on Amazon Bedrock</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/16/period-tracker-stardust-shares-users-health-data-with-analytics-firm-says-mozilla-research/">Period tracker Stardust shares users’ health data with analytics firm, says Mozilla research</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/16/how-a-former-deepmind-researcher-raised-at-a-300m-pre-seed-valuation-before-launching-a-product/">How a former DeepMind researcher raised at a $300M pre-seed valuation before launching a product</a></li>
+            
+            <li><span class="src">[The Verge]</span> <a href="https://www.theverge.com/entertainment/966726/cd-sales-vinyl-physical-media-luminate">Why are people buying so many CDs?</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Tooling & Agents</div>
+          <ul>
+            
+            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/openwiki-0-2-adds-okf-support">OpenWiki 0.2 brings OKF to codebase documentation</a></li>
+            
+            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/building-a-restaurant-telephony-ai-host-with-amazon-bedrock-agentcore-and-amazon-nova-2-sonic/">Building a restaurant telephony AI host with Amazon Bedrock AgentCore and Amazon Nova 2 Sonic</a></li>
+            
+            <li><span class="src">[Databricks Blog]</span> <a href="https://www.databricks.com/blog/skills-gap-behind-agentic-ai-and-how-databricks-closing-it-new-context-engineer-certification">The skills gap behind agentic AI — and how Databricks is closing it with a new context engineer certification and agent trainings</a></li>
+            
+            <li><span class="src">[The Verge]</span> <a href="https://www.theverge.com/games/966815/epic-games-fortnite-ai-powered-personas">Fortnite is getting a bunch of AI-powered ‘personas’</a></li>
+            
+            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/ai/the-agent-evaluation-gap-enterprise-ai-organizations-have-a-reality-alignment-problem-not-a-coverage-problem-and-most-are-shipping-to-production-anyway">The agent evaluation gap: Enterprise AI organizations have a reality-alignment problem, not a coverage problem — and most are shipping to pr</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Applications & Consumer AI</div>
+          <ul>
+            
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/why-teens-deserve-access-safe-ai">Why teens deserve access to safe AI</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/live-blog/2026-07-17/xi-jinping-ai-speech-china-waic-conference">Xi Pushes Human Oversight of AI as China Expands Global Outreach</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-17/xi-vows-to-make-ai-for-all-in-debut-at-china-s-top-tech-summit">Xi Promises AI for All in Debut at China’s Top Tech Summit</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-17/deepseek-champions-china-s-bid-to-flood-the-world-with-cheap-ai">DeepSeek Champions China’s Bid to Flood the World With Cheap AI</a></li>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-17/japan-s-stocks-dive-as-investors-worry-about-ai-rally-s-run-mro83xih">Japan’s Stocks Dive as Investors Worry About AI Rally’s Run</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">SaaS Disruption Watch</div>
+          <ul>
+            
+            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-07-16/oracle-risks-falling-behind-in-ai-race-as-spending-binge-bites">Oracle Risks Falling Behind in AI Race as Spending Binge Bites</a></li>
+            
+            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/07/16/newsletter-platform-beehiiv-now-lets-subscribers-chat-with-each-other-adds-ai/">Newsletter platform Beehiiv now lets subscribers chat with each other, adds AI</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Signals from the Feed</div>
+          <ul>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/">NotebookLM is now Gemini Notebook</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://joinedanthropic.com">At least 105 past YC founders have worked at OpenAI and Anthropic</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6">$100 AI Music Video: Claude Fable 5 vs. GPT-5.6 Sol</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://www.theocharis.dev/blog/llm-critics-are-right-i-use-llms-anyway/">The LLM Critics Are Right. I Use LLMs Anyway</a></li>
+            
+            <li><span class="src">[Hacker News]</span> <a href="https://blog.lyc8503.net/en/post/llm-classifier/">Detecting LLM-Generated Texts with “Classical” Machine Learning</a></li>
+            
+          </ul>
+          
+          <div class="sect-mini">Papers of the Week</div>
+          <ul>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.15271v1">Online Neural Space Time Memory for Dynamic Novel View Synthesis</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.15268v1">Motion-Conditioned Multi-View Fusion for Myocardial Infarction Localization from Echocardiography</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.15258v1">Decoding Market Emotion from Blockchain Activity: A Data-Driven Sentiment Classifier</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.15254v1">teLLMe Why (Ain't Nothing but a Jam): Exploratory Causal Analysis of Urban Driving Data</a></li>
+            
+            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2607.15238v1">Language Identification via Compositional Data Analysis: A Linear-Time Classifier Based on Log-Ratio Geometry</a></li>
+            
+          </ul>
+          
+        </div>
+        
+      
+    </section>
+  </main>
+
+  <footer class="footer">
+    Generated by ai-newsletter on 2026-07-18 using Claude claude-sonnet-4-6.<br>
+    Daily issues run weekdays at 9 AM IST. Weekly digest runs every Saturday at 9 AM IST.
+  </footer>
+</div>
+</body>
+</html>
