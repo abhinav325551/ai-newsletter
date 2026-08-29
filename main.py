@@ -104,6 +104,17 @@ def cli(
 
     logger.info(f"Total fetched: {len(all_items)} items")
 
+    # Persist the raw attributed items before dedup/scoring mutate them.
+    # The narrative ledger ingests these snapshots item-level (layer 2).
+    try:
+        from datetime import date as _date
+
+        from persistence import persist_items
+        snapshot = persist_items(all_items, Path("data/items"), _date.today().isoformat())
+        logger.info(f"Persisted raw items -> {snapshot}")
+    except Exception as exc:
+        logger.error(f"raw-item persistence failed (digest continues): {exc}")
+
     if not all_items:
         logger.error("No items fetched — aborting")
         raise SystemExit(1)
