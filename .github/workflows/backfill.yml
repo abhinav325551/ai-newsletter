@@ -1,0 +1,67 @@
+name: Backfill Issues
+
+# Manual only. Regenerates past daily issues from data/items/ snapshots, then
+# rebuilds the weekly digests that depend on them. Never emails, never opens PRs.
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Daily dates to rebuild (space-separated YYYY-MM-DD), or 'empty' for every blank issue with a snapshot"
+        required: false
+        default: "empty"
+      weeklies:
+        description: "Weekly digest dates to rebuild afterwards (space-separated YYYY-MM-DD Saturdays)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Rebuild daily issues
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DAYS: ${{ github.event.inputs.days }}
+        run: |
+          if [ "$DAYS" = "empty" ]; then
+            python backfill.py --empty
+          elif [ -n "$DAYS" ]; then
+            python backfill.py $DAYS
+          fi
+
+      - name: Rebuild weekly digests
+        if: ${{ github.event.inputs.weeklies != '' }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WEEKLIES: ${{ github.event.inputs.weeklies }}
+        run: |
+          for d in $WEEKLIES; do
+            python weekly.py --date "$d" --no-email --no-pr --output-dir docs
+          done
+
+      - name: Rebuild issue index
+        run: python build_index.py
+
+      - name: Commit and push
+        run: |
+          git config user.name  "ai-newsletter-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add docs/
+          git diff --cached --quiet || (git commit -m "backfill: regenerate blank issues" && git pull --rebase origin main && git push origin main)

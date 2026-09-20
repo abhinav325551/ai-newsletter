@@ -293,9 +293,13 @@ def main() -> None:
     parser.add_argument("--no-pr", action="store_true", help="Don't open a config PR for cold/discovered sources")
     parser.add_argument("--config", default="config.yaml")
     parser.add_argument("--output-dir", default="docs")
+    parser.add_argument("--date", default=None, help="Rebuild a past weekly as of YYYY-MM-DD (backfill)")
     args = parser.parse_args()
 
-    today = datetime.now(tz=timezone.utc)
+    if args.date:
+        today = datetime.fromisoformat(args.date).replace(tzinfo=timezone.utc)
+    else:
+        today = datetime.now(tz=timezone.utc)
     date_str = today.strftime("%Y-%m-%d")
     week_end = today
     week_start = today - timedelta(days=6)
