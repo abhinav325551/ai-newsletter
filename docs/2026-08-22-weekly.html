@@ -142,7 +142,88 @@
       <h2 class="section-head">This Week in AI</h2>
       <div class="essay">
         
-        <p><em>Theme synthesis was skipped — see logs.</em></p>
+        <h2>Week in Review: August 17–21, 2026</h2>
+<p>
+<strong>Editor's Note:</strong> This was a week that forced a reckoning with arithmetic. Not the aspirational arithmetic of AI's potential, but the messy, operational kind — what things actually cost, what infrastructure actually does, and what "intelligence" actually means when you clone an editor or budget-cap an agent. Five days of coverage converged on four interlocking themes: the emerging crisis of AI cost visibility, a quiet revolution in how multi-model routing is reshaping the economics of inference, a fundamental challenge to how agents store and use memory, and a pair of stories — one about a chip startup, one about a cloned editor — that together define the strange new frontier where AI stops being a tool and starts being a counterparty. The through-lines were invisible on any single day. Here they are.
+</p>
+<p>
+---
+</p>
+<p>
+<strong>The Cost Transparency Problem Is Now an Enterprise Risk</strong>
+</p>
+<p>
+The week's most clarifying data point wasn't a benchmark — it was a confession. Amazon spent approximately $1.8 million on a single Claude-powered project over five months, and a senior employee couldn't tell you in real time how that bill was accruing [Exponential View]. That admission isn't primarily a story about Amazon's budget controls. It's a story about an industry that has raced to deploy AI at scale while building almost no instrumentation for what that scale actually costs as it happens. When you can't observe spend in motion, you can't manage it — and at enterprise scale, unobserved spend becomes a board-level risk, not a line-item correction.
+</p>
+<p>
+The same week, Nvidia's headline-grabbing $500 billion AI financing plan was more carefully dissected and found to be considerably less concrete than the number implies [Nate B Jones/Nate's Newsletter]. The $500B reflects potential commitments mobilized through layered counterparties and customer agreements, not deployed capital. The pattern here is consistent: the AI industry has a pronounced tendency to front-load the impressive number and bury the mechanism. Whether it's a cloud bill or a financing vehicle, the gap between the figure that circulates and the reality underneath it is where the actual risk lives. Founders and CFOs who are making infrastructure commitments based on headline figures — in either direction — are flying with instruments that aren't calibrated.
+</p>
+<p>
+Meanwhile, the annualized consumer and enterprise AI revenue run-rate crossed $210 billion, with July 2025 revenues serving as the baseline [Exponential View]. That number is real. But it's worth holding alongside the cost transparency problem: an industry generating $210B in annual revenue while its largest customers can't track their own spend in real time is an industry with a significant operational maturity gap. The monetization curve has outrun the management curve.
+</p>
+<p>
+<em>Watch next week for enterprise tooling vendors — particularly observability and FinOps platforms — to announce cost-tracking products specifically positioned around agentic workloads.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>Multi-Model Routing Is Becoming a First-Order Engineering Decision</strong>
+</p>
+<p>
+The most quietly important story of the week ran in the applications sections, and it ran twice, with the numbers getting better each time. On Sunday, Together AI published data showing that a DeepSeek V4 Pro → Claude Fable 5 cascade — escalating to the more expensive model only on failure — solved 82.7% of DeepSWE coding tasks at $8.28 per task, beating Fable-5-only performance by 13 percentage points while cutting cost by 62% [Together AI]. By Thursday, an updated routing configuration — GLM-5.3 as the first-pass model, GPT-5.6 Sol as the escalation layer — pushed that number to 85.9% at $6.61 per task, 13 points better and 21% cheaper than running Sol alone [Together AI].
+</p>
+<p>
+Read those two data points in sequence and you see something important: routing logic is not a static optimization. It's an active surface area that compounds weekly. The teams running these evaluations are discovering that GLM-5.3 matches Claude Fable 5 on pass@1 within error bars (69.0% vs. 69.7%) while costing one-fifth as much — which means the "cheap model" assumption that underpins most routing heuristics is already outdated [Together AI]. The frontier is no longer a single model at the top of a capability ladder; it's a dynamic portfolio where yesterday's cost-performance assumptions are regularly invalidated by new model releases.
+</p>
+<p>
+The infrastructure implication is significant. Asana's replacement of a legacy testing system using OpenAI Codex — two calendar weeks, approximately $12,000 in model and infrastructure costs, against an internal staffing estimate of $6 million — is a 500x cost differential that becomes even more dramatic when you apply multi-model routing on top of it [OpenAI Blog]. If the $12K figure is reproducible, and routing can cut that further, the ROI calculation for engineering backlogs shifts from "interesting" to "unavoidable." The question is no longer whether to route across models; it's how quickly your organization builds the tooling to do it systematically.
+</p>
+<p>
+<em>Watch next week for routing and model-selection frameworks to emerge as a distinct product category, potentially with dedicated pricing tiers from the major inference providers.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>The Memory Scaling Assumption in Agent Architecture Is Wrong</strong>
+</p>
+<p>
+The week's most technically consequential finding came from IBM Research, published via the Hugging Face blog, and it deserves more attention than it received [Hugging Face Blog]. The standard assumption embedded in most agent architectures is that memory improves monotonically: give an agent the ability to distill lessons from past tasks, feed those lessons back into context, and performance gets better with experience. IBM Research tested this assumption across eight models — from a 30B dense model up through larger configurations — and found it doesn't hold. Memory accumulation eventually degrades performance. The agent learns, then over-fits to what it has learned, then fails on tasks that require fresh reasoning.
+</p>
+<p>
+This is not a minor tuning problem. It's a structural challenge to the agentic memory paradigm that most production deployments are currently building toward. The week's infrastructure coverage compounded the point: LangChain's AgentCore introduced session-level payment budgets enforced at the infrastructure layer rather than the prompt layer — a meaningful architectural distinction because prompt-layer controls can be reasoned around by the model itself [LangChain Blog]. The move to push cost and memory controls down into deterministic middleware is a direct response to the realization that agents can't be trusted to self-regulate on inputs that affect their own behavior. Infrastructure is compensating for cognitive fragility.
+</p>
+<p>
+The LangSmith Preview Builds announcement — ephemeral, PR-scoped agent deployments that let teams inspect agentic behavior in production-like environments before merging [LangChain Blog] — sits in the same category. The CI/CD tooling that web developers have used for a decade is finally arriving for agent workflows, and its arrival is an acknowledgment that agents need to be tested against their own failure modes before deployment, not after. The week, taken together, is a quiet but decisive shift in how sophisticated builders think about agent reliability: less faith in the agent's reasoning, more investment in the infrastructure around it.
+</p>
+<p>
+<em>Watch next week for academic and industry follow-up to the IBM memory research — specifically, whether synthetic memory compression techniques can arrest the degradation curve.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>The Clone Economy Has Arrived, and the Chip Market Is Financing It</strong>
+</p>
+<p>
+Friday's most provocative story was deceptively easy to read as a media curiosity. Every CEO Dan Shipper built an AI agent modeled on editor-in-chief Nathan Baschez using approximately 30,000 copyedits as training data — and it works [Platformer]. Casey Newton's interview with Shipper surfaces something that most discussions of AI and labor paper over: the asset being trained on isn't generic text scraped from the web. It's the accumulated, task-specific judgment of an individual whose career produced a legible signal at scale. Thirty thousand copyedits is not a dataset; it's a professional lifetime rendered machine-readable. The Every experiment is a proof of concept, but the template it establishes — identify a domain where expert judgment can be captured in structured feedback, generate enough of it, fine-tune — is replicable across knowledge work in ways that most knowledge workers haven't reckoned with yet.
+</p>
+<p>
+The capital story underneath the clone economy is taking shape in parallel. Fractile, an AI chip startup, entered talks for a $6.5 billion valuation following an Anthropic deal [Newcomer]. The same week, Poolside AI reportedly closed a $6 billion non-exclusive licensing arrangement with Nvidia plus a $1 billion equity investment at a $12 billion pre-money valuation — a structure in which Nvidia simultaneously acquires IP access and takes an ownership stake, blurring the line between vendor and strategic investor in ways that will constrain Poolside's independence [Newcomer]. The Nvidia $500B financing mobilization, the Fractile talks, and the Poolside structure form a coherent picture: the chip layer is actively consolidating leverage over the model layer through capital instruments that aren't legible as acquisitions but function with similar strategic effect.
+</p>
+<p>
+The tension between these two stories — a media company discovering it can distill one editor's judgment into an automated system, and a chip company discovering it can acquire influence over AI model developers through non-equity instruments — is the same tension at different scales. In both cases, the question is who owns the leverage: the person or institution whose judgment trained the system, or the infrastructure provider who controls the compute. The week didn't resolve that question. It sharpened it.
+</p>
+<p>
+<em>Watch next week for regulatory or labor-side responses to the editorial clone story, and for additional deal structures in the chip-to-model layer to surface as the Nvidia financing mobilization continues.</em>
+</p>
+<p>
+---
+</p>
+<p>
+<strong>Bottom line:</strong> This was the week AI's operational reality caught up with its narrative — costs are untracked, memory doesn't scale cleanly, routing logic is already a competitive moat, and the infrastructure layer is quietly acquiring the model layer through capital structures that don't look like acquisitions until you read the fine print.
+</p>
         
       </div>
     </section>
@@ -155,17 +236,17 @@
         
         <div>
           <div class="day">2026-08-17</div>
-          <div class="headline"><a href="https://www.bloomberg.com/news/newsletters/2026-08-16/alex-cooper-leaves-long-time-agent-seeking-new-help-to-build-media-empire">Alex Cooper Leaves Long-Time Agent, Seeking New Help to Build Media Empire</a></div>
+          <div class="headline"><a href="https://www.exponentialview.co/p/ev-597">🔮 The curious economics of a $6 AI agent #597</a></div>
         </div>
         
         <div>
           <div class="day">2026-08-18</div>
-          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-08-18/korea-denies-report-on-discussing-chips-as-first-us-investment">Korea Denies Report on Discussing Chips as First US Investment</a></div>
+          <div class="headline"><a href="https://www.interconnects.ai/p/teaching-everyone-to-fish-for-tokens">Teaching Everyone to Fish for Tokens</a></div>
         </div>
         
         <div>
           <div class="day">2026-08-19</div>
-          <div class="headline"><a href="https://www.bloomberg.com/news/articles/2026-08-19/cerebras-cbrs-says-its-new-computer-boosts-ai-speed-advantage-over-nvidia">Cerebras (CBRS) Says Its New Computer Boosts AI Speed Advantage Over Nvidia</a></div>
+          <div class="headline"><a href="https://huggingface.co/blog/ibm-research/altk-evolve-hmm">How Much Memory Does Your Agent Actually Need?</a></div>
         </div>
         
         <div>
@@ -214,29 +295,53 @@
         <thead><tr><th>#</th><th>Source</th><th>Type</th><th>Composite</th><th>Hit Rate</th><th>Freshness</th><th>Impact</th><th>Active Days</th></tr></thead>
         <tbody>
           
-          <tr><td>1</td><td>Bloomberg Technology</td><td>news</td><td><strong>0.98</strong></td><td>0.99</td><td>1.00</td><td>0.95</td><td>22</td></tr>
+          <tr><td>1</td><td>Bloomberg Technology</td><td>news</td><td><strong>1.00</strong></td><td>1.00</td><td>1.00</td><td>1.00</td><td>21</td></tr>
           
-          <tr><td>2</td><td>Axios Tech</td><td>news</td><td><strong>0.97</strong></td><td>1.00</td><td>1.00</td><td>0.86</td><td>22</td></tr>
+          <tr><td>2</td><td>Semafor Tech</td><td>news</td><td><strong>0.96</strong></td><td>1.00</td><td>1.00</td><td>0.86</td><td>21</td></tr>
           
-          <tr><td>3</td><td>FT Tech</td><td>news</td><td><strong>0.97</strong></td><td>1.00</td><td>1.00</td><td>0.86</td><td>22</td></tr>
+          <tr><td>3</td><td>TechCrunch</td><td>news</td><td><strong>0.96</strong></td><td>1.00</td><td>1.00</td><td>0.86</td><td>21</td></tr>
           
-          <tr><td>4</td><td>TechCrunch</td><td>news</td><td><strong>0.95</strong></td><td>1.00</td><td>1.00</td><td>0.82</td><td>22</td></tr>
+          <tr><td>4</td><td>Axios Tech</td><td>news</td><td><strong>0.95</strong></td><td>1.00</td><td>1.00</td><td>0.81</td><td>21</td></tr>
           
-          <tr><td>5</td><td>arXiv</td><td>arxiv</td><td><strong>0.94</strong></td><td>1.00</td><td>0.91</td><td>0.91</td><td>20</td></tr>
+          <tr><td>5</td><td>arXiv</td><td>arxiv</td><td><strong>0.94</strong></td><td>1.00</td><td>0.91</td><td>0.91</td><td>19</td></tr>
           
-          <tr><td>6</td><td>Semafor Tech</td><td>news</td><td><strong>0.94</strong></td><td>1.00</td><td>1.00</td><td>0.77</td><td>22</td></tr>
+          <tr><td>6</td><td>FT Tech</td><td>news</td><td><strong>0.93</strong></td><td>1.00</td><td>1.00</td><td>0.71</td><td>21</td></tr>
           
-          <tr><td>7</td><td>The Verge</td><td>news</td><td><strong>0.92</strong></td><td>1.00</td><td>1.00</td><td>0.68</td><td>22</td></tr>
+          <tr><td>7</td><td>Hacker News</td><td>hn</td><td><strong>0.91</strong></td><td>0.95</td><td>1.00</td><td>0.71</td><td>21</td></tr>
           
-          <tr><td>8</td><td>VentureBeat AI</td><td>news</td><td><strong>0.90</strong></td><td>1.00</td><td>0.91</td><td>0.73</td><td>20</td></tr>
+          <tr><td>8</td><td>The Verge</td><td>news</td><td><strong>0.89</strong></td><td>1.00</td><td>1.00</td><td>0.57</td><td>21</td></tr>
           
-          <tr><td>9</td><td>Hacker News</td><td>hn</td><td><strong>0.90</strong></td><td>0.96</td><td>0.95</td><td>0.73</td><td>21</td></tr>
+          <tr><td>9</td><td>Wired AI</td><td>news</td><td><strong>0.83</strong></td><td>1.00</td><td>0.95</td><td>0.38</td><td>20</td></tr>
           
-          <tr><td>10</td><td>AWS Machine Learning Blog</td><td>blog</td><td><strong>0.82</strong></td><td>1.00</td><td>0.82</td><td>0.55</td><td>18</td></tr>
+          <tr><td>10</td><td>AWS Machine Learning Blog</td><td>blog</td><td><strong>0.80</strong></td><td>0.99</td><td>0.76</td><td>0.52</td><td>16</td></tr>
           
         </tbody>
       </table>
 
+      
+      <h3 style="font-family: var(--display); font-size: 1.1rem; margin: 1.5rem 0 0.6rem;">Discovered Candidates (8)</h3>
+      <table>
+        <thead><tr><th>Source</th><th>Type</th><th>Why</th></tr></thead>
+        <tbody>
+          
+          <tr><td><a href="https://www.lesswrong.com/feed.xml">LessWrong</a></td><td>blog</td><td>Directly cited in the newsletter (Astra/Fable alignment evals post) and covers AI safety, alignment, and frontier model research extensively. Highly relevant to AI/ML content.</td></tr>
+          
+          <tr><td><a href="https://www.anthropic.com/rss.xml">Anthropic Blog</a></td><td>blog</td><td>Anthropic is referenced multiple times across the week (Claude Code, AI safety, Amodei statements) and is a primary source for frontier AI model announcements and safety research.</td></tr>
+          
+          <tr><td><a href="https://www.technologyreview.com/feed/">MIT Technology Review</a></td><td>news_rss</td><td>MIT Tech Review AI is listed as an active source delivering stories this week (AI agents whistleblowing article) and is a top-tier publication for AI/ML coverage — not yet in the subscribed feed under its RSS URL.</td></tr>
+          
+          <tr><td><a href="https://hnrss.org/frontpage">Hacker News (Algolia RSS)</a></td><td>news_rss</td><td>Hacker News appears as the 7th top performer this week with high hit rate and active daily delivery, yet no RSS feed URL is listed among existing subscriptions — hnrss.org provides a reliable feed.</td></tr>
+          
+          <tr><td><a href="https://rss.arxiv.org/rss/cs.AI">arXiv AI/ML Feed</a></td><td>blog</td><td>arXiv ranks 5th in the top performers table with a perfect hit rate and high impact score, yet is not listed in existing subscriptions — it is the primary source for ML/AI research papers.</td></tr>
+          
+          <tr><td><a href="https://entelligence.ai/feed">Entelligence AI Blog</a></td><td>blog</td><td>Cited directly in the Hacker News signals section (GPT model comparison article) and appears focused on AI model benchmarking and developer tooling — a niche but relevant source.</td></tr>
+          
+          <tr><td><a href="https://www.amazon.science/blog.rss">Amazon Science Blog</a></td><td>blog</td><td>Amazon Science is listed as having 'stopped delivering' this week but was previously active — resubscribing via its RSS feed would restore ML research coverage from Amazon's research arm.</td></tr>
+          
+          <tr><td><a href="https://huggingface.co/blog/feed.xml">Hugging Face Blog</a></td><td>blog</td><td>Hugging Face is cited multiple times this week (safety issues with agentic AI, ethics in AI innovation) as a primary source, and while listed by name in existing subs, the RSS feed URL variant should be verified and active.</td></tr>
+          
+        </tbody>
+      </table>
       
 
       
@@ -253,86 +358,33 @@
           <div class="sect-mini">Infrastructure & Silicon</div>
           <ul>
             
-            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/orchestration/cutting-rag-inference-costs-6x-starts-with-deciding-what-never-reaches-the-llm">Cutting RAG inference costs 6x starts with deciding what never reaches the LLM</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://www.reuters.com/business/nvidia-scales-back-250-billion-openai-data-center-guarantee-wsj-reports-2026-08-14/">Nvidia dramatically reduces amount of OpenAI infra financing it may guarantee</a></li>
-            
             <li><span class="src">[Nate B Jones Podcast]</span> <a href="https://natesnewsletter.substack.com/p/nvidia-ai-infrastructure-financing">Nvidia's $500B AI Financing Plan: Bubble or Buildout?</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14542v1">Generation-Powered Inference for Distribution-Valued Outcomes</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14502v1">Universal Thermodynamic Interatomic Potentials for Crystalline Materials</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Models & Research</div>
-          <ul>
-            
-            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/08/16/2026/new-chinese-model-adds-to-ai-competition">New Chinese model adds to AI competition</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14546v1">CPI-Bench: A Comprehensive,Practical and Intelligent Benchmark for Real-World Image Editing</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14511v1">Learning-to-Transition for Large-scale and High-Order MIMO Detection</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14496v1">Generating Benchmark Health Data Using a Tabular Diffusion Transformer</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14491v1">Optimal Scheduling of Road Maintenance Jobs Considering Impact on Traffic Flows</a></li>
             
           </ul>
           
           <div class="sect-mini">Tooling & Agents</div>
           <ul>
             
-            <li><span class="src">[Exponential View]</span> <a href="https://www.exponentialview.co/p/ev-597">🔮 The curious economics of a $6 AI agent #597</a></li>
-            
             <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/what-is-an-agent">What is an AI agent?</a></li>
             
-            <li><span class="src">[The Verge]</span> <a href="https://www.theverge.com/column/980337/rogue-ai-science-fiction-openai">Rogue AI aren’t science fiction anymore</a></li>
+            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/why-managed-agents-are-the-next-big-thing-in-agent-building">Why managed agents are the next big thing in agent building</a></li>
             
-            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/orchestration/deepseeks-top-ranked-v4-flash-stumbles-on-real-agent-tasks-as-its-prices-surge">DeepSeek's top-ranked V4 Flash stumbles on real agent tasks as its prices surge</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://math-ai-org.github.io/mathcode/">MathCode, Mathematical Coding Agent</a></li>
+            <li><span class="src">[Nate B Jones Podcast]</span> <a href="https://natesnewsletter.substack.com/p/grok-bot-review">Grok Bot Review: Is the $200 AI Agent Team Worth It?</a></li>
             
           </ul>
           
           <div class="sect-mini">Applications & Consumer AI</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-16/stripe-nears-deal-to-buy-ai-firm-openrouter-for-over-7-billion">Stripe Clinches Over $7 Billion Deal to Buy AI Firm OpenRouter</a></li>
+            <li><span class="src">[Exponential View]</span> <a href="https://www.exponentialview.co/p/google-deepmind-exodus-ai-cycle">🔮 The market misread Google’s AI exodus</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-17/alphabet-hires-banks-for-inaugural-aussie-dollar-bond-sale">Alphabet Hires Banks for Inaugural Aussie Dollar Bond Sale</a></li>
+            <li><span class="src">[Together AI Blog]</span> <a href="https://www.together.ai/blog/deepseek-v4-pro-0813-vs-claude-fable-5-on-deepswe-cost-coding-and-routing">DeepSeek V4 Pro 0813 vs Claude Fable 5 on DeepSWE: Cost, Coding, and Routing</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-17/alibaba-to-sell-gaming-arm-for-1-5-billion-in-boost-to-ai-pivot">Alibaba to Sell Gaming Arm for $1.5 Billion in Boost to AI Pivot</a></li>
+            <li><span class="src">[Newcomer]</span> <a href="https://www.newcomer.co/p/thrive-capital-finds-its-lane-as">Thrive Capital Finds its Lane as a New Kind of Venture Investor</a></li>
             
-            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/08/16/ai-mayo-clinic-health-care-fix-jim-vandehei">How AI could bring Mayo-quality health care to everyone</a></li>
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/the-defenders-window">The Defender’s Window</a></li>
             
-            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/08/16/2026/amodei-addresses-ai-backlash">Amodei addresses AI backlash</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Signals from the Feed</div>
-          <ul>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://platform.claude.com/docs/en/release-notes/system-prompts">Claude: System Prompts</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://littlelearner-ll.github.io/">What happens when an LLM never sees material beyond fifth grade?</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://daringfireball.net/2026/08/anthropics_watermark_text_adulteration_in_claude_is_a_perversion_of_writing">Anthropic's 'Watermark' Text Adulteration in Claude Is a Perversion of Writing</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://peterbloem.nl/blog/craft-coding">AI Coding Without the Vibes</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Papers of the Week</div>
-          <ul>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14530v1">Marionette: Predicting World States, Rendering Geometry, Painting Appearance</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14509v1">Split the Labor: Separating Evidence Interpretation from Decision Aggregation</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14505v1">RecipeNet: A Hierarchical Transformer for Recipe Data</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.14426v1">The Dynamics of Intelligence Explosions</a></li>
+            <li><span class="src">[The Rundown AI]</span> <a href="https://www.therundown.ai/articles/openai-feels-the-frontier-need-for-speed">OpenAI feels the frontier need for speed</a></li>
             
           </ul>
           
@@ -344,99 +396,31 @@
           <div class="sect-mini">Infrastructure & Silicon</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-17/bedrock-brings-autonomous-driving-to-construction-video">Bedrock Brings Autonomous Driving to Construction</a></li>
+            <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/Dharma-AI/gpu-management-pt2">Same Cluster, 33 Points More Utilization: What Changed Was the Order</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-17/nvidia-to-invest-up-to-105-billion-for-openai-data-center-in-ohio">Nvidia Will Back First Phase of OpenAI Ohio Project With as Much as $105 Billion</a></li>
-            
-            <li><span class="src">[NVIDIA Blog]</span> <a href="https://blogs.nvidia.com/blog/securing-the-infrastructure-of-intelligence/">Securing the Infrastructure of Intelligence</a></li>
-            
-            <li><span class="src">[Interconnects (Nathan Lambert)]</span> <a href="https://www.interconnects.ai/p/teaching-everyone-to-fish-for-tokens">Teaching Everyone to Fish for Tokens</a></li>
-            
-            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/08/17/2026/nvidia-to-offer-105-billion-backstop-for-openai-data-center">Nvidia to provide up to $105 billion backstop for OpenAI data center</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Models & Research</div>
-          <ul>
-            
-            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/08/17/spotifys-new-playlist-notes-let-users-and-editors-explain-their-song-picks/">Spotify’s new Playlist Notes let users and editors explain their song picks</a></li>
-            
-            <li><span class="src">[Semafor Tech]</span> <a href="https://www.semafor.com/article/08/17/2026/zambias-president-hakainde-hichilema-pulls-ahead-in-reelection-bid">Zambia's president pulls ahead in reelection bid</a></li>
-            
-            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/technology/qwen3-8-27b-runs-frontier-class-coding-agents-and-reasoning-locally-no-cloud-api-required">Qwen3.8-27B runs frontier-class coding agents and reasoning locally, no cloud API required</a></li>
-            
-            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/orchestration/as-enterprises-confront-ai-agent-sprawl-xpander-wants-them-to-own-their-own-control-and-context-layer">As enterprises confront AI agent sprawl, xpander wants them to own their own control and context layer</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16876v1">AutoSR: Automatic Symbolic Regression by Searching Research States</a></li>
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/nvidia/chatgpt-work">How NVIDIA scales expertise with ChatGPT Work</a></li>
             
           </ul>
           
           <div class="sect-mini">Tooling & Agents</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-17/bloomberg-tech-8-17-2026-video">Anthropic's Revenue Jump, Wealthy Bet on SpaceX | Bloomberg Tech 8/17/2026</a></li>
+            <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/multi-vector-encoder">Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers</a></li>
             
-            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/langchain-agentcore-payments">AgentCore Payments middleware for LangChain agents</a></li>
-            
-            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/build-openclaw-agents-that-transact-with-amazon-bedrock-agentcore-payments/">Build OpenClaw agents that transact with Amazon Bedrock AgentCore payments</a></li>
-            
-            <li><span class="src">[Snowflake Blog]</span> <a href="https://www.snowflake.com/content/snowflake-site/global/en/blog/snowflake-internal-context-layer-for-ai-agents">Building a Context Layer for AI Agents | Snowflake</a></li>
-            
-            <li><span class="src">[VentureBeat AI]</span> <a href="https://venturebeat.com/infrastructure/cursor-launches-origin-code-hosting-platform-as-github-outage-exposes-opening-in-ai-coding-race">Cursor launches Origin code hosting platform as GitHub outage exposes opening in AI coding race</a></li>
+            <li><span class="src">[Nate B Jones Podcast]</span> <a href="https://natesnewsletter.substack.com/p/">One Cancelled Gym Class. That's How Agent Swarm Attacks Start.</a></li>
             
           </ul>
           
           <div class="sect-mini">Applications & Consumer AI</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-18/korea-jettisons-startup-from-high-stakes-sovereign-ai-contest">Korea Jettisons Startup From High-Stakes Sovereign AI Contest</a></li>
+            <li><span class="src">[Exponential View]</span> <a href="https://www.exponentialview.co/p/data-to-start-your-week-26-08-17">📈 Data to start your week</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-17/alphabet-kicks-off-aussie-dollar-bond-sale-as-ai-spending-soars">Alphabet’s Australian Bond Offers Pickup Over Dollar Debt</a></li>
+            <li><span class="src">[Perplexity AI]</span> <a href="https://huggingface.co/perplexity-ai/pplx-embed-v1-late-0.6b">Perplexity AI releases pplx-embed-v1-late-0.6b</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-18/why-china-s-deepseek-qwen-and-moonshot-are-a-worry-for-us-ai-rivals">Why China's DeepSeek, Qwen and Moonshot Are a Worry for US AI Rivals</a></li>
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/asana">Asana cleared 5 years of engineering work in 2 weeks with Codex</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-17/anthropic-revenue-run-rate-surpasses-65-billion-ahead-of-ipo">Anthropic’s Annualized Revenue Tops $65 Billion Before IPO</a></li>
-            
-            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/ainews-stripe-buys-openrouter-for">[AINews] Stripe buys OpenRouter for $7B</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">SaaS Disruption Watch</div>
-          <ul>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-17/ai-buildout-entering-a-riskier-phase-says-parnassus-cio-video">AI Buildout Entering a Riskier Phase, Says Parnassus CIO</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://www.wiz.io/blog/red-agent-snowflake-copilot-cicd-bug">AI-Generated GitHub Copilot “Autofix” Allowed Compromise of Snowflake's Jira</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://cursor.com/changelog/origin-code-hosting">Cursor launches Origin, GitHub alternative</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Signals from the Feed</div>
-          <ul>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://ysph.yale.edu/news-article/universal-health-coverage-could-save-one-trillion-dollars-and-114000-lives-every-year/">Universal Health Coverage Could Save $1T and 114k Lives a Year, Yale Study</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://blog.roboflow.com/openai-gpt-5-6/">GPT 5.6 Sol is the best "vision" model OpenAI ever released</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://openrouter.ai/openai/gpt-5.6-sol">GPT-5.6 Sol Pricing Cut by 50%</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://twitter.com/TheAhmadOsman/status/2065307070044234186">Anthropic's War on open source AI</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Papers of the Week</div>
-          <ul>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16888v1">Q-based Variational Inverse Reinforcement Learning</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16884v1">Improving the matrix multiplication exponent with modern optimization and AlphaEvolve</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16878v1">Spectral Gaps of Hit-and-Run and Coordinate Hit-and-Run</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16870v1">Data-Efficient and Interpretable Classification of Circulating Tumor Cell Phenotypes in Microfluidic Devices via Deep Learning</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.16868v1">Towards Computational Provenance: Carrying Causal-State Evidence in Generated Text</a></li>
+            <li><span class="src">[The Rundown AI]</span> <a href="https://www.therundown.ai/articles/dario-amodei-logs-on-to-answer-the-critics">Dario Amodei logs on to answer the critics</a></li>
             
           </ul>
           
@@ -445,102 +429,41 @@
         <div class="day-block">
           <div class="day-head">2026-08-19</div>
           
-          <div class="sect-mini">Infrastructure & Silicon</div>
-          <ul>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-19/rebellions-cfo-preparing-for-ipo-in-korea-video">Rebellions CFO: Preparing for IPO in Korea</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-18/ai-boom-and-energy-shocks-see-growth-in-southeast-asia-bifurcate">AI Boom and Energy Shocks See Growth in Southeast Asia Bifurcate</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-18/the-close-8-18-2026-video">Chip Stocks Slide as Global Bond Anxiety Builds | The Close 8/18/2026</a></li>
-            
-            <li><span class="src">[Stratechery]</span> <a href="https://stratechery.com/2026/nvidia-backs-openai-data-center-anthropic-news-google-buys-spirit-airlines-data/">Nvidia Backs OpenAI Data Center, Anthropic News, Google Buys Spirit Airlines Data</a></li>
-            
-            <li><span class="src">[FT Tech]</span> <a href="https://www.ft.com/content/6c5650fb-969d-4d4e-80d6-8d11002a8cf7?syn-25a6b1a6=1">China eases limits on Nvidia H200 chips as AI race escalates</a></li>
-            
-          </ul>
-          
           <div class="sect-mini">Models & Research</div>
           <ul>
             
-            <li><span class="src">[Latent Space]</span> <a href="https://www.latent.space/p/glean-model-routing">Frontier Model Cost and Open-Weights Popularity is Driving Demand for Model Routing</a></li>
-            
             <li><span class="src">[Exponential View]</span> <a href="https://www.exponentialview.co/p/ai-economy-research-fellowship-2026">🔮 Introducing: AI Economy Research Fellowship</a></li>
-            
-            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/08/18/young-adults-ai-job-loss">Young adults are losing faith in AI's upside</a></li>
-            
-            <li><span class="src">[MIT Tech Review AI]</span> <a href="https://www.technologyreview.com/2026/08/18/1142226/how-people-use-ai/">We still don’t know how people are really using AI</a></li>
-            
-            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/implement-vector-prompt-document-classification-using-amazon-bedrock/">Implement vector-prompt document classification using Amazon Bedrock</a></li>
             
           </ul>
           
           <div class="sect-mini">Tooling & Agents</div>
           <ul>
             
-            <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/ibm-research/altk-evolve-hmm">How Much Memory Does Your Agent Actually Need?</a></li>
-            
-            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/introducing-langsmith-tuned-evaluators-starting-with-perceived-error">Introducing LangSmith Tuned Evaluators</a></li>
-            
-            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/own-your-intelligence">Own Your Intelligence: The Key to Lasting AI Advantage</a></li>
-            
             <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/langchain-agentcore-payments">AgentCore Payments middleware for LangChain agents</a></li>
             
-            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/customize-amazon-quick-embedded-chat-into-your-application/">Customize Amazon Quick embedded chat into your application</a></li>
+            <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/own-your-intelligence">Own Your Intelligence: The Key to Lasting AI Advantage</a></li>
             
           </ul>
           
           <div class="sect-mini">Applications & Consumer AI</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-19/funding-1-trillion-ai-capex-may-expand-bond-supply-robeco-says">Funding $1 Trillion AI Capex May Expand Bond Supply, Robeco Says</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-19/ai-startup-temporal-in-talks-for-a-valuation-of-at-least-12-billion">AI Startup Temporal in Talks for a Valuation of at Least $12 Billion</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-19/motif-technologies-ceo-on-business-strategy-ai-video">Motif Technologies CEO on Business Strategy, AI</a></li>
-            
             <li><span class="src">[Platformer]</span> <a href="https://www.platformer.news/karpathy-llm-wiki-journalism-productivity/">An LLM wiki changed how I work</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-18/pony-ai-s-robotaxi-revenue-reaches-record-as-sales-jump-69">Pony AI Drops as CEO Warns of Hurdles for Robotaxis</a></li>
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/pacing-model-development-cyber-capabilities">Pacing model development in an era of cyber-critical capabilities</a></li>
+            
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/chatgpt-for-teens">Introducing ChatGPT for Teens: Built for learning, backed by protections</a></li>
+            
+            <li><span class="src">[OpenAI Blog]</span> <a href="https://openai.com/index/partnering-with-codeai">Partnering with CodeAI to prepare the first AI generation</a></li>
+            
+            <li><span class="src">[The Rundown AI]</span> <a href="https://www.therundown.ai/articles/the-1-4t-case-against-meta">The $1.4T case against Meta</a></li>
             
           </ul>
           
           <div class="sect-mini">SaaS Disruption Watch</div>
           <ul>
             
-            <li><span class="src">[TechCrunch]</span> <a href="https://techcrunch.com/2026/08/18/cursor-capitalizes-on-github-frustration-launches-rival-hosting-platform/">Cursor capitalizes on GitHub frustration, launches rival hosting platform</a></li>
-            
-            <li><span class="src">[Ars Technica]</span> <a href="https://arstechnica.com/security/2026/08/microsoft-copilot-reveals-secret-input-that-allowed-it-to-be-hacked/">Microsoft Copilot reveals secret input that allowed it to be hacked</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Signals from the Feed</div>
-          <ul>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://support.claude.com/en/articles/15910845-claude-code-may-august-2026-weekly-limits-promotion">Claude Code May–August 2026 weekly limits promotion</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://asmedigitalcollection.asme.org/sustainablebuildings/article/7/2/024501/1233035/Data-Center-Waste-Heat-as-an-Emerging-Urban">Field measurements of neighborhood-scale air temperature impacts of data centers</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://www.onethousandmeans.com/p/norway-should-buy-openai">Norway should buy OpenAI</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://twitter.com/kuberwastaken/status/2089377982536388964">Claude writing a macOS driver for my obscure HP printer built only for Windows</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://modelmap.cc">Show HN: Interactive, animated architecture of any HuggingFace models</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Papers of the Week</div>
-          <ul>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.18076v1">From Corpora to Co-Evolving Capabilities: Capability-Centric Data Design for Generalist Image Generation</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.18063v1">EDITBRIDGE: Towards Faithful and Efficient Ultra-High-Resolution Image Editing</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.18061v1">The concentration game: Bayesian updating, regret, and information</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.18040v1">Optimize Your Sampling: Tuned Diffusion Sampling with Bayesian Optimization</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.18036v1">Harnessing Magnitude-Only and Complex Measurements for Improved Dynamic MRI Reconstruction with Learned Priors</a></li>
+            <li><span class="src">[The Rundown AI]</span> <a href="https://www.therundown.ai/articles/cursor-origin-hits-github-on-its-worst-day">Cursor's Origin hits GitHub on its worst day</a></li>
             
           </ul>
           
@@ -652,93 +575,40 @@
           <div class="sect-mini">Infrastructure & Silicon</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-20/samsung-plans-as-much-as-79-billion-in-shareholder-returns">Samsung Plans to Return Up to $79 Billion to Shareholders</a></li>
+            <li><span class="src">[Newcomer]</span> <a href="https://www.newcomer.co/p/sources-poolside-strikes-6-billion">SOURCES: Poolside Strikes $6 Billion Licensing Deal with Nvidia & Raises $1 Billion for Remaining Company at $12 Billion Valuation</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-21/samsung-set-to-top-phone-market-in-downturn-counterpoint-says">Samsung Set to Top Phone Market in Downturn, Counterpoint Says</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/newsletters/2026-08-20/openai-meta-seek-help-to-combat-data-center-pr-problem">OpenAI, Meta Seek Help to Combat Data Center PR Problem</a></li>
+            <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/pwc-search">How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code</a></li>
             
             <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/LiquidAI/lfm25-dspark">Up to 3.2x Faster Inference with LFM2.5-DSpark</a></li>
-            
-            <li><span class="src">[Axios Tech]</span> <a href="https://www.axios.com/2026/08/20/data-center-uproar-2026-midterms">Data center uproar scrambles the midterm election</a></li>
             
           </ul>
           
           <div class="sect-mini">Models & Research</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-21/cxmt-ai-hardware-firms-take-helm-as-china-earnings-enter-peak">CXMT, AI Hardware Firms Take Helm as China Earnings Enter Peak</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/the-close-8-20-2026-video">Stocks Fall as Bond Yields Rise | The Close 8/20/2026</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/real-yield-8-20-2026-video">Bonds Fall on Doubts Over Treasury's Plan | Real Yield 8/20/2026</a></li>
+            <li><span class="src">[Hugging Face Blog]</span> <a href="https://huggingface.co/blog/asr-benchmark-optimization">Measuring benchmark optimization in speech recognition</a></li>
             
             <li><span class="src">[Microsoft Research Blog]</span> <a href="https://www.microsoft.com/en-us/research/blog/broadening-access-to-skala-creates-a-faster-path-to-predictive-dft/">Broadening access to Skala creates a faster path to predictive DFT</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20331v1">G-CARL: Grounded Checklist-Aligned Reward Learning for Patient-Oriented Medical Report Interpretation</a></li>
             
           </ul>
           
           <div class="sect-mini">Tooling & Agents</div>
           <ul>
             
-            <li><span class="src">[Mistral Blog]</span> <a href="https://mistral.ai/news/agentic-search/">Agentic Search. More accurate and efficient results from your AI systems.</a></li>
-            
-            <li><span class="src">[MIT Tech Review AI]</span> <a href="https://www.technologyreview.com/2026/08/20/1142571/ai-consciousness-debate-trap/">Debates over AI consciousness are a trap</a></li>
-            
             <li><span class="src">[LangChain Blog]</span> <a href="https://www.langchain.com/blog/langsmith-preview-builds-test-agent-changes-before-production">Test Agent Changes with LangSmith Preview Builds</a></li>
             
-            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/build-a-no-code-ml-workflow-with-snowflake-amazon-sagemaker-canvas-and-amazon-quick-part-1-setting-up-your-snowflake-environment/">Build a no-code ML workflow with Snowflake, Amazon SageMaker Canvas and Amazon Quick – Part 1: Setting up your Snowflake environment</a></li>
-            
-            <li><span class="src">[AWS Machine Learning Blog]</span> <a href="https://aws.amazon.com/blogs/machine-learning/build-a-no-code-ml-workflow-with-snowflake-amazon-sagemaker-canvas-and-amazon-quick-part-2-data-preparation-and-model-building-with-amazon-sagemaker-canvas/">Build a no-code ML workflow with Snowflake, Amazon SageMaker Canvas and Amazon Quick – Part 2: Data preparation and model building with Amaz</a></li>
+            <li><span class="src">[Mistral Blog]</span> <a href="https://mistral.ai/news/agentic-search/">Agentic Search. More accurate and efficient results from your AI systems.</a></li>
             
           </ul>
           
           <div class="sect-mini">Applications & Consumer AI</div>
           <ul>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/alibaba-profit-dives-75-as-ai-spending-ratchets-up-video">Alibaba Profit Dives 75% as AI Spending Ratchets Up</a></li>
+            <li><span class="src">[Together AI Blog]</span> <a href="https://www.together.ai/blog/glm-5-3-vs-gpt-5-6-sol-on-deepswe-cost-coding-and-routing">GLM-5.3 vs. GPT-5.6 Sol on DeepSWE: Cost, Coding, and Routing</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-21/can-ai-solve-online-shopping-s-biggest-problem">Can AI Solve Online Shopping’s Biggest Problem?</a></li>
+            <li><span class="src">[Together AI Blog]</span> <a href="https://www.together.ai/blog/glm-5-3-vs-claude-fable-5-on-deepswe-cost-coding-and-routing">GLM-5.3 vs. Claude Fable 5 on DeepSWE: Cost, Coding, and Routing</a></li>
             
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/open-machine-ceo-on-anthropic-openai-ipo-potential-video">Open Machine CEO on Anthropic, OpenAI IPO Potential</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/agility-robotics-ceo-on-plans-to-go-public-china-rivals-video">Agility Robotics CEO on Plans To Go Public, China Rivals</a></li>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/articles/2026-08-20/chatgpt-can-now-control-imessage-potentially-raising-apple-privacy-concerns">ChatGPT Can Now Control iMessage, Potentially Raising Apple Privacy Concerns</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">SaaS Disruption Watch</div>
-          <ul>
-            
-            <li><span class="src">[Bloomberg Technology]</span> <a href="https://www.bloomberg.com/news/videos/2026-08-20/bloomberg-tech-8-20-2026-video">Alibaba's AI Spending Spree, Concerns of Circular AI Financing | Bloomberg Tech 8/20/2026</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Signals from the Feed</div>
-          <ul>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://github.com/zachahn/vomit">Vomit: Clean up Claude 5's token output with a separate LLM</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://arxiv.org/abs/2608.00146">DiffusionGemma Technical Report</a></li>
-            
-            <li><span class="src">[Hacker News]</span> <a href="https://www.mikekasberg.com/blog/2026/08/19/hacking-with-claude-on-a-27-smart-watch.html">Hacking with Claude on a $27 smart watch</a></li>
-            
-          </ul>
-          
-          <div class="sect-mini">Papers of the Week</div>
-          <ul>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20337v1">Information on trajectories: martingales and random times</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20338v1">ConceptGuard: Benchmarking Context-Sensitive Unlearning in Large Language Models</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20334v1">Swift-Image: Exploring the Performance Frontier of Compact Unified Image Generation Models</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20326v1">$TCP_α$: Margin-Controlled Confidence estimation for reliable Music Information Retrieval</a></li>
-            
-            <li><span class="src">[arXiv]</span> <a href="http://arxiv.org/abs/2608.20319v1">Inducing Task Models from Computer-Use Traces</a></li>
+            <li><span class="src">[The Rundown AI]</span> <a href="https://www.therundown.ai/articles/claude-adds-protein-design-to-its-resume">Claude adds protein design to its resume</a></li>
             
           </ul>
           
