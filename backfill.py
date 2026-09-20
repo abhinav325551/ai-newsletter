@@ -10,6 +10,8 @@ It does NOT touch data/items/ or sources/performance.jsonl, and never emails.
 Usage:
     python backfill.py 2026-09-17 2026-09-18
     python backfill.py --empty            # every issue in docs/ that came out blank
+    python backfill.py --items-dir data/items_reconstructed --reconstructed --empty
+                                          # approximate buckets from reconstruct.py
 """
 from __future__ import annotations
 
@@ -19,6 +21,8 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+
+import copy
 
 import click
 from loguru import logger
@@ -34,10 +38,16 @@ EMPTY_ISSUE_BYTES = 2000
 RUN_HOUR_UTC = 8
 
 
-def load_snapshot(day: str) -> list[FeedItem]:
+RECONSTRUCTED_NOTE = (
+    " — Reconstructed after the fact from what source feeds still held; "
+    "coverage is partial."
+)
+
+
+def load_snapshot(day: str, items_dir: Path = ITEMS_DIR) -> list[FeedItem]:
     fields = {f.name for f in dataclasses.fields(FeedItem)}
     items = []
-    with (ITEMS_DIR / f"{day}.jsonl").open(encoding="utf-8") as fh:
+    with (items_dir / f"{day}.jsonl").open(encoding="utf-8") as fh:
         for line in fh:
             rec = {k: v for k, v in json.loads(line).items() if k in fields}
             if rec.get("published_at"):
@@ -48,10 +58,10 @@ def load_snapshot(day: str) -> list[FeedItem]:
     return items
 
 
-def empty_days() -> list[str]:
+def empty_days(items_dir: Path = ITEMS_DIR) -> list[str]:
     days = []
     for md in sorted(DOCS.glob("20??-??-??.md")):
-        if md.stat().st_size < EMPTY_ISSUE_BYTES and (ITEMS_DIR / f"{md.stem}.jsonl").exists():
+        if md.stat().st_size < EMPTY_ISSUE_BYTES and (items_dir / f"{md.stem}.jsonl").exists():
             days.append(md.stem)
     return days
 
@@ -68,7 +78,7 @@ def pin_scorer_clock(run_time: datetime) -> None:
     scorer.datetime = _Pinned
 
 
-def rebuild(day: str, config: dict) -> None:
+def rebuild(day: str, config: dict, items_dir: Path = ITEMS_DIR, reconstructed: bool = False) -> None:
     from processors import (
         cluster_items, deduplicate, enrich_full_text,
         score_and_classify, summarize_newsletter,
@@ -79,7 +89,12 @@ def rebuild(day: str, config: dict) -> None:
     run_time = datetime.fromisoformat(day).replace(hour=RUN_HOUR_UTC, tzinfo=timezone.utc)
     pin_scorer_clock(run_time)
 
-    items = load_snapshot(day)
+    items = load_snapshot(day, items_dir)
+    if reconstructed:
+        # Label the issue via the subtitle both templates already render.
+        config = copy.deepcopy(config)
+        nl = config.setdefault("newsletter", {})
+        nl["subtitle"] = (nl.get("subtitle") or "") + RECONSTRUCTED_NOTE
     logger.info("=" * 60)
     logger.info(f"BACKFILL {day} — {len(items)} snapshot items")
     logger.info("=" * 60)
@@ -129,16 +144,19 @@ def rebuild(day: str, config: dict) -> None:
 @click.command()
 @click.argument("days", nargs=-1)
 @click.option("--empty", is_flag=True, help="Rebuild every blank issue that has a snapshot")
+@click.option("--items-dir", default=str(ITEMS_DIR), help="Snapshot directory to replay from")
+@click.option("--reconstructed", is_flag=True, help="Label issues as reconstructed (partial coverage)")
 @click.option("--config", "config_path", default="config.yaml")
-def cli(days: tuple[str, ...], empty: bool, config_path: str):
-    targets = list(days) + (empty_days() if empty else [])
+def cli(days: tuple[str, ...], empty: bool, items_dir: str, reconstructed: bool, config_path: str):
+    items_path = Path(items_dir)
+    targets = list(days) + (empty_days(items_path) if empty else [])
     if not targets:
         logger.error("Nothing to backfill")
         sys.exit(1)
     config = load_config(config_path)
     logger.info(f"Backfilling {len(targets)} issue(s): {', '.join(targets)}")
     for day in targets:
-        rebuild(day, config)
+        rebuild(day, config, items_path, reconstructed)
 
 
 if __name__ == "__main__":

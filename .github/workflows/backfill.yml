@@ -10,6 +10,11 @@ on:
         description: "Daily dates to rebuild (space-separated YYYY-MM-DD), or 'empty' for every blank issue with a snapshot"
         required: false
         default: "empty"
+      reconstruct:
+        description: "Also approximate blank issues that have no snapshot (live long-lookback fetch; partial coverage, labelled)"
+        type: boolean
+        required: false
+        default: false
       weeklies:
         description: "Weekly digest dates to rebuild afterwards (space-separated YYYY-MM-DD Saturdays)"
         required: false
@@ -45,6 +50,14 @@ jobs:
           elif [ -n "$DAYS" ]; then
             python backfill.py $DAYS
           fi
+
+      - name: Reconstruct issues without snapshots
+        if: ${{ github.event.inputs.reconstruct == 'true' }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python reconstruct.py
+          python backfill.py --items-dir data/items_reconstructed --reconstructed --empty
 
       - name: Rebuild weekly digests
         if: ${{ github.event.inputs.weeklies != '' }}
