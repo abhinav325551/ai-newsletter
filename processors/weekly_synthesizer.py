@@ -32,7 +32,7 @@ def synthesize_themes(
     big_things: [{"date": ..., "title": ..., "summary_first_paragraph": ...}, ...]
     source_scope_delta: {"this_week": N, "last_week": M, "new_sources": [...], "dropped_sources": [...]}
     """
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()  # pasted secrets often carry a trailing newline
     if not key:
         logger.warning("[Weekly] ANTHROPIC_API_KEY missing — skipping theme synthesis")
         return ""

@@ -24,7 +24,7 @@ class NewsletterSection:
 
 
 def _client() -> anthropic.Anthropic:
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()  # pasted secrets often carry a trailing newline
     if not key:
         raise EnvironmentError("ANTHROPIC_API_KEY is not set")
     return anthropic.Anthropic(api_key=key)

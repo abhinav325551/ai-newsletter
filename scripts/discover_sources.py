@@ -65,7 +65,7 @@ def discover(config: dict, dry_run: bool = False) -> list[dict]:
         logger.info("[Discover] Dry run — skipping Claude API call")
         return []
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()
     if not api_key:
         logger.warning("[Discover] ANTHROPIC_API_KEY not set — skipping discovery")
         return []
